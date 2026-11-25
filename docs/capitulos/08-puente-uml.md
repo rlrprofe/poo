@@ -146,7 +146,7 @@ public class Seguro {
     ```
     La lista `seguros` se dibuja como **relación**, no como atributo. Es **composición** porque la aseguradora **crea** los seguros con `new` dentro de `contratar`. El `Vehiculo` llega de fuera y no depende del seguro: es una **asociación** hacia un único vehículo (`1`) desde cada seguro.
 
-**Actividad 2.** Escribe el esqueleto en Java de las clases de este diagrama (la interfaz `Alquilable` ya existe del capítulo 5):
+**Actividad 2.** Escribe el esqueleto en Java de las clases de este diagrama (la interfaz `Alquilable` ya existe en el paquete `modelo` del capítulo 7; escribe las clases en ese mismo paquete):
 
 ```mermaid
 classDiagram
@@ -171,7 +171,9 @@ classDiagram
 
 ??? success "Solución"
     ```java
-    // Patinete.java
+    // modelo/Patinete.java
+    package modelo;
+
     public class Patinete implements Alquilable {
 
         private final String codigo;
@@ -192,7 +194,9 @@ classDiagram
     ```
 
     ```java
-    // Segway.java
+    // modelo/Segway.java
+    package modelo;
+
     public class Segway implements Alquilable {
 
         private final String codigo;
@@ -213,7 +217,9 @@ classDiagram
     ```
 
     ```java
-    // Tienda.java
+    // modelo/Tienda.java
+    package modelo;
+
     import java.util.ArrayList;
     import java.util.List;
 

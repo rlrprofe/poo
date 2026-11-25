@@ -33,7 +33,7 @@ La POO es una forma de pensar los programas: en lugar de escribir una larga list
 
 [:material-book-open-page-variant: Comenzar el curso](capitulos/01-clases.md){ .md-button .md-button--primary }
 
-[:material-notebook-outline: Resumen de una página](anexos/resumen.md){ .md-button }
+[:material-graph-outline: Mapa mental del curso](anexos/mapa-mental.md){ .md-button }
 
 !!! tip "Los diagramas también son código"
     Los diagramas de clases de este curso están escritos como texto con **Mermaid**. Fíjate en cómo se escriben: es la misma notación UML que usarás para diseñar tus propios modelos.

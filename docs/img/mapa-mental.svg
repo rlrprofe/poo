@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 880" width="1440" height="880" role="img" aria-labelledby="t d">
+<title id="t">Mapa mental de la programación orientada a objetos</title>
+<desc id="d">Seis ramas: clases, objetos, encapsulación, herencia, polimorfismo y relaciones entre objetos.</desc>
+<defs><filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#000" flood-opacity="0.22"/></filter></defs>
+<g font-family="Roboto, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor="middle">
+<path d="M825,400 C905,400 825.0,140 905.0,140" fill="none" stroke="#3949ab" stroke-width="7" stroke-linecap="round"/>
+<path d="M1135.0,140 C1160.0,140 1150.0,77.0 1175.0,77.0" fill="none" stroke="#3949ab" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M1135.0,140 C1160.0,140 1150.0,119.0 1175.0,119.0" fill="none" stroke="#3949ab" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M1135.0,140 C1160.0,140 1150.0,161.0 1175.0,161.0" fill="none" stroke="#3949ab" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M1135.0,140 C1160.0,140 1150.0,203.0 1175.0,203.0" fill="none" stroke="#3949ab" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="905.0" y="109.0" width="230" height="62" rx="31.0" fill="#3949ab" filter="url(#sh)"/>
+<text x="1020" y="137" font-size="19" font-weight="700" fill="#fff">1 · Clases</text>
+<text x="1020" y="157" font-size="12.5" fill="#fff" fill-opacity="0.92">la plantilla</text>
+<path d="M825,400 C905,400 825.0,400 905.0,400" fill="none" stroke="#00897b" stroke-width="7" stroke-linecap="round"/>
+<path d="M1135.0,400 C1160.0,400 1150.0,337.0 1175.0,337.0" fill="none" stroke="#00897b" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M1135.0,400 C1160.0,400 1150.0,379.0 1175.0,379.0" fill="none" stroke="#00897b" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M1135.0,400 C1160.0,400 1150.0,421.0 1175.0,421.0" fill="none" stroke="#00897b" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M1135.0,400 C1160.0,400 1150.0,463.0 1175.0,463.0" fill="none" stroke="#00897b" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="905.0" y="369.0" width="230" height="62" rx="31.0" fill="#00897b" filter="url(#sh)"/>
+<text x="1020" y="397" font-size="19" font-weight="700" fill="#fff">2 · Objetos</text>
+<text x="1020" y="417" font-size="12.5" fill="#fff" fill-opacity="0.92">las instancias</text>
+<path d="M825,400 C905,400 825.0,660 905.0,660" fill="none" stroke="#2e7d32" stroke-width="7" stroke-linecap="round"/>
+<path d="M1135.0,660 C1160.0,660 1150.0,597.0 1175.0,597.0" fill="none" stroke="#2e7d32" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M1135.0,660 C1160.0,660 1150.0,639.0 1175.0,639.0" fill="none" stroke="#2e7d32" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M1135.0,660 C1160.0,660 1150.0,681.0 1175.0,681.0" fill="none" stroke="#2e7d32" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M1135.0,660 C1160.0,660 1150.0,723.0 1175.0,723.0" fill="none" stroke="#2e7d32" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="905.0" y="629.0" width="230" height="62" rx="31.0" fill="#2e7d32" filter="url(#sh)"/>
+<text x="1020" y="657" font-size="19" font-weight="700" fill="#fff">3 · Encapsulación</text>
+<text x="1020" y="677" font-size="12.5" fill="#fff" fill-opacity="0.92">ocultar detalles</text>
+<path d="M615,400 C535,400 615.0,660 535.0,660" fill="none" stroke="#e65100" stroke-width="7" stroke-linecap="round"/>
+<path d="M305.0,660 C280.0,660 290.0,597.0 265.0,597.0" fill="none" stroke="#e65100" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M305.0,660 C280.0,660 290.0,639.0 265.0,639.0" fill="none" stroke="#e65100" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M305.0,660 C280.0,660 290.0,681.0 265.0,681.0" fill="none" stroke="#e65100" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M305.0,660 C280.0,660 290.0,723.0 265.0,723.0" fill="none" stroke="#e65100" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="305.0" y="629.0" width="230" height="62" rx="31.0" fill="#e65100" filter="url(#sh)"/>
+<text x="420" y="657" font-size="19" font-weight="700" fill="#fff">4 · Herencia</text>
+<text x="420" y="677" font-size="12.5" fill="#fff" fill-opacity="0.92">relación «es-un»</text>
+<path d="M615,400 C535,400 615.0,400 535.0,400" fill="none" stroke="#c2185b" stroke-width="7" stroke-linecap="round"/>
+<path d="M305.0,400 C280.0,400 290.0,337.0 265.0,337.0" fill="none" stroke="#c2185b" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M305.0,400 C280.0,400 290.0,379.0 265.0,379.0" fill="none" stroke="#c2185b" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M305.0,400 C280.0,400 290.0,421.0 265.0,421.0" fill="none" stroke="#c2185b" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M305.0,400 C280.0,400 290.0,463.0 265.0,463.0" fill="none" stroke="#c2185b" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="305.0" y="369.0" width="230" height="62" rx="31.0" fill="#c2185b" filter="url(#sh)"/>
+<text x="420" y="397" font-size="19" font-weight="700" fill="#fff">5 · Polimorfismo</text>
+<text x="420" y="417" font-size="12.5" fill="#fff" fill-opacity="0.92">un mensaje, muchas formas</text>
+<path d="M615,400 C535,400 615.0,140 535.0,140" fill="none" stroke="#7b1fa2" stroke-width="7" stroke-linecap="round"/>
+<path d="M305.0,140 C280.0,140 290.0,77.0 265.0,77.0" fill="none" stroke="#7b1fa2" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M305.0,140 C280.0,140 290.0,119.0 265.0,119.0" fill="none" stroke="#7b1fa2" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M305.0,140 C280.0,140 290.0,161.0 265.0,161.0" fill="none" stroke="#7b1fa2" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M305.0,140 C280.0,140 290.0,203.0 265.0,203.0" fill="none" stroke="#7b1fa2" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="305.0" y="109.0" width="230" height="62" rx="31.0" fill="#7b1fa2" filter="url(#sh)"/>
+<text x="420" y="137" font-size="19" font-weight="700" fill="#fff">6 · Relaciones</text>
+<text x="420" y="157" font-size="12.5" fill="#fff" fill-opacity="0.92">objetos que colaboran</text>
+<rect x="1175.0" y="60.0" width="250" height="34" rx="9" fill="#ebedf7" stroke="#3949ab" stroke-width="1.6"/>
+<text x="1300.0" y="82.0" font-size="14.5" fill="#1b1b1f">Molde de los objetos</text>
+<rect x="1175.0" y="102.0" width="250" height="34" rx="9" fill="#ebedf7" stroke="#3949ab" stroke-width="1.6"/>
+<text x="1300.0" y="124.0" font-size="14.5" fill="#1b1b1f">Atributos: lo que sabe</text>
+<rect x="1175.0" y="144.0" width="250" height="34" rx="9" fill="#ebedf7" stroke="#3949ab" stroke-width="1.6"/>
+<text x="1300.0" y="166.0" font-size="14.5" fill="#1b1b1f">Métodos: lo que hace</text>
+<rect x="1175.0" y="186.0" width="250" height="34" rx="9" fill="#ebedf7" stroke="#3949ab" stroke-width="1.6"/>
+<text x="1300.0" y="208.0" font-size="14.5" fill="#1b1b1f">Constructor, this, static</text>
+<rect x="1175.0" y="320.0" width="250" height="34" rx="9" fill="#e6f3f2" stroke="#00897b" stroke-width="1.6"/>
+<text x="1300.0" y="342.0" font-size="14.5" fill="#1b1b1f">Instancia de una clase</text>
+<rect x="1175.0" y="362.0" width="250" height="34" rx="9" fill="#e6f3f2" stroke="#00897b" stroke-width="1.6"/>
+<text x="1300.0" y="384.0" font-size="14.5" fill="#1b1b1f">Identidad + estado</text>
+<rect x="1175.0" y="404.0" width="250" height="34" rx="9" fill="#e6f3f2" stroke="#00897b" stroke-width="1.6"/>
+<text x="1300.0" y="426.0" font-size="14.5" fill="#1b1b1f">Se crean con new</text>
+<rect x="1175.0" y="446.0" width="250" height="34" rx="9" fill="#e6f3f2" stroke="#00897b" stroke-width="1.6"/>
+<text x="1300.0" y="468.0" font-size="14.5" fill="#1b1b1f">Se comunican con mensajes</text>
+<rect x="1175.0" y="580.0" width="250" height="34" rx="9" fill="#eaf2ea" stroke="#2e7d32" stroke-width="1.6"/>
+<text x="1300.0" y="602.0" font-size="14.5" fill="#1b1b1f">Atributos private</text>
+<rect x="1175.0" y="622.0" width="250" height="34" rx="9" fill="#eaf2ea" stroke="#2e7d32" stroke-width="1.6"/>
+<text x="1300.0" y="644.0" font-size="14.5" fill="#1b1b1f">Servicios public</text>
+<rect x="1175.0" y="664.0" width="250" height="34" rx="9" fill="#eaf2ea" stroke="#2e7d32" stroke-width="1.6"/>
+<text x="1300.0" y="686.0" font-size="14.5" fill="#1b1b1f">Getters y setters validados</text>
+<rect x="1175.0" y="706.0" width="250" height="34" rx="9" fill="#eaf2ea" stroke="#2e7d32" stroke-width="1.6"/>
+<text x="1300.0" y="728.0" font-size="14.5" fill="#1b1b1f">Protege la coherencia</text>
+<rect x="15.0" y="580.0" width="250" height="34" rx="9" fill="#fceee6" stroke="#e65100" stroke-width="1.6"/>
+<text x="140.0" y="602.0" font-size="14.5" fill="#1b1b1f">extends y super</text>
+<rect x="15.0" y="622.0" width="250" height="34" rx="9" fill="#fceee6" stroke="#e65100" stroke-width="1.6"/>
+<text x="140.0" y="644.0" font-size="14.5" fill="#1b1b1f">Reutiliza y especializa</text>
+<rect x="15.0" y="664.0" width="250" height="34" rx="9" fill="#fceee6" stroke="#e65100" stroke-width="1.6"/>
+<text x="140.0" y="686.0" font-size="14.5" fill="#1b1b1f">@Override: redefinir</text>
+<rect x="15.0" y="706.0" width="250" height="34" rx="9" fill="#fceee6" stroke="#e65100" stroke-width="1.6"/>
+<text x="140.0" y="728.0" font-size="14.5" fill="#1b1b1f">Una sola superclase</text>
+<rect x="15.0" y="320.0" width="250" height="34" rx="9" fill="#f9e8ef" stroke="#c2185b" stroke-width="1.6"/>
+<text x="140.0" y="342.0" font-size="14.5" fill="#1b1b1f">Enlace dinámico</text>
+<rect x="15.0" y="362.0" width="250" height="34" rx="9" fill="#f9e8ef" stroke="#c2185b" stroke-width="1.6"/>
+<text x="140.0" y="384.0" font-size="14.5" fill="#1b1b1f">Clases abstractas</text>
+<rect x="15.0" y="404.0" width="250" height="34" rx="9" fill="#f9e8ef" stroke="#c2185b" stroke-width="1.6"/>
+<text x="140.0" y="426.0" font-size="14.5" fill="#1b1b1f">Interfaces: implements</text>
+<rect x="15.0" y="446.0" width="250" height="34" rx="9" fill="#f9e8ef" stroke="#c2185b" stroke-width="1.6"/>
+<text x="140.0" y="468.0" font-size="14.5" fill="#1b1b1f">Código que no cambia</text>
+<rect x="15.0" y="60.0" width="250" height="34" rx="9" fill="#f2e9f6" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="140.0" y="82.0" font-size="14.5" fill="#1b1b1f">Asociación: conoce a</text>
+<rect x="15.0" y="102.0" width="250" height="34" rx="9" fill="#f2e9f6" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="140.0" y="124.0" font-size="14.5" fill="#1b1b1f">Agregación: partes libres</text>
+<rect x="15.0" y="144.0" width="250" height="34" rx="9" fill="#f2e9f6" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="140.0" y="166.0" font-size="14.5" fill="#1b1b1f">Composición: partes atadas</text>
+<rect x="15.0" y="186.0" width="250" height="34" rx="9" fill="#f2e9f6" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="140.0" y="208.0" font-size="14.5" fill="#1b1b1f">Dependencia · cardinalidad</text>
+<ellipse cx="720" cy="400" rx="125" ry="78" fill="#1a237e" filter="url(#sh)"/>
+<ellipse cx="720" cy="400" rx="115" ry="68" fill="none" stroke="#9fa8da" stroke-width="1.5" stroke-dasharray="4 5"/>
+<text x="720" y="394" font-size="46" font-weight="800" fill="#fff" letter-spacing="2">POO</text>
+<text x="720" y="422" font-size="13.5" fill="#c5cae9">Programación Orientada</text>
+<text x="720" y="439" font-size="13.5" fill="#c5cae9">a Objetos</text>
+<rect x="330" y="788" width="780" height="58" rx="29" fill="#eceff1" stroke="#90a4ae" stroke-width="1.6"/>
+<text x="720" y="812" font-size="15.5" font-weight="700" fill="#263238">Hilo conductor: empresa de alquiler de vehículos</text>
+<text x="720" y="833" font-size="14" fill="#37474f">Coche · Vehiculo · Camion · Conductor · Flota · Alquiler · Extra   →   todo se dibuja en un diagrama de clases UML</text>
+</g></svg>

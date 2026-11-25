@@ -25,6 +25,7 @@ Si prefieres desplegar a mano: `python -m mkdocs gh-deploy --force`.
 docs/
   index.md                  Portada y recorrido
   capitulos/                Capítulos 1 a 8
-  anexos/                   Glosario y resumen
-  descargas/caso-practico/  Código fuente Java del capítulo 7
+  anexos/                   Glosario y mapa mental
+  descargas/caso-practico/  Proyecto Java del capítulo 7 (zip)
+  img/                      Imágenes (coches, mapa mental)
 ```
