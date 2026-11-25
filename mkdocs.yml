@@ -1,0 +1,68 @@
+site_name: POO · Programación Orientada a Objetos
+site_description: Curso de fundamentos de la programación orientada a objetos con Java, como base para el diseño con UML
+site_url: https://rlrprofe.github.io/poo/
+repo_url: https://github.com/rlrprofe/poo
+repo_name: rlrprofe/poo
+copyright: Programación Orientada a Objetos · Entornos de Desarrollo
+
+theme:
+  name: material
+  language: es
+  features:
+    - navigation.top
+    - navigation.indexes
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Cambiar a modo oscuro
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Cambiar a modo claro
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 4
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Inicio: index.md
+  - "1. Objetos": capitulos/01-objetos.md
+  - "2. Clases": capitulos/02-clases.md
+  - "3. Encapsulación": capitulos/03-encapsulacion.md
+  - "4. Herencia": capitulos/04-herencia.md
+  - "5. Polimorfismo": capitulos/05-polimorfismo.md
+  - "6. Relaciones entre objetos": capitulos/06-relaciones.md
+  - "7. Caso práctico integrado": capitulos/07-caso-practico.md
+  - "8. Puente hacia UML": capitulos/08-puente-uml.md
+  - Anexos:
+      - "Glosario": anexos/glosario.md
+      - "Resumen de una página": anexos/resumen.md
