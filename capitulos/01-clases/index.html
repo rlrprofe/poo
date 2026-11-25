@@ -1,0 +1,1945 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Curso de fundamentos de la programación orientada a objetos con Java, como base para el diseño con UML">
+      
+      
+      
+        <link rel="canonical" href="https://rlrprofe.github.io/poo/capitulos/01-clases/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../02-objetos/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>1. Clases - POO · Programación Orientada a Objetos</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-clases" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="POO · Programación Orientada a Objetos" class="md-header__button md-logo" aria-label="POO · Programación Orientada a Objetos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            POO · Programación Orientada a Objetos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Clases
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/rlrprofe/poo" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rlrprofe/poo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="POO · Programación Orientada a Objetos" class="md-nav__button md-logo" aria-label="POO · Programación Orientada a Objetos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    POO · Programación Orientada a Objetos
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/rlrprofe/poo" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rlrprofe/poo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte I · Elementos de la POO
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte I · Elementos de la POO
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Clases
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Clases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11-pensar-en-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1. Pensar en objetos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-del-mundo-real-a-la-simulacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2. Del mundo real a la simulación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-que-es-una-clase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3. Qué es una clase
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3. Qué es una clase">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abstraccion-quedarse-con-lo-importante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstracción: quedarse con lo importante
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-de-que-se-compone-una-clase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4. De qué se compone una clase
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4. De qué se compone una clase">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atributos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atributos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metodos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Métodos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tipos-de-metodos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipos de métodos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-la-clase-coche-en-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5. La clase Coche en Java
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5. La clase Coche en Java">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atributos-en-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atributos en Java
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metodos-en-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Métodos en Java
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructores-y-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructores y this
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miembros-de-clase-static" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miembros de clase (static)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-clase-completa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La clase completa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-capitulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del capítulo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividades
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-objetos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Objetos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte II · Principios de la POO
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte II · Principios de la POO
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-encapsulacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Encapsulación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-herencia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Herencia
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-polimorfismo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Polimorfismo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte III · Relaciones entre objetos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte III · Relaciones entre objetos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-relaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Relaciones entre objetos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte IV · Puesta en práctica
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte IV · Puesta en práctica
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-caso-practico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Caso práctico integrado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-puente-uml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Puente hacia UML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anexos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Anexos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/glosario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glosario
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/mapa-mental/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mapa mental
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11-pensar-en-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1. Pensar en objetos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-del-mundo-real-a-la-simulacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2. Del mundo real a la simulación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-que-es-una-clase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3. Qué es una clase
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3. Qué es una clase">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abstraccion-quedarse-con-lo-importante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstracción: quedarse con lo importante
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-de-que-se-compone-una-clase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4. De qué se compone una clase
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4. De qué se compone una clase">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atributos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atributos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metodos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Métodos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tipos-de-metodos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipos de métodos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-la-clase-coche-en-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5. La clase Coche en Java
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5. La clase Coche en Java">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atributos-en-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atributos en Java
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metodos-en-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Métodos en Java
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructores-y-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructores y this
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miembros-de-clase-static" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miembros de clase (static)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-clase-completa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La clase completa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-capitulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del capítulo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividades
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="1-clases">1. Clases<a class="headerlink" href="#1-clases" title="Permanent link">&para;</a></h1>
+<h2 id="11-pensar-en-objetos">1.1. Pensar en objetos<a class="headerlink" href="#11-pensar-en-objetos" title="Permanent link">&para;</a></h2>
+<p>Cuando programas de forma tradicional piensas en <strong>los pasos</strong> que debe seguir el programa: leer un dato, calcular, mostrar el resultado. La <strong>programación orientada a objetos</strong> (POO) cambia la pregunta: ¿<strong>qué cosas</strong> existen en el problema y cómo se relacionan entre sí?</p>
+<p>Un programa orientado a objetos es una pequeña simulación de una parte de la realidad. Está formado por <strong>objetos</strong> que colaboran enviándose <strong>mensajes</strong>: cada objeto pide servicios a otros y ofrece los suyos. Cada objeto es una <strong>instancia</strong> de alguna <strong>clase</strong>, y las clases se organizan entre sí mediante relaciones, entre ellas la <strong>herencia</strong>. Esta es, en esencia, la definición clásica de Grady Booch.</p>
+<div class="admonition info">
+<p class="admonition-title">El hilo conductor del curso: los vehículos</p>
+<p>Todos los ejemplos de este curso giran en torno a una empresa de <strong>alquiler de vehículos</strong>. Empezaremos con un simple <code>Coche</code> y, capítulo a capítulo, iremos añadiendo camiones, conductores, alquileres y una flota completa.</p>
+</div>
+<h2 id="12-del-mundo-real-a-la-simulacion">1.2. Del mundo real a la simulación<a class="headerlink" href="#12-del-mundo-real-a-la-simulacion" title="Permanent link">&para;</a></h2>
+<p>Imagina un concesionario con varios coches aparcados. Cada uno es un elemento distinto del mundo real: tiene su <strong>matrícula</strong>, su <strong>marca</strong>, su <strong>color</strong>, y en este momento puede estar parado o circulando a cierta velocidad. Además, cada coche <strong>sabe hacer</strong> cosas: arrancar, acelerar, frenar.</p>
+<p>Cualquier elemento del mundo real se puede describir con cuatro ideas. La POO traslada esa misma descripción al software:</p>
+<table>
+<thead>
+<tr>
+<th>En el mundo real, un coche tiene...</th>
+<th>En el programa, un objeto tiene...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Una <strong>identidad</strong>: es ese coche y no otro (su matrícula lo distingue)</td>
+<td>Una <strong>identidad</strong>: es un objeto distinto de los demás</td>
+</tr>
+<tr>
+<td>Unas <strong>características</strong>: marca, modelo, color, potencia</td>
+<td>Unos <strong>datos</strong>, llamados <strong>atributos</strong></td>
+</tr>
+<tr>
+<td>Un <strong>estado</strong> en cada momento: parado, a 60 km/h</td>
+<td>Los <strong>valores</strong> que tienen sus atributos en ese momento</td>
+</tr>
+<tr>
+<td>Unos <strong>comportamientos</strong>: arrancar, acelerar, frenar</td>
+<td>Unos <strong>procedimientos</strong>, llamados <strong>métodos</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Mira ahora tres coches concretos:</p>
+<p><img alt="Tres coches distintos con los mismos atributos y valores diferentes" src="../../img/coches.svg" /></p>
+<p>Los tres tienen <strong>exactamente los mismos atributos</strong> (matrícula, marca, modelo, color, potencia, velocidad y si están en marcha) y <strong>pueden hacer lo mismo</strong> (arrancar, acelerar, frenar). Lo que cambia es el <strong>valor</strong> de cada atributo: el Ford es rojo y va a 60 km/h, el Seat está parado, el Renault va a 110 km/h.</p>
+<p>Esa estructura común, que comparten todos los coches, es lo que describe una <strong>clase</strong>. Cada coche concreto, con sus valores, es un <strong>objeto</strong>.</p>
+<h2 id="13-que-es-una-clase">1.3. Qué es una clase<a class="headerlink" href="#13-que-es-una-clase" title="Permanent link">&para;</a></h2>
+<p>Una <strong>clase</strong> es una plantilla que describe objetos que van a tener <strong>la misma estructura</strong> (los mismos atributos) y <strong>el mismo comportamiento</strong> (los mismos métodos). En el mundo real agrupamos los elementos en <strong>categorías</strong> (cualquier coche pertenece a la categoría <em>automóvil</em>); en el programa, los objetos que comparten estructura y comportamiento se agrupan en <strong>clases</strong>.</p>
+<p>Una clase tiene una <strong>doble naturaleza</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Como...</th>
+<th>Una clase es...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Módulo</strong></td>
+<td>Un mecanismo para organizar el software: encapsula en un mismo sitio los datos y las operaciones relacionados.</td>
+</tr>
+<tr>
+<td><strong>Tipo de dato</strong></td>
+<td>Un nuevo tipo que podemos usar para declarar variables, igual que <code>int</code> o <code>double</code>. Define los valores posibles y las operaciones aplicables.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">Un programa orientado a objetos es una colección estructurada de clases</p>
+<p>Escribir un programa OO consiste, en gran medida, en <strong>definir clases</strong> y hacer que sus objetos colaboren.</p>
+</div>
+<h3 id="abstraccion-quedarse-con-lo-importante">Abstracción: quedarse con lo importante<a class="headerlink" href="#abstraccion-quedarse-con-lo-importante" title="Permanent link">&para;</a></h3>
+<p>Una clase <strong>no describe todo</strong> lo que es un coche: es un <strong>modelo simplificado</strong> que conserva solo lo que importa para el problema. A esta idea se la llama <strong>abstracción</strong>. El mismo elemento real se modela de forma distinta según el sistema:</p>
+<table>
+<thead>
+<tr>
+<th>Sistema</th>
+<th>El «coche» se describe con...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Concesionario</td>
+<td>precio, stock, año de fabricación, equipamiento</td>
+</tr>
+<tr>
+<td>Taller</td>
+<td>matrícula, kilometraje, historial de averías</td>
+</tr>
+<tr>
+<td>Tráfico (DGT)</td>
+<td>matrícula, titular, fecha de la última ITV, multas</td>
+</tr>
+<tr>
+<td>Nuestra empresa de alquiler</td>
+<td>matrícula, marca, modelo, color, potencia, velocidad</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">La pregunta de diseño</p>
+<p>Antes de definir una clase pregúntate: <em>¿qué necesita saber y qué necesita hacer un objeto de esta clase para resolver mi problema?</em> Todo lo demás sobra.</p>
+</div>
+<h2 id="14-de-que-se-compone-una-clase">1.4. De qué se compone una clase<a class="headerlink" href="#14-de-que-se-compone-una-clase" title="Permanent link">&para;</a></h2>
+<p>Los componentes de una clase se llaman <strong>miembros</strong>. Los dos tipos principales son los <strong>atributos</strong> y los <strong>métodos</strong>.</p>
+<h3 id="atributos">Atributos<a class="headerlink" href="#atributos" title="Permanent link">&para;</a></h3>
+<p>Un <strong>atributo</strong> es un dato que guarda cada objeto de la clase. Determina la <strong>estructura de almacenamiento</strong> de los objetos y todo lo que un objeto «<strong>sabe</strong>» se expresa mediante sus atributos. Cada atributo tiene un <strong>nombre</strong> y un <strong>tipo</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Atributo</th>
+<th>Tipo</th>
+<th>Ejemplo de valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>matricula</code></td>
+<td>texto (<code>String</code>)</td>
+<td><code>"5671BCD"</code></td>
+</tr>
+<tr>
+<td><code>marca</code></td>
+<td>texto (<code>String</code>)</td>
+<td><code>"Ford"</code></td>
+</tr>
+<tr>
+<td><code>modelo</code></td>
+<td>texto (<code>String</code>)</td>
+<td><code>"Focus"</code></td>
+</tr>
+<tr>
+<td><code>color</code></td>
+<td>texto (<code>String</code>)</td>
+<td><code>"rojo"</code></td>
+</tr>
+<tr>
+<td><code>potencia</code></td>
+<td>entero (<code>int</code>)</td>
+<td><code>130</code> (CV)</td>
+</tr>
+<tr>
+<td><code>velocidad</code></td>
+<td>entero (<code>int</code>)</td>
+<td><code>60</code> (km/h)</td>
+</tr>
+<tr>
+<td><code>enMarcha</code></td>
+<td>lógico (<code>boolean</code>)</td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p>El conjunto de valores de los atributos de un objeto en un instante dado es su <strong>estado</strong>.</p>
+<h3 id="metodos">Métodos<a class="headerlink" href="#metodos" title="Permanent link">&para;</a></h3>
+<p>Un <strong>método</strong> es una operación que pueden realizar los objetos de la clase. Todo lo que un objeto «<strong>puede hacer</strong>» se expresa mediante sus métodos. Los métodos son, además, <strong>la única vía</strong> para consultar y modificar los atributos desde fuera del objeto. Un método tiene un <strong>nombre</strong>, unos <strong>parámetros</strong> (los datos que necesita) y un <strong>resultado</strong> (lo que devuelve, o nada).</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Parámetros</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ponerEnMarcha()</code></td>
+<td>ninguno</td>
+<td>Arranca el coche</td>
+</tr>
+<tr>
+<td><code>acelerar(incremento)</code></td>
+<td>un entero</td>
+<td>Aumenta la velocidad</td>
+</tr>
+<tr>
+<td><code>frenar(decremento)</code></td>
+<td>un entero</td>
+<td>Reduce la velocidad</td>
+</tr>
+<tr>
+<td><code>getVelocidad()</code></td>
+<td>ninguno</td>
+<td>Devuelve la velocidad actual</td>
+</tr>
+<tr>
+<td><code>pintar(color)</code></td>
+<td>un texto</td>
+<td>Cambia el color del coche</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tipos-de-metodos">Tipos de métodos<a class="headerlink" href="#tipos-de-metodos" title="Permanent link">&para;</a></h3>
+<p>No todos los métodos cumplen el mismo papel. En una clase encontrarás habitualmente estos tipos:</p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Para qué sirve</th>
+<th>Ejemplo en <code>Coche</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Constructor</strong></td>
+<td>Crea el objeto y lo deja en un estado inicial válido</td>
+<td><code>Coche(matricula, marca, ...)</code></td>
+</tr>
+<tr>
+<td><strong>De consulta</strong> (<em>getter</em>)</td>
+<td>Devuelve el valor de un atributo sin modificarlo</td>
+<td><code>getVelocidad()</code>, <code>getColor()</code></td>
+</tr>
+<tr>
+<td><strong>De modificación</strong> (<em>setter</em>)</td>
+<td>Cambia el valor de un atributo</td>
+<td><code>pintar(color)</code></td>
+</tr>
+<tr>
+<td><strong>De comportamiento</strong></td>
+<td>Realiza una acción propia del objeto y suele cambiar su estado</td>
+<td><code>ponerEnMarcha()</code>, <code>acelerar(...)</code>, <code>frenar(...)</code></td>
+</tr>
+<tr>
+<td><strong>Auxiliar</strong> (privado)</td>
+<td>Utilidad interna que usan otros métodos; no se ofrece al exterior</td>
+<td><em>(los verás en el <a href="../03-encapsulacion/">capítulo 3</a>)</em></td>
+</tr>
+<tr>
+<td><strong>De clase</strong> (<code>static</code>)</td>
+<td>Pertenece a la clase y no a un objeto concreto</td>
+<td><code>getTotalCoches()</code></td>
+</tr>
+<tr>
+<td><strong>Redefinido</strong></td>
+<td>Sustituye un método que todas las clases heredan</td>
+<td><code>toString()</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="15-la-clase-coche-en-java">1.5. La clase <code>Coche</code> en Java<a class="headerlink" href="#15-la-clase-coche-en-java" title="Permanent link">&para;</a></h2>
+<p>La clase es la unidad fundamental de programación en Java. Define la <strong>interfaz</strong> (lo que ofrece) y la <strong>implementación</strong> (cómo lo hace) de sus objetos, y <strong>todo objeto es instancia de alguna clase</strong>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">NombreClase</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// atributos</span>
+<span class="w">    </span><span class="c1">// constructores</span>
+<span class="w">    </span><span class="c1">// métodos</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Reglas básicas</p>
+<ul>
+<li>Una clase <code>public</code> debe estar en un archivo con <strong>su mismo nombre</strong> (<code>Coche</code> en <code>Coche.java</code>).</li>
+<li>Por convención, los nombres de clase empiezan por <strong>mayúscula</strong> (<code>Coche</code>, <code>Vehiculo</code>) y los de atributos y métodos por <strong>minúscula</strong> (<code>velocidad</code>, <code>acelerar</code>).</li>
+<li>Java no admite variables ni métodos «sueltos»: todo está dentro de alguna clase.</li>
+</ul>
+</div>
+<h3 id="atributos-en-java">Atributos en Java<a class="headerlink" href="#atributos-en-java" title="Permanent link">&para;</a></h3>
+<p>La sintaxis básica para declarar un atributo es:</p>
+<div class="highlight"><pre><span></span><code>[final] [static] acceso tipo nombre;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">marca</span><span class="p">;</span>
+<span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">potencia</span><span class="p">;</span>
+<span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">matricula</span><span class="p">;</span><span class="w">                  </span><span class="c1">// constante: no cambia tras crearse</span>
+<span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">totalCoches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">              </span><span class="c1">// compartido por todos los coches</span>
+</code></pre></div>
+<ul>
+<li><code>acceso</code> indica quién puede ver el atributo (<code>public</code>, <code>private</code>, <code>protected</code> o ninguno). Lo estudiaremos en el <a href="../03-encapsulacion/">capítulo 3</a>; por ahora usa <code>private</code>.</li>
+<li><code>final</code> significa que el valor <strong>no se puede modificar</strong> después de asignarlo.</li>
+<li><code>static</code> significa que el atributo es <strong>de la clase</strong> y lo comparten todos sus objetos.</li>
+</ul>
+<p><strong>Valores por defecto.</strong> Java da un valor inicial a los atributos que no inicializas explícitamente, según su tipo:</p>
+<table>
+<thead>
+<tr>
+<th>Tipo del atributo</th>
+<th>Valor inicial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>char</code></td>
+<td><code>'\u0000'</code> (carácter nulo)</td>
+</tr>
+<tr>
+<td><code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>float</code>, <code>double</code></td>
+<td><code>0.0</code></td>
+</tr>
+<tr>
+<td>Referencia a un objeto (<code>String</code>, <code>Coche</code>...)</td>
+<td><code>null</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Las variables locales no tienen valor por defecto</p>
+<p>Las variables declaradas <strong>dentro de un método</strong> o constructor deben recibir un valor antes de usarse; si no, el programa no compila.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">x</span><span class="p">);</span><span class="w">   </span><span class="c1">// error: variable x might not have been initialized</span>
+</code></pre></div>
+</div>
+<h3 id="metodos-en-java">Métodos en Java<a class="headerlink" href="#metodos-en-java" title="Permanent link">&para;</a></h3>
+<p>La sintaxis básica para declarar un método es:</p>
+<div class="highlight"><pre><span></span><code>[final] [static] [abstract] acceso tipo nombre(parámetros) { ... }
+</code></pre></div>
+<ul>
+<li><code>tipo</code> es el <strong>tipo de retorno</strong>: un tipo primitivo, una clase, un array o <code>void</code> si no devuelve nada.</li>
+<li><code>parámetros</code> es una lista de cero o más elementos con la forma <code>tipo nombre</code>, separados por comas.</li>
+<li>Todo método que no sea <code>void</code> debe terminar con un <code>return</code> seguido de una expresión del tipo de retorno.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getVelocidad</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">          </span><span class="c1">// devuelve un entero</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">velocidad</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">acelerar</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">incremento</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1">// no devuelve nada</span>
+<span class="w">    </span><span class="n">velocidad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">velocidad</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">incremento</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Sobrecarga.</strong> Una clase puede tener <strong>varios métodos con el mismo nombre</strong> si difieren en el número, el tipo o el orden de sus parámetros. El compilador elige el que corresponde a los argumentos con que se invoca. Por ejemplo, <code>frenar(int)</code> reduce la velocidad en una cantidad y <code>frenar()</code> detiene el coche del todo.</p>
+<div class="admonition warning">
+<p class="admonition-title">El tipo de retorno no basta</p>
+<p>Dos métodos que solo se diferencian en el tipo de retorno <strong>no</strong> son una sobrecarga válida: el compilador no podría decidir cuál usar.</p>
+</div>
+<h3 id="constructores-y-this">Constructores y <code>this</code><a class="headerlink" href="#constructores-y-this" title="Permanent link">&para;</a></h3>
+<p>Un <strong>constructor</strong> se ejecuta al crear un objeto y lo deja en un estado inicial válido. Se reconoce porque se llama <strong>exactamente igual que la clase</strong> y <strong>no tiene tipo de retorno</strong> (ni siquiera <code>void</code>).</p>
+<p>Dentro de los métodos no estáticos y de los constructores, <code>this</code> es una referencia <strong>al propio objeto</strong>. Sirve sobre todo para distinguir un atributo de un parámetro con el mismo nombre:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="nf">Coche</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">matricula</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">marca</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">modelo</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">potencia</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">matricula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matricula</span><span class="p">;</span><span class="w">     </span><span class="c1">// atributo = parámetro</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">marca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">marca</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Sin <code>this</code>, <code>matricula = matricula;</code> asignaría el parámetro a sí mismo y el atributo no cambiaría.</p>
+<div class="admonition info">
+<p class="admonition-title">Constructor por defecto</p>
+<p>Si <strong>no escribes ningún constructor</strong>, el compilador genera uno sin parámetros que deja los atributos con sus valores por defecto. En cuanto escribes <strong>alguno</strong>, ese constructor automático deja de existir. Una clase puede tener varios constructores (sobrecarga).</p>
+</div>
+<h3 id="miembros-de-clase-static">Miembros de clase (<code>static</code>)<a class="headerlink" href="#miembros-de-clase-static" title="Permanent link">&para;</a></h3>
+<p>Normalmente cada objeto tiene <strong>su propia copia</strong> de cada atributo. Si queremos un valor <strong>compartido por todos los objetos</strong> de la clase, como el número de coches creados, usamos <code>static</code>. Los atributos estáticos pertenecen a la <strong>clase</strong> y se manejan con <strong>métodos estáticos</strong>, que se invocan con el nombre de la clase: <code>Coche.getTotalCoches()</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Un método estático solo accede a miembros estáticos</p>
+<p>Un método <code>static</code> no pertenece a ningún objeto en concreto, así que <strong>no puede usar <code>this</code></strong> ni acceder a atributos de objeto.</p>
+</div>
+<h3 id="la-clase-completa">La clase completa<a class="headerlink" href="#la-clase-completa" title="Permanent link">&para;</a></h3>
+<p>Reunamos todo en la clase <code>Coche</code>. Cada bloque de código está marcado con el tipo de miembro que contiene:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Coche.java</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Coche</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">// ----- Atributo de clase (compartido por todos los coches) -----</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">totalCoches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// ----- Atributos de objeto -----</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">matricula</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">marca</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">modelo</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">color</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">potencia</span><span class="p">;</span><span class="w">        </span><span class="c1">// en CV</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">velocidad</span><span class="p">;</span><span class="w">       </span><span class="c1">// en km/h</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">enMarcha</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// ----- Constructor -----</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Coche</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">matricula</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">marca</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">modelo</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">potencia</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">matricula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matricula</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">marca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">marca</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">modelo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">modelo</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">color</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">potencia</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">potencia</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">velocidad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">enMarcha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">        </span><span class="n">totalCoches</span><span class="o">++</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// ----- Métodos de comportamiento -----</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">ponerEnMarcha</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">enMarcha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">parar</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">velocidad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">enMarcha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">acelerar</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">incremento</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">velocidad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">velocidad</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">incremento</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">frenar</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">decremento</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">velocidad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">velocidad</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">decremento</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">frenar</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">                       </span><span class="c1">// sobrecarga: frena del todo</span>
+<span class="w">        </span><span class="n">velocidad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// ----- Métodos de consulta (getters) -----</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getMatricula</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">matricula</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getMarca</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">marca</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getModelo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">modelo</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getColor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">color</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getPotencia</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">potencia</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getVelocidad</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">velocidad</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">isEnMarcha</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">enMarcha</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// ----- Método de modificación -----</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">pintar</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">color</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">color</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// ----- Método de clase -----</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getTotalCoches</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">totalCoches</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// ----- Método redefinido -----</span>
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">"Coche{matricula="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">matricula</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">", marca="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">marca</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">", modelo="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">modelo</span>
+<span class="w">                </span><span class="o">+</span><span class="w"> </span><span class="s">", color="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">", potencia="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">potencia</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" CV"</span>
+<span class="w">                </span><span class="o">+</span><span class="w"> </span><span class="s">", velocidad="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">velocidad</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" km/h, enMarcha="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">enMarcha</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"}"</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title"><code>toString()</code> y <code>@Override</code></p>
+<p><code>toString()</code> devuelve una representación en texto del objeto. Todas las clases lo tienen aunque no lo escribas, pero la versión por defecto no es útil; aquí la <strong>redefinimos</strong>. <code>@Override</code> le indica al compilador que estamos sustituyendo un método heredado. Entenderás el porqué en el <a href="../04-herencia/">capítulo 4</a>.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">En UML</p>
+<p>Una clase se dibuja como un rectángulo con tres compartimentos: <strong>nombre</strong>, <strong>atributos</strong> y <strong>operaciones</strong>. Los atributos y operaciones van precedidos de un símbolo de visibilidad: <code>-</code> privado, <code>+</code> público.</p>
+<pre class="mermaid"><code>classDiagram
+    class Coche {
+        -String matricula
+        -String marca
+        -String modelo
+        -String color
+        -int potencia
+        -int velocidad
+        -boolean enMarcha
+        +Coche(String matricula, String marca, String modelo, String color, int potencia)
+        +ponerEnMarcha() void
+        +parar() void
+        +acelerar(int incremento) void
+        +frenar(int decremento) void
+        +getVelocidad() int
+        +pintar(String color) void
+    }</code></pre>
+</div>
+<h2 id="resumen-del-capitulo">Resumen del capítulo<a class="headerlink" href="#resumen-del-capitulo" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Una <strong>clase</strong> es la plantilla de unos objetos: define su <strong>estructura</strong> (atributos) y su <strong>comportamiento</strong> (métodos). Es a la vez <strong>módulo</strong> y <strong>tipo de dato</strong>.</li>
+<li>La <strong>abstracción</strong> consiste en modelar solo lo relevante del problema.</li>
+<li>Los <strong>atributos</strong> son los datos («lo que sabe»); los <strong>métodos</strong> son las operaciones («lo que puede hacer»).</li>
+<li>Hay varios <strong>tipos de métodos</strong>: constructores, de consulta, de modificación, de comportamiento, auxiliares, de clase y redefinidos.</li>
+<li>En Java, <code>this</code> es el propio objeto y <code>static</code> crea miembros de la clase, compartidos por todos los objetos.</li>
+</ul>
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<p><strong>Actividad 1.</strong> Para un sistema de gestión de un taller, describe la clase <code>Moto</code>: propón al menos cinco atributos y cuatro métodos, e indica de qué tipo es cada método (consulta, comportamiento...).</p>
+<details class="success">
+<summary>Solución orientativa</summary>
+<ul>
+<li><strong>Atributos:</strong> <code>matricula</code>, <code>marca</code>, <code>modelo</code>, <code>cilindrada</code>, <code>kilometraje</code>.</li>
+<li><strong>Métodos:</strong> <code>Moto(...)</code> (constructor), <code>getKilometraje()</code> (consulta), <code>registrarRecorrido(km)</code> (comportamiento), <code>cambiarAceite()</code> (comportamiento).</li>
+</ul>
+<p>Otras respuestas son válidas si responden a la pregunta de diseño: <em>¿qué necesita saber y hacer una moto en este sistema?</em></p>
+</details>
+<p><strong>Actividad 2.</strong> El «coche» aparece en una aseguradora y en una empresa de alquiler. Indica dos atributos relevantes en ambos sistemas y dos que solo lo sean en uno de ellos.</p>
+<details class="success">
+<summary>Solución orientativa</summary>
+<ul>
+<li><strong>En ambos:</strong> <code>matricula</code>, <code>marca</code> (también <code>modelo</code>).</li>
+<li><strong>Solo en la aseguradora:</strong> <code>valorAsegurado</code>, <code>historialSiniestros</code>.</li>
+<li><strong>Solo en el alquiler:</strong> <code>precioPorDia</code>, <code>disponible</code>.</li>
+</ul>
+<p>Es la abstracción en acción: el mismo elemento real, modelos distintos.</p>
+</details>
+<p><strong>Actividad 3.</strong> Escribe la clase <code>Bicicleta</code> con los atributos <code>marca</code> y <code>marchas</code>, un constructor con los dos, un método <code>getMarchas()</code> y un método <code>toString()</code>.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><span class="c1">// Bicicleta.java</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Bicicleta</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">marca</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">marchas</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Bicicleta</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">marca</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">marchas</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">marca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">marca</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">marchas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">marchas</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getMarchas</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">marchas</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">"Bicicleta{marca="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">marca</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">", marchas="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">marchas</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"}"</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Programación Orientada a Objetos · Entornos de Desarrollo
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.indexes", "navigation.expand", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

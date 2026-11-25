@@ -1,0 +1,1695 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Curso de fundamentos de la programación orientada a objetos con Java, como base para el diseño con UML">
+      
+      
+      
+        <link rel="canonical" href="https://rlrprofe.github.io/poo/capitulos/04-herencia/">
+      
+      
+        <link rel="prev" href="../03-encapsulacion/">
+      
+      
+        <link rel="next" href="../05-polimorfismo/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>4. Herencia - POO · Programación Orientada a Objetos</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#4-herencia" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="POO · Programación Orientada a Objetos" class="md-header__button md-logo" aria-label="POO · Programación Orientada a Objetos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            POO · Programación Orientada a Objetos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4. Herencia
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/rlrprofe/poo" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rlrprofe/poo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="POO · Programación Orientada a Objetos" class="md-nav__button md-logo" aria-label="POO · Programación Orientada a Objetos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    POO · Programación Orientada a Objetos
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/rlrprofe/poo" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rlrprofe/poo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte I · Elementos de la POO
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte I · Elementos de la POO
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-clases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Clases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-objetos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Objetos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte II · Principios de la POO
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte II · Principios de la POO
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-encapsulacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Encapsulación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Herencia
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Herencia
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#41-agrupar-clases-superclases-y-subclases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Agrupar clases: superclases y subclases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-la-relacion-es-un" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. La relación «es-un»
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-herencia-en-java-extends" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. Herencia en Java: extends
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-constructores-y-super" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4. Constructores y super
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-redefinicion-de-metodos-override" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5. Redefinición de métodos (override)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5. Redefinición de métodos (override)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-se-busca-un-metodo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo se busca un método
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impedir-la-herencia-o-la-redefinicion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Impedir la herencia o la redefinición
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46-herencia-simple-y-multiple" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6. Herencia simple y múltiple
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#47-ventajas-y-precauciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7. Ventajas y precauciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#48-en-uml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.8. En UML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-capitulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del capítulo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividades
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-polimorfismo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Polimorfismo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte III · Relaciones entre objetos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte III · Relaciones entre objetos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-relaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Relaciones entre objetos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte IV · Puesta en práctica
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte IV · Puesta en práctica
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-caso-practico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Caso práctico integrado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-puente-uml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Puente hacia UML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anexos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Anexos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/glosario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glosario
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/mapa-mental/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mapa mental
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#41-agrupar-clases-superclases-y-subclases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Agrupar clases: superclases y subclases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-la-relacion-es-un" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. La relación «es-un»
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-herencia-en-java-extends" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. Herencia en Java: extends
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-constructores-y-super" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4. Constructores y super
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-redefinicion-de-metodos-override" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5. Redefinición de métodos (override)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5. Redefinición de métodos (override)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-se-busca-un-metodo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo se busca un método
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impedir-la-herencia-o-la-redefinicion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Impedir la herencia o la redefinición
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46-herencia-simple-y-multiple" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6. Herencia simple y múltiple
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#47-ventajas-y-precauciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7. Ventajas y precauciones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#48-en-uml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.8. En UML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-capitulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del capítulo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividades
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="4-herencia">4. Herencia<a class="headerlink" href="#4-herencia" title="Permanent link">&para;</a></h1>
+<h2 id="41-agrupar-clases-superclases-y-subclases">4.1. Agrupar clases: superclases y subclases<a class="headerlink" href="#41-agrupar-clases-superclases-y-subclases" title="Permanent link">&para;</a></h2>
+<p>En el <a href="../01-clases/">capítulo 1</a> vimos que los objetos con la misma estructura y comportamiento se agrupan en clases. Pero las <strong>clases</strong> también se parecen entre sí y pueden reagruparse. Imagina que nuestra empresa de alquiler incorpora <strong>camiones</strong>. Un camión también tiene matrícula, marca, velocidad y puede acelerar y frenar, igual que un coche. Copiar todo el código de <code>Coche</code> en una clase <code>Camion</code> sería un error: cualquier cambio habría que hacerlo dos veces.</p>
+<p>La solución es la <strong>herencia</strong>: una clase (la <strong>subclase</strong> o clase derivada) <strong>reutiliza los atributos y métodos</strong> de otra (la <strong>superclase</strong> o clase base) y puede añadir los suyos o modificar los heredados. Extraemos lo común a una clase <code>Vehiculo</code>, y <code>Coche</code> y <code>Camion</code> se limitan a añadir lo que los distingue.</p>
+<pre class="mermaid"><code>classDiagram
+    class Vehiculo {
+        -String matricula
+        -String marca
+        -String modelo
+        -String color
+        -int potencia
+        -int velocidad
+        -boolean enMarcha
+        +ponerEnMarcha() void
+        +acelerar(int incremento) void
+        +frenar(int decremento) void
+    }
+    class Coche {
+        -int numPuertas
+    }
+    class Camion {
+        -double cargaMaxima
+    }
+    Vehiculo &lt;|-- Coche
+    Vehiculo &lt;|-- Camion</code></pre>
+<p>Lo común (<code>matricula</code>, <code>acelerar()</code>...) se define <strong>una sola vez</strong> en <code>Vehiculo</code>; cada subclase añade solo lo que la distingue. Se establece así una <strong>jerarquía de clases</strong>.</p>
+<ul>
+<li><strong>Generalización:</strong> subir en la jerarquía, de lo concreto a lo genérico (de <code>Camion</code> a <code>Vehiculo</code>).</li>
+<li><strong>Especialización:</strong> bajar en la jerarquía, de lo genérico a lo concreto (de <code>Vehiculo</code> a <code>Camion</code>).</li>
+</ul>
+<h2 id="42-la-relacion-es-un">4.2. La relación «es-un»<a class="headerlink" href="#42-la-relacion-es-un" title="Permanent link">&para;</a></h2>
+<p>La herencia modela una relación <strong>«es-un»</strong> (<em>is-a</em>): un coche <strong>es un</strong> vehículo; un camión <strong>es un</strong> vehículo. Este es el test para saber si la herencia tiene sentido:</p>
+<blockquote>
+<p>Si puedes decir «<em>la subclase</em> <strong>es un</strong> <em>la superclase</em>» sin que suene raro, la herencia es adecuada.</p>
+</blockquote>
+<p>Una subclase hereda <strong>todo lo que es de la superclase</strong> y, además, puede:</p>
+<ul>
+<li><strong>Añadir</strong> atributos y métodos nuevos (ampliar la interfaz).</li>
+<li><strong>Redefinir</strong> métodos heredados para darles un comportamiento propio.</li>
+</ul>
+<h2 id="43-herencia-en-java-extends">4.3. Herencia en Java: <code>extends</code><a class="headerlink" href="#43-herencia-en-java-extends" title="Permanent link">&para;</a></h2>
+<p>En Java se hereda con la palabra clave <code>extends</code>. Primero, la superclase <code>Vehiculo</code>, con lo común a todos los vehículos. Es el <code>Coche</code> del capítulo 3 sin la parte específica de los coches (observa el método <code>getVelocidadMaxima()</code>, que usaremos enseguida):</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Vehiculo.java</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Vehiculo</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">matricula</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">marca</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">modelo</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">color</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">potencia</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">velocidad</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">enMarcha</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Vehiculo</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">matricula</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">marca</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">modelo</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">potencia</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">potencia</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">"La potencia debe ser positiva"</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">matricula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matricula</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">marca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">marca</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">modelo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">modelo</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">color</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">potencia</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">potencia</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">ponerEnMarcha</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">enMarcha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">parar</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">velocidad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">enMarcha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">acelerar</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">incremento</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">incremento</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">"El incremento debe ser positivo"</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">enMarcha</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">"El vehículo está parado: hay que ponerlo en marcha"</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">velocidad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">min</span><span class="p">(</span><span class="n">velocidad</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">incremento</span><span class="p">,</span><span class="w"> </span><span class="n">getVelocidadMaxima</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">frenar</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">decremento</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">decremento</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">"El decremento debe ser positivo"</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">velocidad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">velocidad</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">decremento</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Velocidad máxima por defecto; las subclases pueden redefinirla</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getVelocidadMaxima</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">180</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getMatricula</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">matricula</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getMarca</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">marca</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getModelo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">modelo</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getColor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">color</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getPotencia</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">potencia</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getVelocidad</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">velocidad</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">isEnMarcha</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">enMarcha</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">pintar</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">color</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">color</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">"Vehiculo{matricula="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">matricula</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">", marca="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">marca</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">", modelo="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">modelo</span>
+<span class="w">                </span><span class="o">+</span><span class="w"> </span><span class="s">", color="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">", velocidad="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">velocidad</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" km/h}"</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ahora <code>Coche</code> hereda de <code>Vehiculo</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Coche</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Vehiculo</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>Coche</code> <strong>hereda</strong> de <code>Vehiculo</code> todos sus atributos y métodos. Un objeto <code>Coche</code> tiene matrícula, marca, velocidad... aunque no los haya escrito en su clase, y puede recibir mensajes como <code>acelerar()</code> o <code>pintar()</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Heredar no es poder acceder</p>
+<p>Los atributos de <code>Vehiculo</code> son <code>private</code>. El objeto <code>Coche</code> <strong>los contiene</strong>, pero el código de <code>Coche</code> no puede escribir <code>velocidad</code> directamente: debe usar los métodos públicos heredados (<code>getVelocidad()</code>). Es la encapsulación del <a href="../03-encapsulacion/">capítulo 3</a> en acción. Si quisieras que las subclases accedan directamente, usarías <code>protected</code>, pero se recomienda evitarlo salvo necesidad.</p>
+</div>
+<h2 id="44-constructores-y-super">4.4. Constructores y <code>super</code><a class="headerlink" href="#44-constructores-y-super" title="Permanent link">&para;</a></h2>
+<p>Los <strong>constructores no se heredan</strong>. Cada clase tiene los suyos. Como un <code>Coche</code> es, ante todo, un <code>Vehiculo</code>, al crearlo hay que construir primero esa parte: la subclase <strong>debe invocar un constructor de la superclase</strong> con <code>super(...)</code>, y debe ser la <strong>primera sentencia</strong> del constructor.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Coche.java</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Coche</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Vehiculo</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">numPuertas</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Coche</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">matricula</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">marca</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">modelo</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">color</span><span class="p">,</span>
+<span class="w">                 </span><span class="kt">int</span><span class="w"> </span><span class="n">potencia</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">numPuertas</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">super</span><span class="p">(</span><span class="n">matricula</span><span class="p">,</span><span class="w"> </span><span class="n">marca</span><span class="p">,</span><span class="w"> </span><span class="n">modelo</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="n">potencia</span><span class="p">);</span><span class="w">   </span><span class="c1">// construye la parte Vehiculo</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">numPuertas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">numPuertas</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getNumPuertas</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">numPuertas</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kd">super</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" | Coche{puertas="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">numPuertas</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"}"</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Si no escribes la llamada a <code>super(...)</code>, el compilador añade <code>super();</code> por su cuenta. Eso solo funciona si la superclase tiene un constructor <strong>sin parámetros</strong>; si no, obtendrás un error de compilación:</p>
+<div class="highlight"><pre><span></span><code>error: constructor Vehiculo in class Vehiculo cannot be applied to given types;
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Orden de construcción</p>
+<p>Al crear un objeto se ejecutan los constructores <strong>de arriba abajo</strong>: primero el de la superclase y después el de la subclase.</p>
+</div>
+<h2 id="45-redefinicion-de-metodos-override">4.5. Redefinición de métodos (<em>override</em>)<a class="headerlink" href="#45-redefinicion-de-metodos-override" title="Permanent link">&para;</a></h2>
+<p>Una subclase puede <strong>redefinir</strong> (o <em>sobrescribir</em>) un método heredado escribiendo otro con <strong>la misma firma</strong> (mismo nombre y mismos parámetros). Se recomienda marcarlo con <code>@Override</code>: si te equivocas en la firma, el compilador te avisa.</p>
+<p>Para reutilizar el comportamiento de la superclase dentro del método redefinido se usa <code>super.nombreMetodo(...)</code>. Lo hemos hecho en <code>Coche.toString()</code>, que completa el texto de <code>Vehiculo.toString()</code>.</p>
+<p>Un camión es más lento que un coche: su velocidad máxima es 90 km/h. <code>Camion</code> <strong>redefine</strong> <code>getVelocidadMaxima()</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Camion.java</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Camion</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Vehiculo</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">cargaMaxima</span><span class="p">;</span><span class="w">      </span><span class="c1">// en kg</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Camion</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">matricula</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">marca</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">modelo</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">color</span><span class="p">,</span>
+<span class="w">                  </span><span class="kt">int</span><span class="w"> </span><span class="n">potencia</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">cargaMaxima</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">super</span><span class="p">(</span><span class="n">matricula</span><span class="p">,</span><span class="w"> </span><span class="n">marca</span><span class="p">,</span><span class="w"> </span><span class="n">modelo</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="n">potencia</span><span class="p">);</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">cargaMaxima</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cargaMaxima</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">getCargaMaxima</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">cargaMaxima</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getVelocidadMaxima</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">90</span><span class="p">;</span><span class="w">                         </span><span class="c1">// redefine el valor de Vehiculo (180)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kd">super</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" | Camion{cargaMaxima="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cargaMaxima</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" kg}"</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// PruebaHerencia.java</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">PruebaHerencia</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Coche</span><span class="w"> </span><span class="n">coche</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Coche</span><span class="p">(</span><span class="s">"5671BCD"</span><span class="p">,</span><span class="w"> </span><span class="s">"Ford"</span><span class="p">,</span><span class="w"> </span><span class="s">"Focus"</span><span class="p">,</span><span class="w"> </span><span class="s">"rojo"</span><span class="p">,</span><span class="w"> </span><span class="mi">130</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Camion</span><span class="w"> </span><span class="n">camion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Camion</span><span class="p">(</span><span class="s">"1234XYZ"</span><span class="p">,</span><span class="w"> </span><span class="s">"Volvo"</span><span class="p">,</span><span class="w"> </span><span class="s">"FH"</span><span class="p">,</span><span class="w"> </span><span class="s">"blanco"</span><span class="p">,</span><span class="w"> </span><span class="mi">460</span><span class="p">,</span><span class="w"> </span><span class="mi">18000</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">coche</span><span class="p">.</span><span class="na">ponerEnMarcha</span><span class="p">();</span>
+<span class="w">        </span><span class="n">camion</span><span class="p">.</span><span class="na">ponerEnMarcha</span><span class="p">();</span>
+<span class="w">        </span><span class="n">coche</span><span class="p">.</span><span class="na">acelerar</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span><span class="w">               </span><span class="c1">// acelerar() está en Vehiculo</span>
+<span class="w">        </span><span class="n">camion</span><span class="p">.</span><span class="na">acelerar</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Coche: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">coche</span><span class="p">.</span><span class="na">getVelocidad</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" km/h"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Camión: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">camion</span><span class="p">.</span><span class="na">getVelocidad</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" km/h"</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">coche</span><span class="p">.</span><span class="na">pintar</span><span class="p">(</span><span class="s">"negro"</span><span class="p">);</span><span class="w">             </span><span class="c1">// método heredado</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">coche</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Coche: 180 km/h
+Camión: 90 km/h
+Vehiculo{matricula=5671BCD, marca=Ford, modelo=Focus, color=negro, velocidad=180 km/h} | Coche{puertas=5}
+</code></pre></div>
+<p>Ambos reciben el mismo mensaje <code>acelerar(200)</code>, pero el coche llega a 180 y el camión se queda en 90. Si te preguntas cómo lo logra el método <code>acelerar()</code> de <code>Vehiculo</code>, lo verás en el <a href="../05-polimorfismo/">capítulo 5</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Redefinir no es sobrecargar</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Sobrecarga (<em>overload</em>)</th>
+<th>Redefinición (<em>override</em>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dónde</td>
+<td>En la <strong>misma</strong> clase</td>
+<td>En una <strong>subclase</strong></td>
+</tr>
+<tr>
+<td>Firma</td>
+<td>Mismo nombre, parámetros <strong>distintos</strong></td>
+<td>Mismo nombre y <strong>mismos</strong> parámetros</td>
+</tr>
+<tr>
+<td>Para qué</td>
+<td>Ofrecer varias formas de invocar</td>
+<td>Cambiar el comportamiento heredado</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="como-se-busca-un-metodo">Cómo se busca un método<a class="headerlink" href="#como-se-busca-un-metodo" title="Permanent link">&para;</a></h3>
+<p>Cuando un objeto recibe un mensaje, Java busca el método <strong>en su propia clase</strong> y, si no lo encuentra, <strong>sube por la jerarquía</strong>: primero la superclase, luego la superclase de ésta, y así sucesivamente. Si <code>coche.pintar("negro")</code> no está en <code>Coche</code>, se encuentra en <code>Vehiculo</code>.</p>
+<p>Todas las clases de Java heredan, en última instancia, de la clase <code>Object</code>, que es la raíz de la jerarquía. Por eso todos los objetos tienen <code>toString()</code>, aunque no lo hayas escrito.</p>
+<h3 id="impedir-la-herencia-o-la-redefinicion">Impedir la herencia o la redefinición<a class="headerlink" href="#impedir-la-herencia-o-la-redefinicion" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Una clase <code>final</code> <strong>no puede tener subclases</strong>.</li>
+<li>Un método <code>final</code> <strong>no puede redefinirse</strong> en las subclases.</li>
+</ul>
+<h2 id="46-herencia-simple-y-multiple">4.6. Herencia simple y múltiple<a class="headerlink" href="#46-herencia-simple-y-multiple" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Herencia simple:</strong> una clase hereda de <strong>una única</strong> superclase. Es el caso de <code>Coche</code> respecto a <code>Vehiculo</code>.</li>
+<li><strong>Herencia múltiple:</strong> una clase hereda de <strong>varias</strong> superclases a la vez.</li>
+</ul>
+<pre class="mermaid"><code>classDiagram
+    class Vehiculo
+    class VehiculoTerrestre
+    class VehiculoMaritimo
+    class VehiculoAnfibio
+    Vehiculo &lt;|-- VehiculoTerrestre
+    Vehiculo &lt;|-- VehiculoMaritimo
+    VehiculoTerrestre &lt;|-- VehiculoAnfibio
+    VehiculoMaritimo &lt;|-- VehiculoAnfibio</code></pre>
+<p>La herencia múltiple trae <strong>conflictos</strong>: si las dos superclases tienen un método o un atributo con el mismo nombre, ¿cuál hereda la subclase? Pueden chocar los nombres, los valores, los valores por defecto o las restricciones. Los lenguajes que la admiten resuelven esos conflictos con una <strong>lista de precedencia</strong> de clases o con una <strong>herencia selectiva</strong>.</p>
+<div class="admonition info">
+<p class="admonition-title">En Java</p>
+<p>Una clase <strong>solo puede extender una clase</strong> (<code>extends</code> admite una única superclase). Para obtener parte de las ventajas de la herencia múltiple se usan las <strong>interfaces</strong>, que veremos en el <a href="../05-polimorfismo/">capítulo 5</a>.</p>
+</div>
+<h2 id="47-ventajas-y-precauciones">4.7. Ventajas y precauciones<a class="headerlink" href="#47-ventajas-y-precauciones" title="Permanent link">&para;</a></h2>
+<p><strong>Ventajas</strong></p>
+<ul>
+<li><strong>Reutilización del software:</strong> se escribe una vez y se aprovecha en todas las subclases.</li>
+<li><strong>Menor coste y mayor seguridad:</strong> código ya probado.</li>
+<li><strong>Consistencia de la interfaz:</strong> las subclases de una misma superclase se comportan de forma parecida.</li>
+<li><strong>Prototipado rápido:</strong> se parte de clases existentes.</li>
+</ul>
+<p><strong>Precauciones</strong></p>
+<div class="admonition warning">
+<p class="admonition-title">Herencia no es «copiar código»</p>
+<p>Hereda solo cuando se cumpla la relación <strong>«es-un»</strong>. Una clase <code>Coche</code> <strong>no</strong> hereda de <code>Motor</code>: un coche <strong>tiene un</strong> motor. Heredar para reutilizar código cuando no hay una relación «es-un» crea jerarquías confusas y frágiles. Esa relación «tiene-un» se modela con <strong>asociación, agregación o composición</strong>, que veremos en el <a href="../06-relaciones/">capítulo 6</a>.</p>
+</div>
+<h2 id="48-en-uml">4.8. En UML<a class="headerlink" href="#48-en-uml" title="Permanent link">&para;</a></h2>
+<p>La herencia (<strong>generalización</strong>) se dibuja con una <strong>flecha de línea continua y punta triangular hueca</strong> que va de la subclase a la superclase.</p>
+<pre class="mermaid"><code>classDiagram
+    class Vehiculo {
+        -String matricula
+        -String marca
+        -int velocidad
+        +acelerar(int incremento) void
+        +getVelocidadMaxima() int
+    }
+    class Coche {
+        -int numPuertas
+    }
+    class Camion {
+        -double cargaMaxima
+        +getVelocidadMaxima() int
+    }
+    Vehiculo &lt;|-- Coche
+    Vehiculo &lt;|-- Camion</code></pre>
+<p>En el diagrama solo aparecen los elementos <strong>propios</strong> de cada clase; lo heredado no se repite. <code>Camion</code> vuelve a mostrar <code>getVelocidadMaxima()</code> porque lo <strong>redefine</strong>.</p>
+<h2 id="resumen-del-capitulo">Resumen del capítulo<a class="headerlink" href="#resumen-del-capitulo" title="Permanent link">&para;</a></h2>
+<ul>
+<li>La <strong>herencia</strong> permite que una subclase reutilice y especialice la superclase.</li>
+<li>Debe cumplirse la relación <strong>«es-un»</strong>.</li>
+<li>En Java: <code>extends</code>, <code>super(...)</code> en el constructor, <code>super.metodo()</code> y <code>@Override</code>.</li>
+<li>Los constructores <strong>no se heredan</strong>; el de la superclase se invoca con <code>super(...)</code>.</li>
+<li>Java solo admite <strong>herencia simple</strong> entre clases.</li>
+<li>En UML: flecha con triángulo hueco hacia la superclase.</li>
+</ul>
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<p><strong>Actividad 1.</strong> Indica en cuáles de estas parejas tiene sentido la herencia y justifica con el test «es-un»: (a) <code>Furgoneta</code> / <code>Vehiculo</code>; (b) <code>Coche</code> / <code>Motor</code>; (c) <code>Moto</code> / <code>Vehiculo</code>; (d) <code>Flota</code> / <code>Vehiculo</code>.</p>
+<details class="success">
+<summary>Solución</summary>
+<ul>
+<li>(a) <strong>Sí</strong>: una furgoneta <em>es un</em> vehículo.</li>
+<li>(b) <strong>No</strong>: un coche <em>tiene un</em> motor. Es composición, no herencia.</li>
+<li>(c) <strong>Sí</strong>: una moto <em>es un</em> vehículo.</li>
+<li>(d) <strong>No</strong>: una flota <em>no es</em> un vehículo; <em>está formada por</em> vehículos. Es una agregación.</li>
+</ul>
+</details>
+<p><strong>Actividad 2.</strong> Escribe la clase <code>Furgoneta</code>, un tipo de camión ligero: subclase de <code>Camion</code>, cuya velocidad máxima es 130 km/h.</p>
+<details class="success">
+<summary>Solución</summary>
+<div class="highlight"><pre><span></span><code><span class="c1">// Furgoneta.java</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Furgoneta</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Camion</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Furgoneta</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">matricula</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">marca</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">modelo</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">color</span><span class="p">,</span>
+<span class="w">                     </span><span class="kt">int</span><span class="w"> </span><span class="n">potencia</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">cargaMaxima</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">super</span><span class="p">(</span><span class="n">matricula</span><span class="p">,</span><span class="w"> </span><span class="n">marca</span><span class="p">,</span><span class="w"> </span><span class="n">modelo</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="n">potencia</span><span class="p">,</span><span class="w"> </span><span class="n">cargaMaxima</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getVelocidadMaxima</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">130</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<p><strong>Actividad 3.</strong> ¿Qué imprime este programa? Explica el orden.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// PruebaOrden.java</span>
+<span class="kd">class</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">A</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Constructor de A"</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">B</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">B</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Constructor de B"</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">C</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">C</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Constructor de C"</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">PruebaOrden</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">C</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code>Constructor de A
+Constructor de B
+Constructor de C
+</code></pre></div>
+Aunque <code>B</code> y <code>C</code> no escriben <code>super()</code>, el compilador lo añade como primera sentencia. Por eso se construye siempre <strong>de arriba abajo</strong>: primero la superclase.</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Programación Orientada a Objetos · Entornos de Desarrollo
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.indexes", "navigation.expand", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

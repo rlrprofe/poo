@@ -1,0 +1,2016 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Curso de fundamentos de la programación orientada a objetos con Java, como base para el diseño con UML">
+      
+      
+      
+        <link rel="canonical" href="https://rlrprofe.github.io/poo/capitulos/06-relaciones/">
+      
+      
+        <link rel="prev" href="../05-polimorfismo/">
+      
+      
+        <link rel="next" href="../07-caso-practico/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>6. Relaciones entre objetos - POO · Programación Orientada a Objetos</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#6-relaciones-entre-objetos" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="POO · Programación Orientada a Objetos" class="md-header__button md-logo" aria-label="POO · Programación Orientada a Objetos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            POO · Programación Orientada a Objetos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              6. Relaciones entre objetos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/rlrprofe/poo" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rlrprofe/poo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="POO · Programación Orientada a Objetos" class="md-nav__button md-logo" aria-label="POO · Programación Orientada a Objetos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    POO · Programación Orientada a Objetos
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/rlrprofe/poo" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rlrprofe/poo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte I · Elementos de la POO
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte I · Elementos de la POO
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-clases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Clases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-objetos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Objetos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte II · Principios de la POO
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte II · Principios de la POO
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-encapsulacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Encapsulación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-herencia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Herencia
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-polimorfismo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Polimorfismo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte III · Relaciones entre objetos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte III · Relaciones entre objetos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Relaciones entre objetos
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Relaciones entre objetos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#61-mas-alla-de-la-herencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Más allá de la herencia
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-asociacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Asociación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2. Asociación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navegabilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navegabilidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-cardinalidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Cardinalidad
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3. Cardinalidad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-se-implementa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo se implementa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-agregacion-y-composicion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. Agregación y composición
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4. Agregación y composición">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agregacion-una-flota-y-sus-vehiculos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agregación: una flota y sus vehículos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composicion-un-alquiler-y-sus-extras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composición: un alquiler y sus extras
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-decidir-entre-agregacion-y-composicion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo decidir entre agregación y composición
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#65-dependencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5. Dependencia
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#66-que-relacion-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6. ¿Qué relación uso?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.6. ¿Qué relación uso?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jerarquias-es-un-frente-a-parte-de" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jerarquías «es-un» frente a «parte-de»
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#67-en-uml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7. En UML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-capitulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del capítulo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividades
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte IV · Puesta en práctica
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte IV · Puesta en práctica
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-caso-practico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Caso práctico integrado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-puente-uml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Puente hacia UML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anexos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Anexos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/glosario/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glosario
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../anexos/mapa-mental/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mapa mental
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#61-mas-alla-de-la-herencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Más allá de la herencia
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-asociacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Asociación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2. Asociación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navegabilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navegabilidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-cardinalidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Cardinalidad
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3. Cardinalidad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#como-se-implementa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo se implementa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-agregacion-y-composicion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. Agregación y composición
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4. Agregación y composición">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agregacion-una-flota-y-sus-vehiculos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agregación: una flota y sus vehículos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composicion-un-alquiler-y-sus-extras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composición: un alquiler y sus extras
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-decidir-entre-agregacion-y-composicion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo decidir entre agregación y composición
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#65-dependencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5. Dependencia
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#66-que-relacion-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6. ¿Qué relación uso?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.6. ¿Qué relación uso?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jerarquias-es-un-frente-a-parte-de" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jerarquías «es-un» frente a «parte-de»
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#67-en-uml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7. En UML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-capitulo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del capítulo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actividades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividades
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="6-relaciones-entre-objetos">6. Relaciones entre objetos<a class="headerlink" href="#6-relaciones-entre-objetos" title="Permanent link">&para;</a></h1>
+<h2 id="61-mas-alla-de-la-herencia">6.1. Más allá de la herencia<a class="headerlink" href="#61-mas-alla-de-la-herencia" title="Permanent link">&para;</a></h2>
+<p>Hasta ahora hemos visto una relación entre <strong>clases</strong>: la herencia («un <code>Coche</code> <em>es un</em> <code>Vehiculo</code>»). Pero un programa real está formado por objetos que <strong>colaboran</strong> entre sí, y esa colaboración también hay que modelarla.</p>
+<p>Pensemos en nuestra empresa de alquiler:</p>
+<ul>
+<li>Un conductor tiene asignado un vehículo.</li>
+<li>Una flota agrupa muchos vehículos.</li>
+<li>Un alquiler incluye extras (GPS, silla infantil…).</li>
+<li>Una estación de ITV inspecciona vehículos.</li>
+</ul>
+<p>En ninguno de estos casos hay un «es-un». Son relaciones de tipo «<strong>tiene-un</strong>» o «<strong>usa-un</strong>», y se resuelven casi siempre de la misma manera en Java: <strong>un objeto guarda una referencia a otro</strong> (como atributo) o <strong>lo recibe como parámetro</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Relación</th>
+<th>Pregunta que la identifica</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Herencia</strong></td>
+<td>¿X <em>es un</em> Y?</td>
+<td>Un <code>Coche</code> es un <code>Vehiculo</code></td>
+</tr>
+<tr>
+<td><strong>Asociación</strong></td>
+<td>¿X <em>conoce / usa</em> a Y de forma duradera?</td>
+<td>Un <code>Conductor</code> tiene asignado un <code>Vehiculo</code></td>
+</tr>
+<tr>
+<td><strong>Agregación</strong></td>
+<td>¿X <em>agrupa</em> a Y, pero Y puede existir sin X?</td>
+<td>Una <code>Flota</code> agrupa <code>Vehiculo</code>s</td>
+</tr>
+<tr>
+<td><strong>Composición</strong></td>
+<td>¿Y <em>forma parte</em> de X y no tiene sentido sin X?</td>
+<td>Un <code>Alquiler</code> tiene <code>Extra</code>s</td>
+</tr>
+<tr>
+<td><strong>Dependencia</strong></td>
+<td>¿X <em>usa</em> a Y solo en un momento concreto?</td>
+<td>Una <code>EstacionITV</code> inspecciona un <code>Vehiculo</code></td>
+</tr>
+</tbody>
+</table>
+<p>Las cuatro últimas, de la más débil a la más fuerte, son las <strong>relaciones entre objetos</strong>. Las vemos una a una.</p>
+<h2 id="62-asociacion">6.2. Asociación<a class="headerlink" href="#62-asociacion" title="Permanent link">&para;</a></h2>
+<p>La <strong>asociación</strong> es la relación más general: un objeto <strong>conoce a otro</strong> y puede enviarle mensajes durante su vida. En Java se implementa con un <strong>atributo cuyo tipo es otra clase</strong>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Conductor.java</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Conductor</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">dni</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">vehiculoAsignado</span><span class="p">;</span><span class="w">      </span><span class="c1">// asociación: 0 ó 1 vehículo</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Conductor</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">dni</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">nombre</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">dni</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dni</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">nombre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getDni</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">dni</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getNombre</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Vehiculo</span><span class="w"> </span><span class="nf">getVehiculoAsignado</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">vehiculoAsignado</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">asignar</span><span class="p">(</span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">vehiculo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">vehiculoAsignado</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehiculo</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">liberarVehiculo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">vehiculoAsignado</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">describirAsignacion</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">vehiculoAsignado</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">nombre</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" no tiene vehículo asignado"</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">nombre</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" conduce "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">vehiculoAsignado</span><span class="p">.</span><span class="na">getMarca</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" "</span>
+<span class="w">                </span><span class="o">+</span><span class="w"> </span><span class="n">vehiculoAsignado</span><span class="p">.</span><span class="na">getModelo</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" ("</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">vehiculoAsignado</span><span class="p">.</span><span class="na">getMatricula</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">")"</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Fíjate en que el atributo guarda una <strong>referencia</strong> (<a href="../02-objetos/">sección 2.5</a>): el conductor no <em>contiene</em> una copia del coche, sino que <strong>apunta al mismo objeto</strong>. Y como puede no tener vehículo, el método <code>describirAsignacion()</code> comprueba <code>null</code> antes de usarlo.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// PruebaAsociacion.java</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">PruebaAsociacion</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">coche</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Coche</span><span class="p">(</span><span class="s">"5671BCD"</span><span class="p">,</span><span class="w"> </span><span class="s">"Ford"</span><span class="p">,</span><span class="w"> </span><span class="s">"Focus"</span><span class="p">,</span><span class="w"> </span><span class="s">"rojo"</span><span class="p">,</span><span class="w"> </span><span class="mi">130</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Conductor</span><span class="w"> </span><span class="n">ana</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Conductor</span><span class="p">(</span><span class="s">"12345678Z"</span><span class="p">,</span><span class="w"> </span><span class="s">"Ana"</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">ana</span><span class="p">.</span><span class="na">describirAsignacion</span><span class="p">());</span>
+<span class="w">        </span><span class="n">ana</span><span class="p">.</span><span class="na">asignar</span><span class="p">(</span><span class="n">coche</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">ana</span><span class="p">.</span><span class="na">describirAsignacion</span><span class="p">());</span>
+
+<span class="w">        </span><span class="n">ana</span><span class="p">.</span><span class="na">getVehiculoAsignado</span><span class="p">().</span><span class="na">ponerEnMarcha</span><span class="p">();</span><span class="w">    </span><span class="c1">// actúa sobre el MISMO objeto</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">coche</span><span class="p">.</span><span class="na">isEnMarcha</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Ana no tiene vehículo asignado
+Ana conduce Ford Focus (5671BCD)
+true
+</code></pre></div>
+<h3 id="navegabilidad">Navegabilidad<a class="headerlink" href="#navegabilidad" title="Permanent link">&para;</a></h3>
+<p>En el ejemplo, <code>Conductor</code> conoce a <code>Vehiculo</code>, pero <code>Vehiculo</code> <strong>no sabe</strong> quién lo conduce. La asociación se puede recorrer en <strong>un solo sentido</strong>: es <strong>unidireccional</strong>. Si también quisiéramos preguntarle a un vehículo por su conductor, añadiríamos un atributo <code>Conductor</code> en <code>Vehiculo</code> y la asociación sería <strong>bidireccional</strong>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Elige el menor número de sentidos posible</p>
+<p>Cada sentido que se añade hay que mantenerlo coherente (si <code>ana</code> conduce el coche, el coche debe saber que lo conduce <code>ana</code>). Por eso conviene empezar con asociaciones unidireccionales y añadir el otro sentido solo cuando haga falta.</p>
+</div>
+<h2 id="63-cardinalidad">6.3. Cardinalidad<a class="headerlink" href="#63-cardinalidad" title="Permanent link">&para;</a></h2>
+<p>La <strong>cardinalidad</strong> (o multiplicidad) indica <strong>cuántos objetos</strong> de una clase pueden estar relacionados con un objeto de la otra. Se escribe junto a cada extremo de la relación.</p>
+<table>
+<thead>
+<tr>
+<th>Notación</th>
+<th>Significado</th>
+<th>Ejemplo en nuestro hilo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1</code></td>
+<td>Exactamente uno</td>
+<td>Un <code>Alquiler</code> es de un único <code>Vehiculo</code></td>
+</tr>
+<tr>
+<td><code>0..1</code></td>
+<td>Cero o uno (opcional)</td>
+<td>Un <code>Conductor</code> tiene, como mucho, un vehículo asignado</td>
+</tr>
+<tr>
+<td><code>*</code> ó <code>0..*</code></td>
+<td>Cero o muchos</td>
+<td>Una <code>Flota</code> puede tener cero o muchos vehículos</td>
+</tr>
+<tr>
+<td><code>1..*</code></td>
+<td>Uno o muchos (al menos uno)</td>
+<td>Un <code>Taller</code> emplea al menos un <code>Mecanico</code> (actividad 2)</td>
+</tr>
+<tr>
+<td><code>3..5</code></td>
+<td>Un rango concreto</td>
+<td>Un <code>Coche</code> tiene entre 3 y 5 puertas</td>
+</tr>
+</tbody>
+</table>
+<p>Se leen en los dos sentidos. En <code>Conductor "0..*" --&gt; "0..1" Vehiculo</code>:</p>
+<ul>
+<li>Un conductor tiene <strong>0 ó 1</strong> vehículos asignados.</li>
+<li>Un vehículo puede estar asignado a <strong>0 ó muchos</strong> conductores (por ejemplo, en turnos distintos).</li>
+</ul>
+<h3 id="como-se-implementa">Cómo se implementa<a class="headerlink" href="#como-se-implementa" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Cardinalidad máxima</th>
+<th>Implementación habitual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1</code> ó <code>0..1</code></td>
+<td>Un atributo simple (<code>Vehiculo vehiculo</code>). Si es <code>0..1</code>, puede valer <code>null</code></td>
+</tr>
+<tr>
+<td><code>*</code> ó <code>1..*</code></td>
+<td>Una colección: <code>List&lt;Vehiculo&gt;</code> (o un array si el tamaño es fijo)</td>
+</tr>
+</tbody>
+</table>
+<p>Veremos la colección en la siguiente sección, con la clase <code>Flota</code>.</p>
+<h2 id="64-agregacion-y-composicion">6.4. Agregación y composición<a class="headerlink" href="#64-agregacion-y-composicion" title="Permanent link">&para;</a></h2>
+<p>Ambas modelan una relación <strong>todo-parte</strong> («X <em>tiene</em> Y»). Lo que las distingue es <strong>de quién depende la vida de la parte</strong>.</p>
+<h3 id="agregacion-una-flota-y-sus-vehiculos">Agregación: una flota y sus vehículos<a class="headerlink" href="#agregacion-una-flota-y-sus-vehiculos" title="Permanent link">&para;</a></h3>
+<p>En la <strong>agregación</strong> las partes <strong>existen por sí mismas</strong>: pueden crearse antes que el todo, sobrevivir cuando el todo desaparece o pasar de un todo a otro. Una <code>Flota</code> agrupa vehículos, pero un vehículo puede venderse, pasar a otra flota o seguir existiendo sin ninguna.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Flota.java</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.util.ArrayList</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Collections</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.util.List</span><span class="p">;</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Flota</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Vehiculo</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vehiculos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">   </span><span class="c1">// 0..*</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Flota</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">nombre</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">nombre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getNombre</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">nombre</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">incorporar</span><span class="p">(</span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">vehiculo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">vehiculos</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">vehiculo</span><span class="p">);</span><span class="w">                  </span><span class="c1">// el vehículo se crea FUERA de la flota</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">retirar</span><span class="p">(</span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">vehiculo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">vehiculos</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">vehiculo</span><span class="p">);</span><span class="w">               </span><span class="c1">// retirarlo no destruye el vehículo</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getNumVehiculos</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">vehiculos</span><span class="p">.</span><span class="na">size</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Vehiculo</span><span class="w"> </span><span class="nf">buscarPorMatricula</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">matricula</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">vehiculos</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="na">getMatricula</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">matricula</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">costeTotal</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">dias</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">vehiculos</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">total</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="na">costeAlquiler</span><span class="p">(</span><span class="n">dias</span><span class="p">);</span><span class="w">       </span><span class="c1">// polimorfismo (capítulo 5)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">total</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Vehiculo</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getVehiculos</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Collections</span><span class="p">.</span><span class="na">unmodifiableList</span><span class="p">(</span><span class="n">vehiculos</span><span class="p">);</span><span class="w">   </span><span class="c1">// solo lectura: protege la colección</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Observa tres detalles:</p>
+<ul>
+<li>Los vehículos <strong>llegan desde fuera</strong> (<code>incorporar(Vehiculo)</code>): la flota no los crea.</li>
+<li>La lista es <code>private</code> y <code>getVehiculos()</code> devuelve una vista de <strong>solo lectura</strong>: es la encapsulación del <a href="../03-encapsulacion/">capítulo 3</a> aplicada a una colección.</li>
+<li><code>costeTotal()</code> recorre la lista de <code>Vehiculo</code> y cada uno responde a su manera: el polimorfismo del <a href="../05-polimorfismo/">capítulo 5</a> en acción.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// PruebaAgregacion.java</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">PruebaAgregacion</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">focus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Coche</span><span class="p">(</span><span class="s">"5671BCD"</span><span class="p">,</span><span class="w"> </span><span class="s">"Ford"</span><span class="p">,</span><span class="w"> </span><span class="s">"Focus"</span><span class="p">,</span><span class="w"> </span><span class="s">"rojo"</span><span class="p">,</span><span class="w"> </span><span class="mi">130</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">ibiza</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Coche</span><span class="p">(</span><span class="s">"4410KLM"</span><span class="p">,</span><span class="w"> </span><span class="s">"Seat"</span><span class="p">,</span><span class="w"> </span><span class="s">"Ibiza"</span><span class="p">,</span><span class="w"> </span><span class="s">"azul"</span><span class="p">,</span><span class="w"> </span><span class="mi">95</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">fh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Camion</span><span class="p">(</span><span class="s">"1234XYZ"</span><span class="p">,</span><span class="w"> </span><span class="s">"Volvo"</span><span class="p">,</span><span class="w"> </span><span class="s">"FH"</span><span class="p">,</span><span class="w"> </span><span class="s">"blanco"</span><span class="p">,</span><span class="w"> </span><span class="mi">460</span><span class="p">,</span><span class="w"> </span><span class="mi">18000</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">Flota</span><span class="w"> </span><span class="n">flota</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Flota</span><span class="p">(</span><span class="s">"Flota Centro"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">flota</span><span class="p">.</span><span class="na">incorporar</span><span class="p">(</span><span class="n">focus</span><span class="p">);</span>
+<span class="w">        </span><span class="n">flota</span><span class="p">.</span><span class="na">incorporar</span><span class="p">(</span><span class="n">ibiza</span><span class="p">);</span>
+<span class="w">        </span><span class="n">flota</span><span class="p">.</span><span class="na">incorporar</span><span class="p">(</span><span class="n">fh</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">flota</span><span class="p">.</span><span class="na">getNombre</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">": "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">flota</span><span class="p">.</span><span class="na">getNumVehiculos</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" vehículos"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Coste de alquilar toda la flota 2 días: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">flota</span><span class="p">.</span><span class="na">costeTotal</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" EUR"</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">flota</span><span class="p">.</span><span class="na">retirar</span><span class="p">(</span><span class="n">ibiza</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Tras retirar el Ibiza: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">flota</span><span class="p">.</span><span class="na">getNumVehiculos</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" vehículos"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"El Ibiza sigue existiendo: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ibiza</span><span class="p">.</span><span class="na">getMarca</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ibiza</span><span class="p">.</span><span class="na">getModelo</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Flota Centro: 3 vehículos
+Coste de alquilar toda la flota 2 días: 380.0 EUR
+Tras retirar el Ibiza: 2 vehículos
+El Ibiza sigue existiendo: Seat Ibiza
+</code></pre></div>
+<p>La última línea es la clave de la agregación: al sacar el Ibiza de la flota, <strong>el objeto sigue vivo</strong>.</p>
+<h3 id="composicion-un-alquiler-y-sus-extras">Composición: un alquiler y sus extras<a class="headerlink" href="#composicion-un-alquiler-y-sus-extras" title="Permanent link">&para;</a></h3>
+<p>En la <strong>composición</strong> las partes <strong>no tienen sentido sin el todo</strong>: nacen con él y mueren con él. Un extra («GPS durante 3 días», «silla infantil durante 3 días») solo existe como parte de un alquiler concreto; si se cancela el alquiler, esos extras dejan de existir. Por eso el <strong>todo crea a sus partes</strong> y <strong>no las comparte</strong> con nadie.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Extra.java</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Extra</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">descripcion</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">precioDia</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Extra</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">descripcion</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">precioDia</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">descripcion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">descripcion</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">precioDia</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">precioDia</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getDescripcion</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">descripcion</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">getPrecioDia</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">precioDia</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Alquiler.java</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.util.ArrayList</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.util.List</span><span class="p">;</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Alquiler</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">vehiculo</span><span class="p">;</span><span class="w">                       </span><span class="c1">// asociación (1)</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Conductor</span><span class="w"> </span><span class="n">conductor</span><span class="p">;</span><span class="w">                     </span><span class="c1">// asociación (1)</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">dias</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Extra</span><span class="o">&gt;</span><span class="w"> </span><span class="n">extras</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">  </span><span class="c1">// composición (0..*)</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Alquiler</span><span class="p">(</span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">vehiculo</span><span class="p">,</span><span class="w"> </span><span class="n">Conductor</span><span class="w"> </span><span class="n">conductor</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">dias</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dias</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">"El alquiler debe ser de al menos un día"</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">vehiculo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehiculo</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">conductor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">conductor</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">dias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dias</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">anadirExtra</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">descripcion</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">precioDia</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">extras</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Extra</span><span class="p">(</span><span class="n">descripcion</span><span class="p">,</span><span class="w"> </span><span class="n">precioDia</span><span class="p">));</span><span class="w">     </span><span class="c1">// el alquiler CREA sus extras</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getNumExtras</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">extras</span><span class="p">.</span><span class="na">size</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Vehiculo</span><span class="w"> </span><span class="nf">getVehiculo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">vehiculo</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Conductor</span><span class="w"> </span><span class="nf">getConductor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">conductor</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">getTotal</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vehiculo</span><span class="p">.</span><span class="na">costeAlquiler</span><span class="p">(</span><span class="n">dias</span><span class="p">);</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Extra</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">extras</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">total</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getPrecioDia</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dias</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">total</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Fíjate en la diferencia con <code>Flota.incorporar(Vehiculo)</code>: aquí <strong>no se recibe un <code>Extra</code> ya creado</strong>, sino los datos para que el propio <code>Alquiler</code> lo cree con <code>new</code>. Nadie fuera del alquiler tiene una referencia a esos extras.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// PruebaComposicion.java</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">PruebaComposicion</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">focus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Coche</span><span class="p">(</span><span class="s">"5671BCD"</span><span class="p">,</span><span class="w"> </span><span class="s">"Ford"</span><span class="p">,</span><span class="w"> </span><span class="s">"Focus"</span><span class="p">,</span><span class="w"> </span><span class="s">"rojo"</span><span class="p">,</span><span class="w"> </span><span class="mi">130</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Conductor</span><span class="w"> </span><span class="n">ana</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Conductor</span><span class="p">(</span><span class="s">"12345678Z"</span><span class="p">,</span><span class="w"> </span><span class="s">"Ana"</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">Alquiler</span><span class="w"> </span><span class="n">alquiler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Alquiler</span><span class="p">(</span><span class="n">focus</span><span class="p">,</span><span class="w"> </span><span class="n">ana</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class="w">        </span><span class="n">alquiler</span><span class="p">.</span><span class="na">anadirExtra</span><span class="p">(</span><span class="s">"GPS"</span><span class="p">,</span><span class="w"> </span><span class="mf">5.0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">alquiler</span><span class="p">.</span><span class="na">anadirExtra</span><span class="p">(</span><span class="s">"Silla infantil"</span><span class="p">,</span><span class="w"> </span><span class="mf">3.5</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Alquiler de "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">alquiler</span><span class="p">.</span><span class="na">getConductor</span><span class="p">().</span><span class="na">getNombre</span><span class="p">()</span>
+<span class="w">                </span><span class="o">+</span><span class="w"> </span><span class="s">" con "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">alquiler</span><span class="p">.</span><span class="na">getNumExtras</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" extras"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">"Total: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">alquiler</span><span class="p">.</span><span class="na">getTotal</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">" EUR"</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Alquiler de Ana con 2 extras
+Total: 145.5 EUR
+</code></pre></div>
+<p>El total son 120 € del coche (3 días × 40 €) más 25,5 € de extras ((5 + 3,5) × 3 días).</p>
+<p>Observa también que el <code>Alquiler</code> <strong>asocia</strong> un <code>Vehiculo</code> y un <code>Conductor</code> (existen antes y después del alquiler) pero <strong>compone</strong> sus <code>Extra</code>: en una misma clase conviven los dos tipos de relación.</p>
+<h3 id="como-decidir-entre-agregacion-y-composicion">Cómo decidir entre agregación y composición<a class="headerlink" href="#como-decidir-entre-agregacion-y-composicion" title="Permanent link">&para;</a></h3>
+<p>Hazte estas preguntas sobre la <strong>parte</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Pregunta</th>
+<th>Si la respuesta es sí…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>¿Puede existir sin el todo?</td>
+<td>Agregación</td>
+</tr>
+<tr>
+<td>¿Puede pasar de un todo a otro?</td>
+<td>Agregación</td>
+</tr>
+<tr>
+<td>¿Desaparece cuando desaparece el todo?</td>
+<td>Composición</td>
+</tr>
+<tr>
+<td>¿Solo tiene sentido dentro de ese todo?</td>
+<td>Composición</td>
+</tr>
+</tbody>
+</table>
+<p>Muchas veces <strong>depende del contexto del problema</strong>: en una aplicación de alquiler los extras son parte de un alquiler (composición), pero en una tienda de accesorios con inventario propio, un GPS existe por sí mismo y sería una agregación. No hay una respuesta única: hay que justificar la elección con el enunciado.</p>
+<h2 id="65-dependencia">6.5. Dependencia<a class="headerlink" href="#65-dependencia" title="Permanent link">&para;</a></h2>
+<p>La <strong>dependencia</strong> es la relación <strong>más débil</strong>: una clase <strong>usa</strong> a otra de forma <strong>puntual</strong>, normalmente porque recibe un objeto como <strong>parámetro</strong> de un método (o lo crea o devuelve), pero <strong>no lo guarda</strong> como atributo.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// EstacionITV.java</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">EstacionITV</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">inspeccionar</span><span class="p">(</span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">vehiculo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">      </span><span class="c1">// recibe el vehículo, no lo guarda</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">vehiculo</span><span class="p">.</span><span class="na">isEnMarcha</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">vehiculo</span><span class="p">.</span><span class="na">getMatricula</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">": no se puede inspeccionar con el vehículo en marcha"</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">vehiculo</span><span class="p">.</span><span class="na">getMatricula</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">": ITV favorable"</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>La estación de ITV no «tiene» ningún vehículo: lo conoce solo mientras dura la llamada. Si cambia la clase <code>Vehiculo</code> (por ejemplo, desaparece <code>isEnMarcha()</code>), <code>EstacionITV</code> dejará de compilar: de ahí el nombre, <strong>depende</strong> de ella.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// PruebaDependencia.java</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">PruebaDependencia</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">focus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Coche</span><span class="p">(</span><span class="s">"5671BCD"</span><span class="p">,</span><span class="w"> </span><span class="s">"Ford"</span><span class="p">,</span><span class="w"> </span><span class="s">"Focus"</span><span class="p">,</span><span class="w"> </span><span class="s">"rojo"</span><span class="p">,</span><span class="w"> </span><span class="mi">130</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="w">        </span><span class="n">EstacionITV</span><span class="w"> </span><span class="n">itv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">EstacionITV</span><span class="p">();</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">itv</span><span class="p">.</span><span class="na">inspeccionar</span><span class="p">(</span><span class="n">focus</span><span class="p">));</span>
+<span class="w">        </span><span class="n">focus</span><span class="p">.</span><span class="na">ponerEnMarcha</span><span class="p">();</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">itv</span><span class="p">.</span><span class="na">inspeccionar</span><span class="p">(</span><span class="n">focus</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5671BCD: ITV favorable
+5671BCD: no se puede inspeccionar con el vehículo en marcha
+</code></pre></div>
+<h2 id="66-que-relacion-uso">6.6. ¿Qué relación uso?<a class="headerlink" href="#66-que-relacion-uso" title="Permanent link">&para;</a></h2>
+<p>Un criterio práctico para decidir, de más fuerte a más débil:</p>
+<pre class="mermaid"><code>flowchart TD
+    A{"¿X es un caso&lt;br&gt;particular de Y?"} --&gt;|Sí| H["Herencia"]
+    A --&gt;|No| B{"¿X guarda a Y&lt;br&gt;como atributo?"}
+    B --&gt;|No| D["Dependencia&lt;br&gt;(parámetro, variable local)"]
+    B --&gt;|Sí| C{"¿Y es parte de X?"}
+    C --&gt;|No| S["Asociación"]
+    C --&gt;|Sí| E{"¿Y puede existir&lt;br&gt;sin X?"}
+    E --&gt;|Sí| G["Agregación"]
+    E --&gt;|No| K["Composición"]</code></pre>
+<h3 id="jerarquias-es-un-frente-a-parte-de">Jerarquías «es-un» frente a «parte-de»<a class="headerlink" href="#jerarquias-es-un-frente-a-parte-de" title="Permanent link">&para;</a></h3>
+<p>Un error muy común es usar herencia cuando lo correcto es una relación todo-parte:</p>
+<table>
+<thead>
+<tr>
+<th>Frase</th>
+<th>¿Es herencia?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>«Un <code>Coche</code> <strong>es un</strong> <code>Vehiculo</code>»</td>
+<td>Sí → herencia</td>
+</tr>
+<tr>
+<td>«Un <code>Camion</code> <strong>es un</strong> <code>Vehiculo</code>»</td>
+<td>Sí → herencia</td>
+</tr>
+<tr>
+<td>«Una <code>Flota</code> <strong>es un</strong> <code>Vehiculo</code>»</td>
+<td>No: una flota <strong>tiene</strong> vehículos → agregación</td>
+</tr>
+<tr>
+<td>«Un <code>Alquiler</code> <strong>es un</strong> <code>Extra</code>»</td>
+<td>No: un alquiler <strong>tiene</strong> extras → composición</td>
+</tr>
+</tbody>
+</table>
+<p>Si la frase «X es un Y» suena rara, probablemente la relación no es de herencia.</p>
+<h2 id="67-en-uml">6.7. En UML<a class="headerlink" href="#67-en-uml" title="Permanent link">&para;</a></h2>
+<p>Cada relación tiene su propio símbolo. Fíjate en el rombo: <strong>vacío</strong> para la agregación y <strong>relleno</strong> para la composición; el rombo se dibuja en el lado del <strong>todo</strong>.</p>
+<pre class="mermaid"><code>classDiagram
+    class Vehiculo {
+        &lt;&lt;abstract&gt;&gt;
+    }
+    class Coche
+    class Camion
+    class Conductor {
+        -String dni
+        -String nombre
+        +asignar(Vehiculo v) void
+    }
+    class Flota {
+        -String nombre
+        +incorporar(Vehiculo v) void
+        +costeTotal(int dias) double
+    }
+    class Alquiler {
+        -int dias
+        +anadirExtra(String d, double p) void
+        +getTotal() double
+    }
+    class Extra {
+        -String descripcion
+        -double precioDia
+    }
+    class EstacionITV {
+        +inspeccionar(Vehiculo v) String
+    }
+
+    Vehiculo &lt;|-- Coche
+    Vehiculo &lt;|-- Camion
+    Conductor "*" --&gt; "0..1" Vehiculo : tiene asignado
+    Flota "1" o-- "0..*" Vehiculo : agrupa
+    Alquiler "*" --&gt; "1" Vehiculo : de
+    Alquiler "*" --&gt; "1" Conductor : para
+    Alquiler "1" *-- "0..*" Extra : incluye
+    EstacionITV ..&gt; Vehiculo : inspecciona</code></pre>
+<table>
+<thead>
+<tr>
+<th>Relación</th>
+<th>Símbolo UML</th>
+<th>Línea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Herencia</td>
+<td>Flecha con triángulo <strong>hueco</strong> (<code>&lt;|--</code>)</td>
+<td>Continua</td>
+</tr>
+<tr>
+<td>Asociación</td>
+<td>Flecha abierta (<code>--&gt;</code>) o línea simple</td>
+<td>Continua</td>
+</tr>
+<tr>
+<td>Agregación</td>
+<td>Rombo <strong>hueco</strong> en el lado del todo (<code>o--</code>)</td>
+<td>Continua</td>
+</tr>
+<tr>
+<td>Composición</td>
+<td>Rombo <strong>relleno</strong> en el lado del todo (<code>*--</code>)</td>
+<td>Continua</td>
+</tr>
+<tr>
+<td>Dependencia</td>
+<td>Flecha abierta (<code>..&gt;</code>)</td>
+<td><strong>Discontinua</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">Atributos que son relaciones</p>
+<p>En UML, un atributo cuyo tipo es otra clase del modelo (como <code>List&lt;Vehiculo&gt;</code> en <code>Flota</code>) <strong>no se escribe</strong> en el compartimento de atributos: se representa con la <strong>relación</strong> correspondiente. Por eso en <code>Flota</code> no aparece <code>vehiculos</code>, sino la línea con rombo hacia <code>Vehiculo</code>.</p>
+</div>
+<h2 id="resumen-del-capitulo">Resumen del capítulo<a class="headerlink" href="#resumen-del-capitulo" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Los objetos colaboran: una clase guarda <strong>referencias</strong> a otros objetos (atributos) o las recibe como <strong>parámetros</strong>.</li>
+<li><strong>Asociación</strong>: un objeto conoce a otro de forma duradera; puede ser unidireccional o bidireccional.</li>
+<li><strong>Cardinalidad</strong>: cuántos objetos intervienen en cada extremo (<code>1</code>, <code>0..1</code>, <code>*</code>, <code>1..*</code>); con máximo mayor que 1 se usa una colección.</li>
+<li><strong>Agregación</strong>: todo-parte donde la parte <strong>existe por sí misma</strong> (rombo hueco).</li>
+<li><strong>Composición</strong>: todo-parte donde la parte <strong>depende del todo</strong> y este la crea (rombo relleno).</li>
+<li><strong>Dependencia</strong>: uso puntual, sin atributo (flecha discontinua).</li>
+<li>Si «X es un Y» no tiene sentido, no uses herencia.</li>
+</ul>
+<h2 id="actividades">Actividades<a class="headerlink" href="#actividades" title="Permanent link">&para;</a></h2>
+<p><strong>Actividad 1.</strong> Clasifica cada frase como herencia, asociación, agregación, composición o dependencia y justifica:</p>
+<ol>
+<li>Un <code>Camion</code> es un <code>Vehiculo</code>.</li>
+<li>Una <code>Flota</code> tiene varios <code>Vehiculo</code>s que pueden cambiar de flota.</li>
+<li>Un <code>Alquiler</code> tiene unos <code>Extra</code> que desaparecen si se cancela el alquiler.</li>
+<li>Un <code>Conductor</code> tiene asignado un <code>Vehiculo</code>.</li>
+<li>Un método <code>Taller.revisar(Vehiculo v)</code> revisa un vehículo y no lo guarda.</li>
+</ol>
+<details class="success">
+<summary>Solución</summary>
+<ol>
+<li><strong>Herencia</strong>: «es un».</li>
+<li><strong>Agregación</strong>: la parte (el vehículo) existe sin el todo y puede cambiar de todo.</li>
+<li><strong>Composición</strong>: los extras dependen del alquiler y mueren con él.</li>
+<li><strong>Asociación</strong>: relación duradera entre dos objetos independientes, sin ser todo-parte.</li>
+<li><strong>Dependencia</strong>: uso puntual como parámetro, sin atributo.</li>
+</ol>
+</details>
+<p><strong>Actividad 2.</strong> Un <code>Taller</code> tiene varios <code>Mecanico</code>s (que pueden cambiar de taller) y registra <code>Reparacion</code>es. Cada <code>Reparacion</code> la realiza un <code>Mecanico</code> sobre un <code>Vehiculo</code>, y no existe fuera del taller que la registra. Dibuja el diagrama de clases con relaciones y cardinalidades.</p>
+<details class="success">
+<summary>Solución</summary>
+<p><pre class="mermaid"><code>classDiagram
+    class Taller {
+        -String nombre
+    }
+    class Mecanico {
+        -String nombre
+    }
+    class Reparacion {
+        -String descripcion
+        -double importe
+    }
+    class Vehiculo {
+        &lt;&lt;abstract&gt;&gt;
+    }
+    Taller "1" o-- "1..*" Mecanico : emplea
+    Taller "1" *-- "0..*" Reparacion : registra
+    Reparacion "*" --&gt; "1" Mecanico : realizada por
+    Reparacion "*" --&gt; "1" Vehiculo : sobre</code></pre>
+Los mecánicos son <strong>agregación</strong> (existen sin el taller). Las reparaciones son <strong>composición</strong> (solo existen registradas en su taller). Cada reparación está <strong>asociada</strong> a un mecánico y a un vehículo, que existen por sí mismos.</p>
+</details>
+<p><strong>Actividad 3.</strong> Añade a <code>Flota</code> un método <code>contarEnMarcha()</code> que devuelva cuántos vehículos de la flota están en marcha.</p>
+<details class="success">
+<summary>Solución</summary>
+<p><div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">contarEnMarcha</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">contador</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Vehiculo</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">vehiculos</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="na">isEnMarcha</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">contador</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">contador</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+Se recorre la colección y se pregunta a cada <code>Vehiculo</code> por su estado: la flota <strong>no necesita saber</strong> de qué tipo es cada uno.</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Programación Orientada a Objetos · Entornos de Desarrollo
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.indexes", "navigation.expand", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
