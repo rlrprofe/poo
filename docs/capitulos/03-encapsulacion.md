@@ -28,70 +28,131 @@ En Java el grado de ocultamiento se controla con los **modificadores de acceso**
 
 ## 3.3. El problema de no encapsular
 
-Observa qué ocurre si dejamos el saldo de una cuenta al alcance de cualquiera:
+Observa qué ocurre si dejamos la velocidad de un coche al alcance de cualquiera:
 
 ```java
-public class CuentaInsegura {
-    public double saldo;      // ¡cualquiera puede modificarlo!
+public class CocheInseguro {
+    public int velocidad;      // ¡cualquiera puede modificarlo!
 }
 ```
 
 ```java
-CuentaInsegura c = new CuentaInsegura();
-c.saldo = -5000;              // nadie lo impide: el objeto queda en un estado absurdo
+CocheInseguro c = new CocheInseguro();
+c.velocidad = -300;            // nadie lo impide: velocidad negativa
+c.velocidad = 900;             // ni un coche que supera los 900 km/h
 ```
 
 Cualquier parte del programa puede dejar el objeto en un estado **inválido**, y si hay un error será imposible saber dónde se produjo.
 
 ## 3.4. La solución: atributos privados y métodos que controlan el acceso
 
-Con atributos privados, el saldo solo cambia a través de los métodos de la propia clase, que **comprueban** que lo que se pide tiene sentido:
+Con atributos privados, la velocidad solo cambia a través de los métodos de la propia clase, que **comprueban** que lo que se pide tiene sentido. Así queda la clase `Coche` del [capítulo 1](01-clases.md) una vez encapsulada:
 
 ```java
-// Cuenta.java
-public class Cuenta {
+// Coche.java
+public class Coche {
 
-    private final String numero;     // no cambia nunca tras crearse
-    private String titular;
-    private double saldo;
+    public static final int VELOCIDAD_MAXIMA = 220;   // constante pública: nadie puede cambiarla
+    private static int totalCoches = 0;
 
-    public Cuenta(String titular, String numero, double saldoInicial) {
-        if (saldoInicial < 0) {
-            throw new IllegalArgumentException("El saldo inicial no puede ser negativo");
+    private final String matricula;
+    private String marca;
+    private String modelo;
+    private String color;
+    private int potencia;
+    private int velocidad;
+    private boolean enMarcha;
+
+    public Coche(String matricula, String marca, String modelo, String color, int potencia) {
+        if (potencia <= 0) {
+            throw new IllegalArgumentException("La potencia debe ser positiva");
         }
-        this.titular = titular;
-        this.numero = numero;
-        this.saldo = saldoInicial;
+        this.matricula = matricula;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.color = color;
+        this.potencia = potencia;
+        this.velocidad = 0;
+        this.enMarcha = false;
+        totalCoches++;
     }
 
-    public void ingresar(double cantidad) {
-        if (cantidad <= 0) {
-            throw new IllegalArgumentException("La cantidad a ingresar debe ser positiva");
+    public void ponerEnMarcha() {
+        enMarcha = true;
+    }
+
+    public void parar() {
+        velocidad = 0;
+        enMarcha = false;
+    }
+
+    public void acelerar(int incremento) {
+        if (incremento <= 0) {
+            throw new IllegalArgumentException("El incremento debe ser positivo");
         }
-        saldo += cantidad;
-    }
-
-    public boolean retirar(double cantidad) {
-        if (cantidad <= 0) {
-            throw new IllegalArgumentException("La cantidad a retirar debe ser positiva");
+        if (!enMarcha) {
+            throw new IllegalStateException("El coche está parado: hay que ponerlo en marcha");
         }
-        if (cantidad > saldo) {
-            return false;            // saldo insuficiente: no se retira nada
+        velocidad = limitarAMaxima(velocidad + incremento);
+    }
+
+    public void frenar(int decremento) {
+        if (decremento <= 0) {
+            throw new IllegalArgumentException("El decremento debe ser positivo");
         }
-        saldo -= cantidad;
-        return true;
+        velocidad = Math.max(0, velocidad - decremento);
     }
 
-    public double getSaldo() {
-        return saldo;
+    public void frenar() {
+        velocidad = 0;
     }
 
-    public String getTitular() {
-        return titular;
+    // Método auxiliar privado: utilidad interna, no forma parte del servicio
+    private static int limitarAMaxima(int valor) {
+        return Math.min(valor, VELOCIDAD_MAXIMA);
     }
 
-    public String getNumero() {
-        return numero;
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public int getPotencia() {
+        return potencia;
+    }
+
+    public int getVelocidad() {
+        return velocidad;
+    }
+
+    public boolean isEnMarcha() {
+        return enMarcha;
+    }
+
+    public void pintar(String color) {
+        this.color = color;
+    }
+
+    public static int getTotalCoches() {
+        return totalCoches;
+    }
+
+    @Override
+    public String toString() {
+        return "Coche{matricula=" + matricula + ", marca=" + marca + ", modelo=" + modelo
+                + ", color=" + color + ", potencia=" + potencia + " CV"
+                + ", velocidad=" + velocidad + " km/h, enMarcha=" + enMarcha + "}";
     }
 }
 ```
@@ -100,16 +161,23 @@ public class Cuenta {
 // PruebaEncapsulacion.java
 public class PruebaEncapsulacion {
     public static void main(String[] args) {
-        Cuenta cuenta = new Cuenta("Pérez", "154000345", 2000);
-
-        cuenta.ingresar(500);
-        System.out.println("Saldo: " + cuenta.getSaldo());
-        System.out.println("¿Retirada de 3000? " + cuenta.retirar(3000));
-        System.out.println("¿Retirada de 1000? " + cuenta.retirar(1000));
-        System.out.println("Saldo: " + cuenta.getSaldo());
+        Coche coche = new Coche("5671BCD", "Ford", "Focus", "rojo", 130);
 
         try {
-            cuenta.ingresar(-50);
+            coche.acelerar(50);                       // el coche aún no está en marcha
+        } catch (IllegalStateException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        coche.ponerEnMarcha();
+        coche.acelerar(150);
+        System.out.println("Velocidad: " + coche.getVelocidad());
+
+        coche.acelerar(150);                          // intenta superar el máximo
+        System.out.println("Velocidad: " + coche.getVelocidad());
+
+        try {
+            coche.acelerar(-10);
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -118,11 +186,10 @@ public class PruebaEncapsulacion {
 ```
 
 ```text
-Saldo: 2500.0
-¿Retirada de 3000? false
-¿Retirada de 1000? true
-Saldo: 1500.0
-Error: La cantidad a ingresar debe ser positiva
+Error: El coche está parado: hay que ponerlo en marcha
+Velocidad: 150
+Velocidad: 220
+Error: El incremento debe ser positivo
 ```
 
 !!! note "Sobre `throw` y `try/catch`"
@@ -132,57 +199,39 @@ Error: La cantidad a ingresar debe ser positiva
 
 Para leer o modificar un atributo privado desde fuera se ofrecen métodos públicos:
 
-- **Getter** (*acceso*): devuelve el valor. Por convención `getNombre()`, o `isActivo()` para booleanos.
-- **Setter** (*modificación*): asigna un valor nuevo. Por convención `setNombre(...)`.
+- **Getter** (*de consulta*): devuelve el valor. Por convención `getColor()`, o `isEnMarcha()` para booleanos.
+- **Setter** (*de modificación*): asigna un valor nuevo. Por convención `setColor(...)`; en `Coche` lo hemos llamado `pintar(...)` porque expresa mejor la acción.
 
-La ventaja de un setter frente a un atributo público es que puede **validar** el valor antes de aceptarlo. Así queda la clase `Persona` del capítulo 2 con la edad protegida:
-
-```java
-public class Persona {
-    private final String dni;          // el DNI no se puede cambiar
-    private int edad;
-    // ...
-
-    public Persona(String dni, String nombre, int edad, String estadoCivil) {
-        this.dni = dni;
-        this.edad = validarEdad(edad);
-        // ...
-    }
-
-    public void setEdad(int edad) {
-        this.edad = validarEdad(edad);
-    }
-
-    // Método privado: utilidad interna, no forma parte del servicio
-    private static int validarEdad(int edad) {
-        if (edad < 0) {
-            throw new IllegalArgumentException("La edad no puede ser negativa");
-        }
-        return edad;
-    }
-}
-```
+La ventaja de un método de modificación frente a un atributo público es que puede **validar** el valor antes de aceptarlo.
 
 !!! warning "No generes getters y setters por inercia"
-    Encapsular **no** significa crear un getter y un setter para cada atributo. Eso solo traslada el problema. Pregúntate para cada atributo: ¿necesita leerse desde fuera? ¿Debe poder cambiarse? En `Cuenta` **no existe `setSaldo`** a propósito: el saldo solo debe variar mediante `ingresar` y `retirar`.
+    Encapsular **no** significa crear un getter y un setter para cada atributo. Eso solo traslada el problema. Pregúntate para cada atributo: ¿necesita leerse desde fuera? ¿Debe poder cambiarse? En `Coche`:
 
-## 3.6. Por qué compensa
+    - **No existe `setVelocidad`**: la velocidad solo cambia con `acelerar` y `frenar`, que mantienen el coche en un estado coherente.
+    - **No existe `setMatricula`**: la matrícula es `final`, identifica al coche y no cambia.
+    - **Sí existe `pintar`**: cambiar el color es una operación legítima.
+
+## 3.6. Métodos privados auxiliares
+
+No todos los métodos de una clase son servicios para el exterior. `limitarAMaxima` es una utilidad **interna** que `acelerar` usa para no superar la velocidad máxima. Al ser `private`, ninguna otra clase puede llamarla, y podemos cambiarla o eliminarla sin afectar a nadie. Es el tipo de método **auxiliar** que vimos en el [capítulo 1](01-clases.md#tipos-de-metodos).
+
+## 3.7. Por qué compensa
 
 - **Protege la coherencia** del objeto: no puede quedar en un estado inválido.
-- **Localiza los errores**: si el saldo es incorrecto, el fallo está en la clase `Cuenta`, no en cualquier parte del programa.
-- **Permite cambiar la implementación** sin afectar a quien usa la clase. Si mañana `Persona` guarda la fecha de nacimiento en lugar de la edad, basta con cambiar dentro de la clase:
+- **Localiza los errores**: si la velocidad es incorrecta, el fallo está en la clase `Coche`, no en cualquier parte del programa.
+- **Permite cambiar la implementación** sin afectar a quien usa la clase. Si mañana `Coche` guarda la velocidad en metros por segundo en lugar de km/h, basta con cambiar dentro de la clase:
 
 ```java
-private LocalDate fechaNacimiento;
+private double velocidadMs;      // ahora se guarda en m/s
 
-public int getEdad() {
-    return Period.between(fechaNacimiento, LocalDate.now()).getYears();
+public int getVelocidad() {
+    return (int) Math.round(velocidadMs * 3.6);   // pero se sigue ofreciendo en km/h
 }
 ```
 
-El resto del programa sigue llamando a `getEdad()` igual que antes.
+El resto del programa sigue llamando a `getVelocidad()` igual que antes.
 
-## 3.7. En UML
+## 3.8. En UML
 
 En un diagrama de clases, la visibilidad se indica con un símbolo delante de cada atributo y método:
 
@@ -195,20 +244,22 @@ En un diagrama de clases, la visibilidad se indica con un símbolo delante de ca
 
 ```mermaid
 classDiagram
-    class Cuenta {
-        -String numero
-        -String titular
-        -double saldo
-        +Cuenta(String titular, String numero, double saldoInicial)
-        +ingresar(double cantidad) void
-        +retirar(double cantidad) boolean
-        +getSaldo() double
-        +getTitular() String
-        +getNumero() String
+    class Coche {
+        -String matricula
+        -String color
+        -int velocidad
+        -boolean enMarcha
+        +Coche(String matricula, String marca, String modelo, String color, int potencia)
+        +ponerEnMarcha() void
+        +acelerar(int incremento) void
+        +frenar(int decremento) void
+        +getVelocidad() int
+        +pintar(String color) void
+        -limitarAMaxima(int valor) int
     }
 ```
 
-Fíjate en que los atributos son privados (`-`) y los servicios públicos (`+`): es la encapsulación hecha visible.
+Fíjate en que los atributos son privados (`-`), los servicios públicos (`+`) y el método auxiliar, privado: es la encapsulación hecha visible.
 
 ## Resumen del capítulo
 
@@ -216,43 +267,55 @@ Fíjate en que los atributos son privados (`-`) y los servicios públicos (`+`):
 - En Java se controla con `private`, *paquete*, `protected` y `public`.
 - Atributos **privados**; acceso mediante métodos que pueden **validar**.
 - Un setter no es obligatorio: ofrece solo lo que el objeto debe permitir.
+- Los métodos **auxiliares** son privados.
 - En UML se representa con `+`, `-`, `#` y `~`.
 
 ## Actividades
 
-**Actividad 1.** Indica qué modificador de acceso usarías en cada caso y por qué: (a) el atributo `saldo` de una cuenta; (b) el método `ingresar` de la cuenta; (c) un método auxiliar que valida el formato de un IBAN y solo se usa dentro de la clase.
+**Actividad 1.** Indica qué modificador de acceso usarías en cada caso y por qué: (a) el atributo `velocidad` de un coche; (b) el método `acelerar`; (c) un método auxiliar que comprueba si una matrícula tiene un formato válido y solo se usa dentro de la clase.
 
 ??? success "Solución"
-    - (a) `private`: solo la propia clase debe tocar el saldo.
+    - (a) `private`: solo la propia clase debe tocar la velocidad.
     - (b) `public`: es un servicio que otros objetos deben poder pedir.
     - (c) `private`: es un detalle interno de la implementación.
 
-**Actividad 2.** Escribe la clase `Termostato` con un atributo `temperatura` (inicialmente 20.0). Solo debe aceptar valores entre 5.0 y 35.0; fuera de ese rango, `setTemperatura` lanzará una `IllegalArgumentException`.
+**Actividad 2.** Escribe la clase `Deposito` con la capacidad (fija, positiva) y el nivel actual (inicialmente 0). Su método `repostar(double litros)` debe rechazar cantidades no positivas y, si los litros no caben, llenar solo lo que quede libre. Devuelve los litros realmente añadidos.
 
 ??? success "Solución"
     ```java
-    // Termostato.java
-    public class Termostato {
-        private static final double MIN = 5.0;
-        private static final double MAX = 35.0;
+    // Deposito.java
+    public class Deposito {
+        private final double capacidad;
+        private double nivel;
 
-        private double temperatura = 20.0;
-
-        public double getTemperatura() {
-            return temperatura;
+        public Deposito(double capacidad) {
+            if (capacidad <= 0) {
+                throw new IllegalArgumentException("La capacidad debe ser positiva");
+            }
+            this.capacidad = capacidad;
         }
 
-        public void setTemperatura(double temperatura) {
-            if (temperatura < MIN || temperatura > MAX) {
-                throw new IllegalArgumentException(
-                        "Temperatura fuera de rango (" + MIN + " a " + MAX + ")");
+        public double repostar(double litros) {
+            if (litros <= 0) {
+                throw new IllegalArgumentException("Los litros deben ser positivos");
             }
-            this.temperatura = temperatura;
+            double libre = capacidad - nivel;
+            double anadido = Math.min(litros, libre);   // solo lo que cabe
+            nivel += anadido;
+            return anadido;
+        }
+
+        public double getNivel() {
+            return nivel;
+        }
+
+        public double getCapacidad() {
+            return capacidad;
         }
     }
     ```
 
-**Actividad 3.** ¿Por qué la clase `Cuenta` no tiene un método `setSaldo`? ¿Qué problema aparecería si lo tuviera?
+**Actividad 3.** ¿Por qué la clase `Coche` no tiene un método `setVelocidad`? ¿Qué problema aparecería si lo tuviera?
 
 ??? success "Solución"
-    Con `setSaldo(double)` cualquier clase podría asignar el saldo que quisiera, saltándose las comprobaciones de `ingresar` y `retirar` (por ejemplo, dejarlo negativo o inventar dinero). Sin él, la única forma de cambiar el saldo es mediante operaciones que mantienen el objeto coherente.
+    Con `setVelocidad(int)` cualquier clase podría asignar la velocidad que quisiera, saltándose las comprobaciones de `acelerar` y `frenar` (por ejemplo, dejarla negativa, superar la máxima o acelerar con el coche parado). Sin él, la única forma de cambiar la velocidad es mediante operaciones que mantienen el objeto coherente.

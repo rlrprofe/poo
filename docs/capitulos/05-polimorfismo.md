@@ -4,7 +4,7 @@
 
 **Polimorfismo** significa «muchas formas». En POO es la capacidad de que **objetos de clases distintas respondan al mismo mensaje cada uno a su manera**.
 
-Piensa en la orden «*págales a todos los empleados*». A un empleado normal se le paga su sueldo; a un ejecutivo, su sueldo más un *bonus*. Quien da la orden no necesita saber de qué tipo es cada empleado: envía el mismo mensaje (`calcularPago()`) y **cada objeto sabe lo que tiene que hacer**.
+Piensa en la orden «*calcula lo que cuesta alquilar este vehículo tres días*». Alquilar un coche cuesta una cosa; alquilar un camión, otra distinta. Quien da la orden no necesita saber de qué tipo es cada vehículo: envía el mismo mensaje (`costeAlquiler(3)`) y **cada objeto sabe lo que tiene que hacer**.
 
 Esto es posible gracias a la herencia ([capítulo 4](04-herencia.md)) y a la redefinición de métodos.
 
@@ -13,7 +13,7 @@ Esto es posible gracias a la herencia ([capítulo 4](04-herencia.md)) y a la red
 Una variable cuyo tipo es una **superclase** puede referirse a un objeto de **cualquiera de sus subclases**, porque una subclase *es un* caso particular de la superclase:
 
 ```java
-Empleado e = new Ejecutivo("987654321X", "Lucía", 48, "casada", "Directora", 3000, 500);
+Vehiculo v = new Camion("1234XYZ", "Volvo", "FH", "blanco", 460, 18000);
 ```
 
 Cuando se envía un mensaje a esa variable, **Java decide en tiempo de ejecución** qué versión del método ejecutar, según la clase **real** del objeto y no según el tipo de la variable. A este mecanismo se le llama **enlace dinámico** (*dynamic binding*).
@@ -22,30 +22,26 @@ Cuando se envía un mensaje a esa variable, **Java decide en tiempo de ejecució
 // PruebaPolimorfismo.java
 public class PruebaPolimorfismo {
     public static void main(String[] args) {
-        Empleado[] plantilla = {
-            new Empleado("153647458S", "Pepe", 35, "casado", "Analista", 1500),
-            new Empleado("452697419Z", "Maria", 25, "soltera", "Programadora", 1000),
-            new Ejecutivo("987654321X", "Lucía", 48, "casada", "Directora", 3000, 500)
+        Vehiculo[] garaje = {
+            new Coche("5671BCD", "Ford", "Focus", "rojo", 130, 5),
+            new Camion("1234XYZ", "Volvo", "FH", "blanco", 460, 18000)
         };
 
-        double total = 0;
-        for (Empleado e : plantilla) {
-            System.out.println(e.getNombre() + " cobra " + e.calcularPago());
-            total += e.calcularPago();
+        for (Vehiculo v : garaje) {
+            v.ponerEnMarcha();
+            v.acelerar(200);
+            System.out.println(v.getMatricula() + " circula a " + v.getVelocidad() + " km/h");
         }
-        System.out.println("Total: " + total);
     }
 }
 ```
 
 ```text
-Pepe cobra 1500.0
-Maria cobra 1000.0
-Lucía cobra 3500.0
-Total: 6000.0
+5671BCD circula a 180 km/h
+1234XYZ circula a 90 km/h
 ```
 
-El bucle trata a todos como `Empleado`, pero para Lucía se ejecuta la versión de `Ejecutivo`. Si mañana se añade un nuevo tipo de empleado con otra forma de calcular el pago, **este código no cambia**.
+El bucle trata a todos como `Vehiculo`, pero cada uno responde a su manera. Y aquí está la respuesta a la pregunta que quedó abierta en el capítulo anterior. El método `acelerar()` de `Vehiculo` termina con `Math.min(velocidad + incremento, getVelocidadMaxima())`. La llamada a `getVelocidadMaxima()` se envía al **propio objeto**, y para un camión el enlace dinámico ejecuta la versión de `Camion` (90) y no la de `Vehiculo` (180). Si mañana se añade un nuevo tipo de vehículo con otra velocidad máxima, **este código no cambia**.
 
 !!! tip "La gran ventaja"
     El polimorfismo permite escribir código que trabaja con la **superclase** y sigue funcionando con subclases que aún no existen. Es lo que hace que los programas OO sean fáciles de ampliar.
@@ -58,22 +54,22 @@ El compilador solo deja usar los métodos que existen **en el tipo de la variabl
 // PruebaCasting.java
 public class PruebaCasting {
     public static void main(String[] args) {
-        Persona p = new Ejecutivo("987654321X", "Lucía", 48, "casada", "Directora", 3000, 500);
+        Vehiculo v = new Coche("5671BCD", "Ford", "Focus", "rojo", 130, 5);
 
-        System.out.println(p.getNombre());          // correcto: está en Persona
-        // p.calcularPago();                         // ERROR de compilación: Persona no lo tiene
+        System.out.println(v.getMarca());           // correcto: está en Vehiculo
+        // v.getNumPuertas();                        // ERROR de compilación: Vehiculo no lo tiene
 
-        if (p instanceof Empleado) {                // ¿el objeto real es un Empleado?
-            Empleado e = (Empleado) p;              // conversión (cast) a la subclase
-            System.out.println(e.calcularPago());   // se ejecuta la versión de Ejecutivo
+        if (v instanceof Coche) {                   // ¿el objeto real es un Coche?
+            Coche c = (Coche) v;                    // conversión (cast) a la subclase
+            System.out.println(c.getNumPuertas() + " puertas");
         }
     }
 }
 ```
 
 ```text
-Lucía
-3500.0
+Ford
+5 puertas
 ```
 
 - **Conversión hacia arriba** (de subclase a superclase): siempre es válida y automática.
@@ -81,193 +77,258 @@ Lucía
 
 ## 5.3. Clases abstractas
 
-A veces una superclase es tan genérica que **no tiene sentido crear objetos de ella**. ¿Cómo se calcula el área de una «figura» a secas? No se puede: depende de si es un círculo o un rectángulo. Una **clase abstracta** describe lo común y **deja sin implementar** lo que cada subclase debe resolver a su manera.
+A veces una superclase es tan genérica que **no tiene sentido crear objetos de ella**. ¿Cuánto cuesta alquilar un «vehículo» a secas? No se puede saber: depende de si es un coche o un camión. Una **clase abstracta** describe lo común y **deja sin implementar** lo que cada subclase debe resolver a su manera.
 
 - Se declara con `abstract`.
-- **No se puede instanciar**: `new Figura(...)` da error de compilación.
+- **No se puede instanciar**: `new Vehiculo(...)` da error de compilación.
 - Puede tener atributos, constructores y métodos normales.
 - Puede tener **métodos abstractos**: solo la firma, **sin cuerpo**, terminada en `;`.
 - Una subclase **debe implementar todos los métodos abstractos** o ser también abstracta.
 
 ```java
-// Figura.java
-public abstract class Figura {
+public abstract class Vehiculo {
+    // ... atributos y métodos normales, como antes ...
 
-    private final String nombre;
-
-    public Figura(String nombre) {
-        this.nombre = nombre;
-    }
-
-    // Método abstracto: cada figura sabe calcular su área
-    public abstract double area();
-
-    // Método normal, que usa el abstracto
-    public String describir() {
-        return nombre + " con área " + Math.round(area() * 100) / 100.0;
-    }
+    // Método abstracto: cada tipo de vehículo sabe calcular su coste
+    public abstract double costeAlquiler(int dias);
 }
 ```
 
 ```java
-// Circulo.java
-public class Circulo extends Figura {
-
-    private final double radio;
-
-    public Circulo(double radio) {
-        super("Círculo");
-        this.radio = radio;
-    }
-
+public class Coche extends Vehiculo {
+    // ...
     @Override
-    public double area() {
-        return Math.PI * radio * radio;
+    public double costeAlquiler(int dias) {
+        return 40.0 * dias;           // implementación propia del coche
     }
 }
 ```
 
-```java
-// Rectangulo.java
-public class Rectangulo extends Figura {
-
-    private final double base;
-    private final double altura;
-
-    public Rectangulo(double base, double altura) {
-        super("Rectángulo");
-        this.base = base;
-        this.altura = altura;
-    }
-
-    @Override
-    public double area() {
-        return base * altura;
-    }
-}
-```
-
-```java
-// PruebaFiguras.java
-public class PruebaFiguras {
-    public static void main(String[] args) {
-        // Figura f = new Figura("genérica");   // ERROR: Figura es abstracta
-        Figura[] figuras = { new Circulo(5), new Rectangulo(4, 3) };
-
-        for (Figura f : figuras) {
-            System.out.println(f.describir());
-        }
-    }
-}
-```
-
-```text
-Círculo con área 78.54
-Rectángulo con área 12.0
-```
-
-Observa que `describir()` está escrito **una sola vez**, en `Figura`, y llama a `area()` sin saber qué figura es. Cada objeto responde con su versión: polimorfismo otra vez.
+Los métodos normales de la clase abstracta pueden **usar** los abstractos sin saber cómo se implementan; cada subclase responde con su versión: polimorfismo otra vez.
 
 ## 5.4. Interfaces
 
 Una **interfaz** es un **contrato**: una lista de métodos que una clase se compromete a ofrecer, sin decir cómo. Se declara con `interface` y las clases que la cumplen la **implementan** con `implements`.
 
+Nuestra empresa no alquila solo vehículos: también **plazas de garaje**. Una plaza no es un vehículo, pero se alquila igual. Lo que tienen en común es la capacidad de calcular su coste de alquiler, así que lo expresamos como contrato:
+
 ```java
-// Pagable.java
-public interface Pagable {
-    double calcularPago();      // implícitamente público y abstracto
+// Alquilable.java
+public interface Alquilable {
+    double costeAlquiler(int dias);      // implícitamente público y abstracto
 }
 ```
 
-Cualquier clase que se declare `Pagable` debe proporcionar `calcularPago()`. Lo interesante es que **clases sin relación de herencia** pueden cumplir el mismo contrato. Un empleado se paga, pero también una factura de un proveedor:
+Cualquier clase que se declare `Alquilable` debe proporcionar `costeAlquiler`. Lo interesante es que **clases sin relación de herencia** pueden cumplir el mismo contrato:
 
 ```java
-// Factura.java
-public class Factura implements Pagable {
+// PlazaGaraje.java
+public class PlazaGaraje implements Alquilable {
 
-    private final String numero;
-    private final double importe;
+    private final String codigo;
 
-    public Factura(String numero, double importe) {
-        this.numero = numero;
-        this.importe = importe;
+    public PlazaGaraje(String codigo) {
+        this.codigo = codigo;
     }
 
-    public String getNumero() {
-        return numero;
+    public String getCodigo() {
+        return codigo;
     }
 
     @Override
-    public double calcularPago() {
-        return importe;
+    public double costeAlquiler(int dias) {
+        return 5.0 * dias;
     }
 }
 ```
 
-`Empleado` solo necesita declarar que implementa la interfaz (`Ejecutivo` la hereda de `Empleado`):
+`Vehiculo` cumple el contrato (y por eso lo declaramos abstracto: deja a sus subclases implementar el método). Estas son las clases con los cambios de este capítulo:
 
-??? note "Empleado.java con la interfaz `Pagable`"
+??? note "Vehiculo.java, Coche.java y Camion.java actualizados"
     ```java
-    // Empleado.java
-    public class Empleado extends Persona implements Pagable {
+    // Vehiculo.java
+    public abstract class Vehiculo implements Alquilable {
 
-        private String cargo;
-        private double sueldo;
+        private final String matricula;
+        private String marca;
+        private String modelo;
+        private String color;
+        private int potencia;
+        private int velocidad;
+        private boolean enMarcha;
 
-        public Empleado(String dni, String nombre, int edad, String estadoCivil,
-                        String cargo, double sueldo) {
-            super(dni, nombre, edad, estadoCivil);
-            this.cargo = cargo;
-            this.sueldo = sueldo;
+        public Vehiculo(String matricula, String marca, String modelo, String color, int potencia) {
+            if (potencia <= 0) {
+                throw new IllegalArgumentException("La potencia debe ser positiva");
+            }
+            this.matricula = matricula;
+            this.marca = marca;
+            this.modelo = modelo;
+            this.color = color;
+            this.potencia = potencia;
         }
 
-        public String getCargo() {
-            return cargo;
+        public void ponerEnMarcha() {
+            enMarcha = true;
         }
 
-        public double getSueldo() {
-            return sueldo;
+        public void parar() {
+            velocidad = 0;
+            enMarcha = false;
         }
 
-        public void subeSueldo(double cantidad) {
-            sueldo += cantidad;
+        public void acelerar(int incremento) {
+            if (incremento <= 0) {
+                throw new IllegalArgumentException("El incremento debe ser positivo");
+            }
+            if (!enMarcha) {
+                throw new IllegalStateException("El vehículo está parado: hay que ponerlo en marcha");
+            }
+            velocidad = Math.min(velocidad + incremento, getVelocidadMaxima());
         }
 
-        @Override
-        public double calcularPago() {
-            return sueldo;
+        public void frenar(int decremento) {
+            if (decremento <= 0) {
+                throw new IllegalArgumentException("El decremento debe ser positivo");
+            }
+            velocidad = Math.max(0, velocidad - decremento);
+        }
+
+        public int getVelocidadMaxima() {
+            return 180;
+        }
+
+        public String getMatricula() {
+            return matricula;
+        }
+
+        public String getMarca() {
+            return marca;
+        }
+
+        public String getModelo() {
+            return modelo;
+        }
+
+        public String getColor() {
+            return color;
+        }
+
+        public int getPotencia() {
+            return potencia;
+        }
+
+        public int getVelocidad() {
+            return velocidad;
+        }
+
+        public boolean isEnMarcha() {
+            return enMarcha;
+        }
+
+        public void pintar(String color) {
+            this.color = color;
         }
 
         @Override
         public String toString() {
-            return super.toString() + " | Empleado{cargo=" + cargo + ", sueldo=" + sueldo + "}";
+            return "Vehiculo{matricula=" + matricula + ", marca=" + marca + ", modelo=" + modelo
+                    + ", color=" + color + ", velocidad=" + velocidad + " km/h}";
         }
     }
     ```
 
-Ahora podemos tratar como `Pagable` a objetos totalmente distintos:
+    ```java
+    // Coche.java
+    public class Coche extends Vehiculo {
+
+        private final int numPuertas;
+
+        public Coche(String matricula, String marca, String modelo, String color,
+                     int potencia, int numPuertas) {
+            super(matricula, marca, modelo, color, potencia);
+            this.numPuertas = numPuertas;
+        }
+
+        public int getNumPuertas() {
+            return numPuertas;
+        }
+
+        @Override
+        public double costeAlquiler(int dias) {
+            return 40.0 * dias;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + " | Coche{puertas=" + numPuertas + "}";
+        }
+    }
+    ```
+
+    ```java
+    // Camion.java
+    public class Camion extends Vehiculo {
+
+        private final double cargaMaxima;
+
+        public Camion(String matricula, String marca, String modelo, String color,
+                      int potencia, double cargaMaxima) {
+            super(matricula, marca, modelo, color, potencia);
+            this.cargaMaxima = cargaMaxima;
+        }
+
+        public double getCargaMaxima() {
+            return cargaMaxima;
+        }
+
+        @Override
+        public int getVelocidadMaxima() {
+            return 90;
+        }
+
+        @Override
+        public double costeAlquiler(int dias) {
+            return 85.0 * dias + 50.0;       // tarifa diaria + seguro fijo
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + " | Camion{cargaMaxima=" + cargaMaxima + " kg}";
+        }
+    }
+    ```
+
+Ahora podemos tratar como `Alquilable` a objetos totalmente distintos:
 
 ```java
-// PruebaPagos.java
-public class PruebaPagos {
+// PruebaAlquiler.java
+public class PruebaAlquiler {
     public static void main(String[] args) {
-        Pagable[] pagos = {
-            new Factura("F-001", 250.0),
-            new Empleado("452697419Z", "Maria", 25, "soltera", "Programadora", 1000),
-            new Ejecutivo("987654321X", "Lucía", 48, "casada", "Directora", 3000, 500)
-        };
+        Coche coche = new Coche("5671BCD", "Ford", "Focus", "rojo", 130, 5);
+        Camion camion = new Camion("1234XYZ", "Volvo", "FH", "blanco", 460, 18000);
 
-        double total = 0;
-        for (Pagable p : pagos) {
-            total += p.calcularPago();
+        // Polimorfismo por herencia: Vehiculo
+        Vehiculo[] flota = { coche, camion };
+        for (Vehiculo v : flota) {
+            System.out.println(v.getMatricula() + ": " + v.costeAlquiler(3) + " EUR");
         }
-        System.out.println("Total a pagar: " + total);
+
+        // Polimorfismo por interfaz: objetos sin relación de herencia
+        Alquilable[] catalogo = { coche, camion, new PlazaGaraje("P-12") };
+        double total = 0;
+        for (Alquilable a : catalogo) {
+            total += a.costeAlquiler(3);
+        }
+        System.out.println("Total 3 días: " + total + " EUR");
     }
 }
 ```
 
 ```text
-Total a pagar: 4750.0
+5671BCD: 120.0 EUR
+1234XYZ: 305.0 EUR
+Total 3 días: 440.0 EUR
 ```
 
 Una clase **puede implementar varias interfaces** (`class A implements X, Y`). Así Java ofrece parte de lo que aportaría la herencia múltiple sin sus conflictos: las interfaces solo declaran *qué* hay que hacer, no *cómo*, de modo que no hay implementaciones que choquen.
@@ -298,26 +359,21 @@ Una **clase abstracta** se marca con el estereotipo `<<abstract>>` (en muchas he
 
 ```mermaid
 classDiagram
-    class Figura {
-        <<abstract>>
-        -String nombre
-        +area() double
-        +describir() String
-    }
-    Figura <|-- Circulo
-    Figura <|-- Rectangulo
-```
-
-```mermaid
-classDiagram
-    class Pagable {
+    class Alquilable {
         <<interface>>
-        +calcularPago() double
+        +costeAlquiler(int dias) double
     }
-    Persona <|-- Empleado
-    Empleado <|-- Ejecutivo
-    Pagable <|.. Empleado
-    Pagable <|.. Factura
+    class Vehiculo {
+        <<abstract>>
+        -String matricula
+        -int velocidad
+        +acelerar(int incremento) void
+        +getVelocidadMaxima() int
+    }
+    Alquilable <|.. Vehiculo
+    Alquilable <|.. PlazaGaraje
+    Vehiculo <|-- Coche
+    Vehiculo <|-- Camion
 ```
 
 ## Resumen del capítulo
@@ -330,61 +386,63 @@ classDiagram
 
 ## Actividades
 
-**Actividad 1.** Dado `Persona p = new Empleado(...);`, indica si compilan estas líneas: (a) `p.getNombre();` (b) `p.getCargo();` (c) `((Empleado) p).getCargo();`
+**Actividad 1.** Dado `Vehiculo v = new Coche(...);`, indica si compilan estas líneas: (a) `v.getMarca();` (b) `v.getNumPuertas();` (c) `((Coche) v).getNumPuertas();`
 
 ??? success "Solución"
-    - (a) **Sí**: `getNombre()` está en `Persona`.
-    - (b) **No**: la variable es de tipo `Persona`, que no tiene `getCargo()`.
-    - (c) **Sí**: la conversión a `Empleado` permite usar los métodos de `Empleado`. Funciona porque el objeto real es un `Empleado`.
+    - (a) **Sí**: `getMarca()` está en `Vehiculo`.
+    - (b) **No**: la variable es de tipo `Vehiculo`, que no tiene `getNumPuertas()`.
+    - (c) **Sí**: la conversión a `Coche` permite usar los métodos de `Coche`. Funciona porque el objeto real es un `Coche`.
 
-**Actividad 2.** Añade a la jerarquía de figuras la clase `Triangulo` (con `base` y `altura`) y comprueba que `PruebaFiguras` funciona con ella **sin modificar** la clase `Figura`.
-
-??? success "Solución"
-    ```java
-    // Triangulo.java
-    public class Triangulo extends Figura {
-
-        private final double base;
-        private final double altura;
-
-        public Triangulo(double base, double altura) {
-            super("Triángulo");
-            this.base = base;
-            this.altura = altura;
-        }
-
-        @Override
-        public double area() {
-            return base * altura / 2;
-        }
-    }
-    ```
-    Basta con añadir `new Triangulo(6, 5)` al array: `describir()` imprimirá `Triángulo con área 15.0`.
-
-**Actividad 3.** Un `Autonomo` cobra por horas (`horas * precioHora`). Haz que pueda incluirse en el array `Pagable[]` del ejemplo sin que sea ni `Empleado` ni `Factura`.
+**Actividad 2.** Añade la clase `Moto` (con un atributo `cilindrada`) cuyo alquiler cuesta 30 € al día. Comprueba que se puede añadir al array `flota` del ejemplo **sin modificar** la clase `Vehiculo`.
 
 ??? success "Solución"
     ```java
-    // Autonomo.java
-    public class Autonomo implements Pagable {
-        private final String nombre;
-        private final double horas;
-        private final double precioHora;
+    // Moto.java
+    public class Moto extends Vehiculo {
 
-        public Autonomo(String nombre, double horas, double precioHora) {
-            this.nombre = nombre;
-            this.horas = horas;
-            this.precioHora = precioHora;
+        private final int cilindrada;
+
+        public Moto(String matricula, String marca, String modelo, String color,
+                    int potencia, int cilindrada) {
+            super(matricula, marca, modelo, color, potencia);
+            this.cilindrada = cilindrada;
         }
 
-        public String getNombre() {
-            return nombre;
+        public int getCilindrada() {
+            return cilindrada;
         }
 
         @Override
-        public double calcularPago() {
-            return horas * precioHora;
+        public double costeAlquiler(int dias) {
+            return 30.0 * dias;
         }
     }
     ```
-    Como implementa `Pagable`, un `Autonomo` se puede añadir al array sin tocar el resto del código.
+    Basta con añadir `new Moto("9999ZZZ", "Honda", "CBR", "negro", 60, 500)` al array: el bucle llama a `costeAlquiler(3)` y la moto responde con su versión (`90.0`).
+
+**Actividad 3.** Un `Remolque` se alquila por un precio fijo diario, pero **no es un vehículo** (no tiene motor ni velocidad). Haz que pueda incluirse en el array `Alquilable[]` del ejemplo.
+
+??? success "Solución"
+    ```java
+    // Remolque.java
+    public class Remolque implements Alquilable {
+
+        private final String codigo;
+        private final double precioDia;
+
+        public Remolque(String codigo, double precioDia) {
+            this.codigo = codigo;
+            this.precioDia = precioDia;
+        }
+
+        public String getCodigo() {
+            return codigo;
+        }
+
+        @Override
+        public double costeAlquiler(int dias) {
+            return precioDia * dias;
+        }
+    }
+    ```
+    Como implementa `Alquilable`, un `Remolque` se puede añadir al array sin tocar el resto del código y sin que tenga que heredar de `Vehiculo`.

@@ -11,6 +11,7 @@ theme:
   features:
     - navigation.top
     - navigation.indexes
+    - navigation.expand
     - toc.follow
     - search.suggest
     - search.highlight
@@ -55,14 +56,18 @@ markdown_extensions:
 
 nav:
   - Inicio: index.md
-  - "1. Objetos": capitulos/01-objetos.md
-  - "2. Clases": capitulos/02-clases.md
-  - "3. Encapsulación": capitulos/03-encapsulacion.md
-  - "4. Herencia": capitulos/04-herencia.md
-  - "5. Polimorfismo": capitulos/05-polimorfismo.md
-  - "6. Relaciones entre objetos": capitulos/06-relaciones.md
-  - "7. Caso práctico integrado": capitulos/07-caso-practico.md
-  - "8. Puente hacia UML": capitulos/08-puente-uml.md
+  - "Parte I · Elementos de la POO":
+      - "1. Clases": capitulos/01-clases.md
+      - "2. Objetos": capitulos/02-objetos.md
+  - "Parte II · Principios de la POO":
+      - "3. Encapsulación": capitulos/03-encapsulacion.md
+      - "4. Herencia": capitulos/04-herencia.md
+      - "5. Polimorfismo": capitulos/05-polimorfismo.md
+  - "Parte III · Relaciones entre objetos":
+      - "6. Relaciones entre objetos": capitulos/06-relaciones.md
+  - "Parte IV · Puesta en práctica":
+      - "7. Caso práctico integrado": capitulos/07-caso-practico.md
+      - "8. Puente hacia UML": capitulos/08-puente-uml.md
   - Anexos:
       - "Glosario": anexos/glosario.md
       - "Resumen de una página": anexos/resumen.md

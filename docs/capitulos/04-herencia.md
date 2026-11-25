@@ -2,30 +2,31 @@
 
 ## 4.1. Agrupar clases: superclases y subclases
 
-En el [capítulo 2](02-clases.md) vimos que los objetos con la misma estructura y comportamiento se agrupan en clases. Pero las **clases** también se parecen entre sí y pueden reagruparse. Automóviles, autocares y camiones son clases distintas, pero todos son **vehículos**: tienen matrícula, marca, velocidad y pueden acelerar y frenar.
+En el [capítulo 1](01-clases.md) vimos que los objetos con la misma estructura y comportamiento se agrupan en clases. Pero las **clases** también se parecen entre sí y pueden reagruparse. Imagina que nuestra empresa de alquiler incorpora **camiones**. Un camión también tiene matrícula, marca, velocidad y puede acelerar y frenar, igual que un coche. Copiar todo el código de `Coche` en una clase `Camion` sería un error: cualquier cambio habría que hacerlo dos veces.
 
-La **herencia** es el mecanismo por el que una clase (la **subclase** o clase derivada) **reutiliza los atributos y métodos** de otra (la **superclase** o clase base), y puede añadir los suyos o modificar los heredados.
+La solución es la **herencia**: una clase (la **subclase** o clase derivada) **reutiliza los atributos y métodos** de otra (la **superclase** o clase base) y puede añadir los suyos o modificar los heredados. Extraemos lo común a una clase `Vehiculo`, y `Coche` y `Camion` se limitan a añadir lo que los distingue.
 
 ```mermaid
 classDiagram
     class Vehiculo {
         -String matricula
         -String marca
-        -double velocidad
-        +acelerar() void
-        +frenar() void
+        -String modelo
+        -String color
+        -int potencia
+        -int velocidad
+        -boolean enMarcha
+        +ponerEnMarcha() void
+        +acelerar(int incremento) void
+        +frenar(int decremento) void
     }
-    class Automovil {
-        -boolean llantasAleacion
-    }
-    class Autocar {
-        -int numPasajeros
+    class Coche {
+        -int numPuertas
     }
     class Camion {
-        -double pesoCarga
+        -double cargaMaxima
     }
-    Vehiculo <|-- Automovil
-    Vehiculo <|-- Autocar
+    Vehiculo <|-- Coche
     Vehiculo <|-- Camion
 ```
 
@@ -36,7 +37,7 @@ Lo común (`matricula`, `acelerar()`...) se define **una sola vez** en `Vehiculo
 
 ## 4.2. La relación «es-un»
 
-La herencia modela una relación **«es-un»** (*is-a*): un automóvil **es un** vehículo; un empleado **es una** persona. Este es el test para saber si la herencia tiene sentido:
+La herencia modela una relación **«es-un»** (*is-a*): un coche **es un** vehículo; un camión **es un** vehículo. Este es el test para saber si la herencia tiene sentido:
 
 > Si puedes decir «*la subclase* **es un** *la superclase*» sin que suene raro, la herencia es adecuada.
 
@@ -47,56 +48,138 @@ Una subclase hereda **todo lo que es de la superclase** y, además, puede:
 
 ## 4.3. Herencia en Java: `extends`
 
-En Java se hereda con la palabra clave `extends`:
+En Java se hereda con la palabra clave `extends`. Primero, la superclase `Vehiculo`, con lo común a todos los vehículos. Es el `Coche` del capítulo 3 sin la parte específica de los coches (observa el método `getVelocidadMaxima()`, que usaremos enseguida):
 
 ```java
-public class Empleado extends Persona {
-    // ...
-}
-```
+// Vehiculo.java
+public class Vehiculo {
 
-`Empleado` **hereda** de `Persona` todos sus atributos y métodos. Un objeto `Empleado` tiene `dni`, `nombre`, `edad` y `estadoCivil` aunque no los haya escrito en su clase, y puede recibir mensajes como `getNombre()` o `cumpleanos()`.
+    private final String matricula;
+    private String marca;
+    private String modelo;
+    private String color;
+    private int potencia;
+    private int velocidad;
+    private boolean enMarcha;
 
-!!! warning "Heredar no es poder acceder"
-    Los atributos de `Persona` son `private`. El objeto `Empleado` **los contiene**, pero el código de `Empleado` no puede escribir `nombre` directamente: debe usar los métodos públicos heredados (`getNombre()`). Es la encapsulación del [capítulo 3](03-encapsulacion.md) en acción. Si quisieras que las subclases accedan directamente, usarías `protected`, pero se recomienda evitarlo salvo necesidad.
-
-## 4.4. Constructores y `super`
-
-Los **constructores no se heredan**. Cada clase tiene los suyos. Como un `Empleado` es, ante todo, una `Persona`, al crearlo hay que construir primero esa parte: la subclase **debe invocar un constructor de la superclase** con `super(...)`, y debe ser la **primera sentencia** del constructor.
-
-```java
-// Empleado.java
-public class Empleado extends Persona {
-
-    private String cargo;
-    private double sueldo;
-
-    public Empleado(String dni, String nombre, int edad, String estadoCivil,
-                    String cargo, double sueldo) {
-        super(dni, nombre, edad, estadoCivil);   // construye la parte Persona
-        this.cargo = cargo;
-        this.sueldo = sueldo;
+    public Vehiculo(String matricula, String marca, String modelo, String color, int potencia) {
+        if (potencia <= 0) {
+            throw new IllegalArgumentException("La potencia debe ser positiva");
+        }
+        this.matricula = matricula;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.color = color;
+        this.potencia = potencia;
     }
 
-    public String getCargo() {
-        return cargo;
+    public void ponerEnMarcha() {
+        enMarcha = true;
     }
 
-    public double getSueldo() {
-        return sueldo;
+    public void parar() {
+        velocidad = 0;
+        enMarcha = false;
     }
 
-    public void subeSueldo(double cantidad) {
-        sueldo += cantidad;
+    public void acelerar(int incremento) {
+        if (incremento <= 0) {
+            throw new IllegalArgumentException("El incremento debe ser positivo");
+        }
+        if (!enMarcha) {
+            throw new IllegalStateException("El vehículo está parado: hay que ponerlo en marcha");
+        }
+        velocidad = Math.min(velocidad + incremento, getVelocidadMaxima());
     }
 
-    public double calcularPago() {
-        return sueldo;
+    public void frenar(int decremento) {
+        if (decremento <= 0) {
+            throw new IllegalArgumentException("El decremento debe ser positivo");
+        }
+        velocidad = Math.max(0, velocidad - decremento);
+    }
+
+    // Velocidad máxima por defecto; las subclases pueden redefinirla
+    public int getVelocidadMaxima() {
+        return 180;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public int getPotencia() {
+        return potencia;
+    }
+
+    public int getVelocidad() {
+        return velocidad;
+    }
+
+    public boolean isEnMarcha() {
+        return enMarcha;
+    }
+
+    public void pintar(String color) {
+        this.color = color;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " | Empleado{cargo=" + cargo + ", sueldo=" + sueldo + "}";
+        return "Vehiculo{matricula=" + matricula + ", marca=" + marca + ", modelo=" + modelo
+                + ", color=" + color + ", velocidad=" + velocidad + " km/h}";
+    }
+}
+```
+
+Ahora `Coche` hereda de `Vehiculo`:
+
+```java
+public class Coche extends Vehiculo {
+    // ...
+}
+```
+
+`Coche` **hereda** de `Vehiculo` todos sus atributos y métodos. Un objeto `Coche` tiene matrícula, marca, velocidad... aunque no los haya escrito en su clase, y puede recibir mensajes como `acelerar()` o `pintar()`.
+
+!!! warning "Heredar no es poder acceder"
+    Los atributos de `Vehiculo` son `private`. El objeto `Coche` **los contiene**, pero el código de `Coche` no puede escribir `velocidad` directamente: debe usar los métodos públicos heredados (`getVelocidad()`). Es la encapsulación del [capítulo 3](03-encapsulacion.md) en acción. Si quisieras que las subclases accedan directamente, usarías `protected`, pero se recomienda evitarlo salvo necesidad.
+
+## 4.4. Constructores y `super`
+
+Los **constructores no se heredan**. Cada clase tiene los suyos. Como un `Coche` es, ante todo, un `Vehiculo`, al crearlo hay que construir primero esa parte: la subclase **debe invocar un constructor de la superclase** con `super(...)`, y debe ser la **primera sentencia** del constructor.
+
+```java
+// Coche.java
+public class Coche extends Vehiculo {
+
+    private final int numPuertas;
+
+    public Coche(String matricula, String marca, String modelo, String color,
+                 int potencia, int numPuertas) {
+        super(matricula, marca, modelo, color, potencia);   // construye la parte Vehiculo
+        this.numPuertas = numPuertas;
+    }
+
+    public int getNumPuertas() {
+        return numPuertas;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " | Coche{puertas=" + numPuertas + "}";
     }
 }
 ```
@@ -104,7 +187,7 @@ public class Empleado extends Persona {
 Si no escribes la llamada a `super(...)`, el compilador añade `super();` por su cuenta. Eso solo funciona si la superclase tiene un constructor **sin parámetros**; si no, obtendrás un error de compilación:
 
 ```text
-error: constructor Persona in class Persona cannot be applied to given types;
+error: constructor Vehiculo in class Vehiculo cannot be applied to given types;
 ```
 
 !!! info "Orden de construcción"
@@ -114,34 +197,34 @@ error: constructor Persona in class Persona cannot be applied to given types;
 
 Una subclase puede **redefinir** (o *sobrescribir*) un método heredado escribiendo otro con **la misma firma** (mismo nombre y mismos parámetros). Se recomienda marcarlo con `@Override`: si te equivocas en la firma, el compilador te avisa.
 
-Para reutilizar el comportamiento de la superclase dentro del método redefinido se usa `super.nombreMetodo(...)`. Lo hemos hecho en `Empleado.toString()`, que completa el texto de `Persona.toString()`.
+Para reutilizar el comportamiento de la superclase dentro del método redefinido se usa `super.nombreMetodo(...)`. Lo hemos hecho en `Coche.toString()`, que completa el texto de `Vehiculo.toString()`.
 
-Veamos una nueva subclase, `Ejecutivo`, que cobra además un *bonus*:
+Un camión es más lento que un coche: su velocidad máxima es 90 km/h. `Camion` **redefine** `getVelocidadMaxima()`:
 
 ```java
-// Ejecutivo.java
-public class Ejecutivo extends Empleado {
+// Camion.java
+public class Camion extends Vehiculo {
 
-    private double bonus;
+    private final double cargaMaxima;      // en kg
 
-    public Ejecutivo(String dni, String nombre, int edad, String estadoCivil,
-                     String cargo, double sueldo, double bonus) {
-        super(dni, nombre, edad, estadoCivil, cargo, sueldo);
-        this.bonus = bonus;
+    public Camion(String matricula, String marca, String modelo, String color,
+                  int potencia, double cargaMaxima) {
+        super(matricula, marca, modelo, color, potencia);
+        this.cargaMaxima = cargaMaxima;
     }
 
-    public double getBonus() {
-        return bonus;
+    public double getCargaMaxima() {
+        return cargaMaxima;
     }
 
     @Override
-    public double calcularPago() {
-        return super.calcularPago() + bonus;     // sueldo + bonus
+    public int getVelocidadMaxima() {
+        return 90;                         // redefine el valor de Vehiculo (180)
     }
 
     @Override
     public String toString() {
-        return super.toString() + " | Ejecutivo{bonus=" + bonus + "}";
+        return super.toString() + " | Camion{cargaMaxima=" + cargaMaxima + " kg}";
     }
 }
 ```
@@ -150,24 +233,30 @@ public class Ejecutivo extends Empleado {
 // PruebaHerencia.java
 public class PruebaHerencia {
     public static void main(String[] args) {
-        Empleado emp = new Empleado("452697419Z", "Maria", 25, "soltera", "Programadora", 1000);
-        Ejecutivo eje = new Ejecutivo("987654321X", "Lucía", 48, "casada", "Directora", 3000, 500);
+        Coche coche = new Coche("5671BCD", "Ford", "Focus", "rojo", 130, 5);
+        Camion camion = new Camion("1234XYZ", "Volvo", "FH", "blanco", 460, 18000);
 
-        emp.cumpleanos();                       // método heredado de Persona
-        System.out.println(emp.getNombre() + " tiene " + emp.getEdad() + " años");
-        System.out.println(emp.getNombre() + " cobra " + emp.calcularPago());
-        System.out.println(eje.getNombre() + " cobra " + eje.calcularPago());
-        System.out.println(eje);
+        coche.ponerEnMarcha();
+        camion.ponerEnMarcha();
+        coche.acelerar(200);               // acelerar() está en Vehiculo
+        camion.acelerar(200);
+
+        System.out.println("Coche: " + coche.getVelocidad() + " km/h");
+        System.out.println("Camión: " + camion.getVelocidad() + " km/h");
+
+        coche.pintar("negro");             // método heredado
+        System.out.println(coche);
     }
 }
 ```
 
 ```text
-Maria tiene 26 años
-Maria cobra 1000.0
-Lucía cobra 3500.0
-Persona{dni=987654321X, nombre=Lucía, edad=48, estadoCivil=casada} | Empleado{cargo=Directora, sueldo=3000.0} | Ejecutivo{bonus=500.0}
+Coche: 180 km/h
+Camión: 90 km/h
+Vehiculo{matricula=5671BCD, marca=Ford, modelo=Focus, color=negro, velocidad=180 km/h} | Coche{puertas=5}
 ```
+
+Ambos reciben el mismo mensaje `acelerar(200)`, pero el coche llega a 180 y el camión se queda en 90. Si te preguntas cómo lo logra el método `acelerar()` de `Vehiculo`, lo verás en el [capítulo 5](05-polimorfismo.md).
 
 !!! note "Redefinir no es sobrecargar"
     | | Sobrecarga (*overload*) | Redefinición (*override*) |
@@ -178,7 +267,7 @@ Persona{dni=987654321X, nombre=Lucía, edad=48, estadoCivil=casada} | Empleado{c
 
 ### Cómo se busca un método
 
-Cuando un objeto recibe un mensaje, Java busca el método **en su propia clase** y, si no lo encuentra, **sube por la jerarquía**: primero la superclase, luego la superclase de ésta, y así sucesivamente. Si `eje.getNombre()` no está en `Ejecutivo` ni en `Empleado`, se encuentra en `Persona`.
+Cuando un objeto recibe un mensaje, Java busca el método **en su propia clase** y, si no lo encuentra, **sube por la jerarquía**: primero la superclase, luego la superclase de ésta, y así sucesivamente. Si `coche.pintar("negro")` no está en `Coche`, se encuentra en `Vehiculo`.
 
 Todas las clases de Java heredan, en última instancia, de la clase `Object`, que es la raíz de la jerarquía. Por eso todos los objetos tienen `toString()`, aunque no lo hayas escrito.
 
@@ -189,7 +278,7 @@ Todas las clases de Java heredan, en última instancia, de la clase `Object`, qu
 
 ## 4.6. Herencia simple y múltiple
 
-- **Herencia simple:** una clase hereda de **una única** superclase. Es el caso de `Empleado` respecto a `Persona`.
+- **Herencia simple:** una clase hereda de **una única** superclase. Es el caso de `Coche` respecto a `Vehiculo`.
 - **Herencia múltiple:** una clase hereda de **varias** superclases a la vez.
 
 ```mermaid
@@ -229,26 +318,25 @@ La herencia (**generalización**) se dibuja con una **flecha de línea continua 
 
 ```mermaid
 classDiagram
-    class Persona {
-        -String dni
-        -String nombre
-        -int edad
-        +cumpleanos() void
+    class Vehiculo {
+        -String matricula
+        -String marca
+        -int velocidad
+        +acelerar(int incremento) void
+        +getVelocidadMaxima() int
     }
-    class Empleado {
-        -String cargo
-        -double sueldo
-        +calcularPago() double
+    class Coche {
+        -int numPuertas
     }
-    class Ejecutivo {
-        -double bonus
-        +calcularPago() double
+    class Camion {
+        -double cargaMaxima
+        +getVelocidadMaxima() int
     }
-    Persona <|-- Empleado
-    Empleado <|-- Ejecutivo
+    Vehiculo <|-- Coche
+    Vehiculo <|-- Camion
 ```
 
-En el diagrama solo aparecen los elementos **propios** de cada clase; lo heredado no se repite. `Ejecutivo` vuelve a mostrar `calcularPago()` porque lo **redefine**.
+En el diagrama solo aparecen los elementos **propios** de cada clase; lo heredado no se repite. `Camion` vuelve a mostrar `getVelocidadMaxima()` porque lo **redefine**.
 
 ## Resumen del capítulo
 
@@ -261,34 +349,29 @@ En el diagrama solo aparecen los elementos **propios** de cada clase; lo heredad
 
 ## Actividades
 
-**Actividad 1.** Indica en cuáles de estas parejas tiene sentido la herencia y justifica con el test «es-un»: (a) `Estudiante` / `Persona`; (b) `Coche` / `Motor`; (c) `Cuadrado` / `Figura`; (d) `Pila` / `ArrayList`.
+**Actividad 1.** Indica en cuáles de estas parejas tiene sentido la herencia y justifica con el test «es-un»: (a) `Furgoneta` / `Vehiculo`; (b) `Coche` / `Motor`; (c) `Moto` / `Vehiculo`; (d) `Flota` / `Vehiculo`.
 
 ??? success "Solución"
-    - (a) **Sí**: un estudiante *es una* persona.
+    - (a) **Sí**: una furgoneta *es un* vehículo.
     - (b) **No**: un coche *tiene un* motor. Es composición, no herencia.
-    - (c) **Sí**: un cuadrado *es una* figura.
-    - (d) **No**: una pila *no es* una lista; heredaría métodos (insertar en medio, por ejemplo) que no tienen sentido en una pila. Es mejor que la pila *use* una lista internamente.
+    - (c) **Sí**: una moto *es un* vehículo.
+    - (d) **No**: una flota *no es* un vehículo; *está formada por* vehículos. Es una agregación.
 
-**Actividad 2.** Escribe la clase `Profesor`, subclase de `Persona`, con un atributo `modulo` y un `toString()` que reutilice el de `Persona`.
+**Actividad 2.** Escribe la clase `Furgoneta`, un tipo de camión ligero: subclase de `Camion`, cuya velocidad máxima es 130 km/h.
 
 ??? success "Solución"
     ```java
-    // Profesor.java
-    public class Profesor extends Persona {
-        private String modulo;
+    // Furgoneta.java
+    public class Furgoneta extends Camion {
 
-        public Profesor(String dni, String nombre, int edad, String estadoCivil, String modulo) {
-            super(dni, nombre, edad, estadoCivil);
-            this.modulo = modulo;
-        }
-
-        public String getModulo() {
-            return modulo;
+        public Furgoneta(String matricula, String marca, String modelo, String color,
+                         int potencia, double cargaMaxima) {
+            super(matricula, marca, modelo, color, potencia, cargaMaxima);
         }
 
         @Override
-        public String toString() {
-            return super.toString() + " | Profesor{modulo=" + modulo + "}";
+        public int getVelocidadMaxima() {
+            return 130;
         }
     }
     ```

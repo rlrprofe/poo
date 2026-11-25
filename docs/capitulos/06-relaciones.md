@@ -2,369 +2,533 @@
 
 ## 6.1. Más allá de la herencia
 
-Los objetos no viven aislados. Además de tener atributos, métodos y estar organizados en jerarquías de herencia, se **relacionan con otros objetos**: un empleado trabaja en un departamento, un pedido contiene líneas, un informe usa los datos de un empleado.
+Hasta ahora hemos visto una relación entre **clases**: la herencia («un `Coche` *es un* `Vehiculo`»). Pero un programa real está formado por objetos que **colaboran** entre sí, y esa colaboración también hay que modelarla.
 
-En este capítulo veremos las relaciones más importantes entre clases:
+Pensemos en nuestra empresa de alquiler:
 
-| Relación | Idea | Ejemplo |
+- Un conductor tiene asignado un vehículo.
+- Una flota agrupa muchos vehículos.
+- Un alquiler incluye extras (GPS, silla infantil…).
+- Una estación de ITV inspecciona vehículos.
+
+En ninguno de estos casos hay un «es-un». Son relaciones de tipo «**tiene-un**» o «**usa-un**», y se resuelven casi siempre de la misma manera en Java: **un objeto guarda una referencia a otro** (como atributo) o **lo recibe como parámetro**.
+
+| Relación | Pregunta que la identifica | Ejemplo |
 |---|---|---|
-| **Asociación** | A conoce a B | Un empleado pertenece a un departamento |
-| **Agregación** | A está formada por B, pero B existe por sí mismo | Un equipo y sus jugadores |
-| **Composición** | A está formada por B y B no existe sin A | Un pedido y sus líneas |
-| **Dependencia** | A usa a B de forma puntual | Un informe recibe un empleado |
+| **Herencia** | ¿X *es un* Y? | Un `Coche` es un `Vehiculo` |
+| **Asociación** | ¿X *conoce / usa* a Y de forma duradera? | Un `Conductor` tiene asignado un `Vehiculo` |
+| **Agregación** | ¿X *agrupa* a Y, pero Y puede existir sin X? | Una `Flota` agrupa `Vehiculo`s |
+| **Composición** | ¿Y *forma parte* de X y no tiene sentido sin X? | Un `Alquiler` tiene `Extra`s |
+| **Dependencia** | ¿X *usa* a Y solo en un momento concreto? | Una `EstacionITV` inspecciona un `Vehiculo` |
 
-La herencia ([capítulo 4](04-herencia.md)) es otra relación entre clases, de tipo «es-un». Las de este capítulo son de tipo «**tiene-un**» o «**usa-un**».
+Las cuatro últimas, de la más débil a la más fuerte, son las **relaciones entre objetos**. Las vemos una a una.
 
 ## 6.2. Asociación
 
-Una **asociación** es una relación estructural que describe una **conexión duradera** entre los objetos de dos clases: los objetos se unen para trabajar juntos. Algunos ejemplos:
-
-| Clase | Clase |
-|---|---|
-| Empleado | Departamento |
-| Cliente | Póliza |
-| Conductor | Vehículo |
-| Producto | Pedido |
-
-En Java se implementa **insertando en una clase un atributo cuyo tipo es la otra clase**:
+La **asociación** es la relación más general: un objeto **conoce a otro** y puede enviarle mensajes durante su vida. En Java se implementa con un **atributo cuyo tipo es otra clase**.
 
 ```java
-public class Empleado extends Persona {
+// Conductor.java
+public class Conductor {
 
-    private String cargo;
-    private double sueldo;
-    private Departamento departamento;      // asociación: Empleado → Departamento
-
-    // ...
-
-    public Departamento getDepartamento() {
-        return departamento;
-    }
-}
-```
-
-Una asociación puede ser **unidireccional** (solo `Empleado` conoce a su `Departamento`) o **bidireccional** (el `Departamento` también conoce a sus empleados). Es preferible la más sencilla que resuelva el problema: la bidireccional obliga a mantener coherentes las dos referencias.
-
-## 6.3. Cardinalidad
-
-Las asociaciones (y las agregaciones y composiciones) tienen **cardinalidad** o **multiplicidad**: cuántos objetos de una clase se relacionan con **un** objeto de la otra.
-
-| Notación | Significado |
-|:---:|---|
-| `1` | Exactamente uno |
-| `0..1` | Cero o uno (opcional) |
-| `*` o `0..*` | Cero o más |
-| `1..*` | Uno o más |
-| `n..m` | Entre `n` y `m` |
-
-El número que aparece **junto a una clase** indica cuántos objetos **de esa clase** intervienen por cada objeto de la otra.
-
-```mermaid
-classDiagram
-    Empleado "1..*" -- "1" Departamento : trabaja en
-    Producto "1..*" -- "0..*" Pedido : contiene
-    Cliente "1..*" -- "1..*" Cuenta : titular de
-```
-
-Se lee así:
-
-- **Empleado / Departamento:** cada departamento tiene uno o más empleados y cada empleado pertenece a **un** departamento.
-- **Producto / Pedido:** un pedido contiene uno o más productos; un producto puede estar en cero o más pedidos.
-- **Cliente / Cuenta:** un cliente es titular de una o más cuentas, y una cuenta puede tener varios titulares (cuenta compartida).
-
-!!! tip "Cardinalidad y código"
-    Si el máximo es **1**, basta con un atributo simple (`Departamento departamento`). Si el máximo es **muchos** (`*`, `1..*`), el atributo es una **colección** (`List<Jugador> jugadores`).
-
-Por ejemplo, un `Cliente` con varias `Cuenta`:
-
-```java
-// Cliente.java
-import java.util.ArrayList;
-import java.util.List;
-
-public class Cliente {
-
+    private final String dni;
     private final String nombre;
-    private final List<Cuenta> cuentas = new ArrayList<>();   // cardinalidad 1..*
+    private Vehiculo vehiculoAsignado;      // asociación: 0 ó 1 vehículo
 
-    public Cliente(String nombre) {
+    public Conductor(String dni, String nombre) {
+        this.dni = dni;
         this.nombre = nombre;
     }
 
-    public void abrirCuenta(Cuenta cuenta) {
-        cuentas.add(cuenta);
+    public String getDni() {
+        return dni;
     }
 
-    public double getSaldoTotal() {
-        double total = 0;
-        for (Cuenta c : cuentas) {
-            total += c.getSaldo();
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Vehiculo getVehiculoAsignado() {
+        return vehiculoAsignado;
+    }
+
+    public void asignar(Vehiculo vehiculo) {
+        this.vehiculoAsignado = vehiculo;
+    }
+
+    public void liberarVehiculo() {
+        this.vehiculoAsignado = null;
+    }
+
+    public String describirAsignacion() {
+        if (vehiculoAsignado == null) {
+            return nombre + " no tiene vehículo asignado";
         }
-        return total;
-    }
-
-    public String getNombre() {
-        return nombre;
+        return nombre + " conduce " + vehiculoAsignado.getMarca() + " "
+                + vehiculoAsignado.getModelo() + " (" + vehiculoAsignado.getMatricula() + ")";
     }
 }
 ```
 
-## 6.4. Agregación y composición
-
-Cuando una clase está **estructuralmente compuesta** por objetos de otra u otras clases hablamos de una relación **parte-todo**: el objeto compuesto (el «todo») está formado por otros objetos (las «partes»). Hay dos grados:
-
-| | Agregación | Composición |
-|---|---|---|
-| **Vínculo** | Débil | Fuerte |
-| **¿Puede existir la parte sin el todo?** | **Sí** | **No** |
-| **¿Quién crea las partes?** | Se crean fuera y se **reciben** | El todo las **crea** y las controla |
-| **Si el todo desaparece...** | Las partes siguen existiendo | Las partes desaparecen con él |
-| **Ejemplo** | Equipo → Jugador | Pedido → LíneaPedido |
-
-### Agregación: un equipo y sus jugadores
-
-Un jugador existe independientemente del equipo: puede cambiar de equipo o no tener ninguno. El equipo **recibe** jugadores ya creados:
+Fíjate en que el atributo guarda una **referencia** ([sección 2.5](02-objetos.md)): el conductor no *contiene* una copia del coche, sino que **apunta al mismo objeto**. Y como puede no tener vehículo, el método `describirAsignacion()` comprueba `null` antes de usarlo.
 
 ```java
-// Jugador.java
-public class Jugador {
-
-    private final String nombre;
-
-    public Jugador(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-}
-```
-
-```java
-// Equipo.java
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-public class Equipo {
-
-    private final String nombre;
-    private final List<Jugador> jugadores = new ArrayList<>();
-
-    public Equipo(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void fichar(Jugador jugador) {          // recibe un jugador YA creado
-        jugadores.add(jugador);
-    }
-
-    public void despedir(Jugador jugador) {
-        jugadores.remove(jugador);
-    }
-
-    public List<Jugador> getJugadores() {
-        return Collections.unmodifiableList(jugadores);
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-}
-```
-
-### Composición: un pedido y sus líneas
-
-Una línea de pedido solo tiene sentido dentro de su pedido: si el pedido se elimina, sus líneas también. Por eso el **pedido crea sus propias líneas** y no las entrega a nadie para que las gestione por su cuenta:
-
-```java
-// LineaPedido.java
-public class LineaPedido {
-
-    private final String producto;
-    private final int cantidad;
-    private final double precioUnitario;
-
-    public LineaPedido(String producto, int cantidad, double precioUnitario) {
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.precioUnitario = precioUnitario;
-    }
-
-    public String getProducto() {
-        return producto;
-    }
-
-    public double getSubtotal() {
-        return cantidad * precioUnitario;
-    }
-}
-```
-
-```java
-// Pedido.java
-import java.util.ArrayList;
-import java.util.List;
-
-public class Pedido {
-
-    private final String numero;
-    private final List<LineaPedido> lineas = new ArrayList<>();
-
-    public Pedido(String numero) {
-        this.numero = numero;
-    }
-
-    public void agregarLinea(String producto, int cantidad, double precioUnitario) {
-        lineas.add(new LineaPedido(producto, cantidad, precioUnitario));   // el pedido CREA sus líneas
-    }
-
-    public int getNumeroLineas() {
-        return lineas.size();
-    }
-
-    public double getTotal() {
-        double total = 0;
-        for (LineaPedido linea : lineas) {
-            total += linea.getSubtotal();
-        }
-        return total;
-    }
-}
-```
-
-!!! note "La frontera depende del modelo"
-    ¿Un `Monitor` es parte de un `Ordenador` por agregación o por composición? Depende del problema que modelas. Si en tu sistema los monitores se gestionan por separado (se compran, se reasignan), es **agregación**; si solo existen como componente de un equipo concreto, **composición**. No hay una única respuesta correcta: lo importante es razonar y justificar la decisión.
-
-## 6.5. Dependencia
-
-La **dependencia** es la relación más débil: una clase **usa** a otra de forma puntual, normalmente como **parámetro** de un método o como **variable local**, pero no la guarda como atributo. Si cambia la clase usada, la que la usa puede verse afectada.
-
-```java
-// Informe.java
-public class Informe {
-
-    // Informe NO guarda ningún Empleado: solo lo usa mientras dura la llamada
-    public String generarFicha(Empleado empleado) {
-        return "FICHA: " + empleado.getNombre() + " - " + empleado.getCargo();
-    }
-}
-```
-
-## 6.6. Comprobación conjunta
-
-```java
-// PruebaRelaciones.java
-public class PruebaRelaciones {
+// PruebaAsociacion.java
+public class PruebaAsociacion {
     public static void main(String[] args) {
-        // Agregación: el jugador existe por su cuenta
-        Jugador ana = new Jugador("Ana");
-        Jugador luis = new Jugador("Luis");
-        Equipo equipo = new Equipo("Los Pinos");
-        equipo.fichar(ana);
-        equipo.fichar(luis);
-        System.out.println("Jugadores: " + equipo.getJugadores().size());
-        equipo.despedir(ana);
-        System.out.println("Jugadores: " + equipo.getJugadores().size()
-                + ", pero " + ana.getNombre() + " sigue existiendo");
+        Vehiculo coche = new Coche("5671BCD", "Ford", "Focus", "rojo", 130, 5);
+        Conductor ana = new Conductor("12345678Z", "Ana");
 
-        // Composición: las líneas pertenecen al pedido
-        Pedido pedido = new Pedido("P-001");
-        pedido.agregarLinea("Teclado", 2, 25.0);
-        pedido.agregarLinea("Ratón", 1, 12.5);
-        System.out.println("Líneas: " + pedido.getNumeroLineas() + ", total: " + pedido.getTotal());
+        System.out.println(ana.describirAsignacion());
+        ana.asignar(coche);
+        System.out.println(ana.describirAsignacion());
 
-        // Dependencia: el informe solo usa al empleado
-        Informe informe = new Informe();
-        Empleado maria = new Empleado("452697419Z", "Maria", 25, "soltera", "Programadora", 1000);
-        System.out.println(informe.generarFicha(maria));
-
-        // Asociación con colección: un cliente y sus cuentas
-        Cliente cliente = new Cliente("Pérez");
-        cliente.abrirCuenta(new Cuenta("Pérez", "154000345", 2000));
-        cliente.abrirCuenta(new Cuenta("Pérez", "154000346", 500));
-        System.out.println("Saldo total de " + cliente.getNombre() + ": " + cliente.getSaldoTotal());
+        ana.getVehiculoAsignado().ponerEnMarcha();    // actúa sobre el MISMO objeto
+        System.out.println(coche.isEnMarcha());
     }
 }
 ```
 
 ```text
-Jugadores: 2
-Jugadores: 1, pero Ana sigue existiendo
-Líneas: 2, total: 62.5
-FICHA: Maria - Programadora
-Saldo total de Pérez: 2500.0
+Ana no tiene vehículo asignado
+Ana conduce Ford Focus (5671BCD)
+true
 ```
 
-## 6.7. ¿Qué relación uso?
+### Navegabilidad
 
-Haz estas preguntas en orden, y quédate con la primera que responda que sí:
+En el ejemplo, `Conductor` conoce a `Vehiculo`, pero `Vehiculo` **no sabe** quién lo conduce. La asociación se puede recorrer en **un solo sentido**: es **unidireccional**. Si también quisiéramos preguntarle a un vehículo por su conductor, añadiríamos un atributo `Conductor` en `Vehiculo` y la asociación sería **bidireccional**.
 
-| Pregunta | Relación |
+!!! tip "Elige el menor número de sentidos posible"
+    Cada sentido que se añade hay que mantenerlo coherente (si `ana` conduce el coche, el coche debe saber que lo conduce `ana`). Por eso conviene empezar con asociaciones unidireccionales y añadir el otro sentido solo cuando haga falta.
+
+## 6.3. Cardinalidad
+
+La **cardinalidad** (o multiplicidad) indica **cuántos objetos** de una clase pueden estar relacionados con un objeto de la otra. Se escribe junto a cada extremo de la relación.
+
+| Notación | Significado | Ejemplo en nuestro hilo |
+|---|---|---|
+| `1` | Exactamente uno | Un `Alquiler` es de un único `Vehiculo` |
+| `0..1` | Cero o uno (opcional) | Un `Conductor` tiene, como mucho, un vehículo asignado |
+| `*` ó `0..*` | Cero o muchos | Una `Flota` puede tener cero o muchos vehículos |
+| `1..*` | Uno o muchos (al menos uno) | Un `Taller` emplea al menos un `Mecanico` (actividad 2) |
+| `3..5` | Un rango concreto | Un `Coche` tiene entre 3 y 5 puertas |
+
+Se leen en los dos sentidos. En `Conductor "0..*" --> "0..1" Vehiculo`:
+
+- Un conductor tiene **0 ó 1** vehículos asignados.
+- Un vehículo puede estar asignado a **0 ó muchos** conductores (por ejemplo, en turnos distintos).
+
+### Cómo se implementa
+
+| Cardinalidad máxima | Implementación habitual |
 |---|---|
-| ¿`A` **es un** tipo de `B`? | **Herencia** |
-| ¿`A` está formada por `B` y `B` **no tiene sentido sin A**? | **Composición** |
-| ¿`A` está formada por `B`, pero `B` **existe por sí mismo**? | **Agregación** |
-| ¿`A` **conoce a `B`** de forma duradera, sin que sea «parte» de ella? | **Asociación** |
-| ¿`A` solo **usa** a `B` puntualmente (parámetro o variable local)? | **Dependencia** |
+| `1` ó `0..1` | Un atributo simple (`Vehiculo vehiculo`). Si es `0..1`, puede valer `null` |
+| `*` ó `1..*` | Una colección: `List<Vehiculo>` (o un array si el tamaño es fijo) |
+
+Veremos la colección en la siguiente sección, con la clase `Flota`.
+
+## 6.4. Agregación y composición
+
+Ambas modelan una relación **todo-parte** («X *tiene* Y»). Lo que las distingue es **de quién depende la vida de la parte**.
+
+### Agregación: una flota y sus vehículos
+
+En la **agregación** las partes **existen por sí mismas**: pueden crearse antes que el todo, sobrevivir cuando el todo desaparece o pasar de un todo a otro. Una `Flota` agrupa vehículos, pero un vehículo puede venderse, pasar a otra flota o seguir existiendo sin ninguna.
+
+```java
+// Flota.java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Flota {
+
+    private final String nombre;
+    private final List<Vehiculo> vehiculos = new ArrayList<>();   // 0..*
+
+    public Flota(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void incorporar(Vehiculo vehiculo) {
+        vehiculos.add(vehiculo);                  // el vehículo se crea FUERA de la flota
+    }
+
+    public void retirar(Vehiculo vehiculo) {
+        vehiculos.remove(vehiculo);               // retirarlo no destruye el vehículo
+    }
+
+    public int getNumVehiculos() {
+        return vehiculos.size();
+    }
+
+    public Vehiculo buscarPorMatricula(String matricula) {
+        for (Vehiculo v : vehiculos) {
+            if (v.getMatricula().equals(matricula)) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    public double costeTotal(int dias) {
+        double total = 0;
+        for (Vehiculo v : vehiculos) {
+            total += v.costeAlquiler(dias);       // polimorfismo (capítulo 5)
+        }
+        return total;
+    }
+
+    public List<Vehiculo> getVehiculos() {
+        return Collections.unmodifiableList(vehiculos);   // solo lectura: protege la colección
+    }
+}
+```
+
+Observa tres detalles:
+
+- Los vehículos **llegan desde fuera** (`incorporar(Vehiculo)`): la flota no los crea.
+- La lista es `private` y `getVehiculos()` devuelve una vista de **solo lectura**: es la encapsulación del [capítulo 3](03-encapsulacion.md) aplicada a una colección.
+- `costeTotal()` recorre la lista de `Vehiculo` y cada uno responde a su manera: el polimorfismo del [capítulo 5](05-polimorfismo.md) en acción.
+
+```java
+// PruebaAgregacion.java
+public class PruebaAgregacion {
+    public static void main(String[] args) {
+        Vehiculo focus = new Coche("5671BCD", "Ford", "Focus", "rojo", 130, 5);
+        Vehiculo ibiza = new Coche("4410KLM", "Seat", "Ibiza", "azul", 95, 3);
+        Vehiculo fh = new Camion("1234XYZ", "Volvo", "FH", "blanco", 460, 18000);
+
+        Flota flota = new Flota("Flota Centro");
+        flota.incorporar(focus);
+        flota.incorporar(ibiza);
+        flota.incorporar(fh);
+
+        System.out.println(flota.getNombre() + ": " + flota.getNumVehiculos() + " vehículos");
+        System.out.println("Coste de alquilar toda la flota 2 días: " + flota.costeTotal(2) + " EUR");
+
+        flota.retirar(ibiza);
+        System.out.println("Tras retirar el Ibiza: " + flota.getNumVehiculos() + " vehículos");
+        System.out.println("El Ibiza sigue existiendo: " + ibiza.getMarca() + " " + ibiza.getModelo());
+    }
+}
+```
+
+```text
+Flota Centro: 3 vehículos
+Coste de alquilar toda la flota 2 días: 380.0 EUR
+Tras retirar el Ibiza: 2 vehículos
+El Ibiza sigue existiendo: Seat Ibiza
+```
+
+La última línea es la clave de la agregación: al sacar el Ibiza de la flota, **el objeto sigue vivo**.
+
+### Composición: un alquiler y sus extras
+
+En la **composición** las partes **no tienen sentido sin el todo**: nacen con él y mueren con él. Un extra («GPS durante 3 días», «silla infantil durante 3 días») solo existe como parte de un alquiler concreto; si se cancela el alquiler, esos extras dejan de existir. Por eso el **todo crea a sus partes** y **no las comparte** con nadie.
+
+```java
+// Extra.java
+public class Extra {
+
+    private final String descripcion;
+    private final double precioDia;
+
+    public Extra(String descripcion, double precioDia) {
+        this.descripcion = descripcion;
+        this.precioDia = precioDia;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public double getPrecioDia() {
+        return precioDia;
+    }
+}
+```
+
+```java
+// Alquiler.java
+import java.util.ArrayList;
+import java.util.List;
+
+public class Alquiler {
+
+    private final Vehiculo vehiculo;                       // asociación (1)
+    private final Conductor conductor;                     // asociación (1)
+    private final int dias;
+    private final List<Extra> extras = new ArrayList<>();  // composición (0..*)
+
+    public Alquiler(Vehiculo vehiculo, Conductor conductor, int dias) {
+        if (dias <= 0) {
+            throw new IllegalArgumentException("El alquiler debe ser de al menos un día");
+        }
+        this.vehiculo = vehiculo;
+        this.conductor = conductor;
+        this.dias = dias;
+    }
+
+    public void anadirExtra(String descripcion, double precioDia) {
+        extras.add(new Extra(descripcion, precioDia));     // el alquiler CREA sus extras
+    }
+
+    public int getNumExtras() {
+        return extras.size();
+    }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public Conductor getConductor() {
+        return conductor;
+    }
+
+    public double getTotal() {
+        double total = vehiculo.costeAlquiler(dias);
+        for (Extra e : extras) {
+            total += e.getPrecioDia() * dias;
+        }
+        return total;
+    }
+}
+```
+
+Fíjate en la diferencia con `Flota.incorporar(Vehiculo)`: aquí **no se recibe un `Extra` ya creado**, sino los datos para que el propio `Alquiler` lo cree con `new`. Nadie fuera del alquiler tiene una referencia a esos extras.
+
+```java
+// PruebaComposicion.java
+public class PruebaComposicion {
+    public static void main(String[] args) {
+        Vehiculo focus = new Coche("5671BCD", "Ford", "Focus", "rojo", 130, 5);
+        Conductor ana = new Conductor("12345678Z", "Ana");
+
+        Alquiler alquiler = new Alquiler(focus, ana, 3);
+        alquiler.anadirExtra("GPS", 5.0);
+        alquiler.anadirExtra("Silla infantil", 3.5);
+
+        System.out.println("Alquiler de " + alquiler.getConductor().getNombre()
+                + " con " + alquiler.getNumExtras() + " extras");
+        System.out.println("Total: " + alquiler.getTotal() + " EUR");
+    }
+}
+```
+
+```text
+Alquiler de Ana con 2 extras
+Total: 145.5 EUR
+```
+
+El total son 120 € del coche (3 días × 40 €) más 25,5 € de extras ((5 + 3,5) × 3 días).
+
+Observa también que el `Alquiler` **asocia** un `Vehiculo` y un `Conductor` (existen antes y después del alquiler) pero **compone** sus `Extra`: en una misma clase conviven los dos tipos de relación.
+
+### Cómo decidir entre agregación y composición
+
+Hazte estas preguntas sobre la **parte**:
+
+| Pregunta | Si la respuesta es sí… |
+|---|---|
+| ¿Puede existir sin el todo? | Agregación |
+| ¿Puede pasar de un todo a otro? | Agregación |
+| ¿Desaparece cuando desaparece el todo? | Composición |
+| ¿Solo tiene sentido dentro de ese todo? | Composición |
+
+Muchas veces **depende del contexto del problema**: en una aplicación de alquiler los extras son parte de un alquiler (composición), pero en una tienda de accesorios con inventario propio, un GPS existe por sí mismo y sería una agregación. No hay una respuesta única: hay que justificar la elección con el enunciado.
+
+## 6.5. Dependencia
+
+La **dependencia** es la relación **más débil**: una clase **usa** a otra de forma **puntual**, normalmente porque recibe un objeto como **parámetro** de un método (o lo crea o devuelve), pero **no lo guarda** como atributo.
+
+```java
+// EstacionITV.java
+public class EstacionITV {
+
+    public String inspeccionar(Vehiculo vehiculo) {      // recibe el vehículo, no lo guarda
+        if (vehiculo.isEnMarcha()) {
+            return vehiculo.getMatricula() + ": no se puede inspeccionar con el vehículo en marcha";
+        }
+        return vehiculo.getMatricula() + ": ITV favorable";
+    }
+}
+```
+
+La estación de ITV no «tiene» ningún vehículo: lo conoce solo mientras dura la llamada. Si cambia la clase `Vehiculo` (por ejemplo, desaparece `isEnMarcha()`), `EstacionITV` dejará de compilar: de ahí el nombre, **depende** de ella.
+
+```java
+// PruebaDependencia.java
+public class PruebaDependencia {
+    public static void main(String[] args) {
+        Vehiculo focus = new Coche("5671BCD", "Ford", "Focus", "rojo", 130, 5);
+        EstacionITV itv = new EstacionITV();
+
+        System.out.println(itv.inspeccionar(focus));
+        focus.ponerEnMarcha();
+        System.out.println(itv.inspeccionar(focus));
+    }
+}
+```
+
+```text
+5671BCD: ITV favorable
+5671BCD: no se puede inspeccionar con el vehículo en marcha
+```
+
+## 6.6. ¿Qué relación uso?
+
+Un criterio práctico para decidir, de más fuerte a más débil:
+
+```mermaid
+flowchart TD
+    A{"¿X es un caso<br>particular de Y?"} -->|Sí| H["Herencia"]
+    A -->|No| B{"¿X guarda a Y<br>como atributo?"}
+    B -->|No| D["Dependencia<br>(parámetro, variable local)"]
+    B -->|Sí| C{"¿Y es parte de X?"}
+    C -->|No| S["Asociación"]
+    C -->|Sí| E{"¿Y puede existir<br>sin X?"}
+    E -->|Sí| G["Agregación"]
+    E -->|No| K["Composición"]
+```
 
 ### Jerarquías «es-un» frente a «parte-de»
 
-Para dominar la complejidad organizamos las abstracciones de dos maneras complementarias:
+Un error muy común es usar herencia cuando lo correcto es una relación todo-parte:
 
-- **Clasificación** («es-un»): un piano *es un* instrumento de cuerda, que *es un* instrumento musical. Es la **herencia**.
-- **Composición** («parte-de»): un corazón *es parte del* sistema circulatorio, que *es parte del* cuerpo humano. Son la **agregación** y la **composición**.
+| Frase | ¿Es herencia? |
+|---|---|
+| «Un `Coche` **es un** `Vehiculo`» | Sí → herencia |
+| «Un `Camion` **es un** `Vehiculo`» | Sí → herencia |
+| «Una `Flota` **es un** `Vehiculo`» | No: una flota **tiene** vehículos → agregación |
+| «Un `Alquiler` **es un** `Extra`» | No: un alquiler **tiene** extras → composición |
 
-## 6.8. En UML
+Si la frase «X es un Y» suena rara, probablemente la relación no es de herencia.
+
+## 6.7. En UML
+
+Cada relación tiene su propio símbolo. Fíjate en el rombo: **vacío** para la agregación y **relleno** para la composición; el rombo se dibuja en el lado del **todo**.
 
 ```mermaid
 classDiagram
-    Empleado "*" --> "1" Departamento : trabaja en
-    Equipo "1" o-- "0..*" Jugador : agrupa
-    Pedido "1" *-- "1..*" LineaPedido : contiene
-    Informe ..> Empleado : usa
+    class Vehiculo {
+        <<abstract>>
+    }
+    class Coche
+    class Camion
+    class Conductor {
+        -String dni
+        -String nombre
+        +asignar(Vehiculo v) void
+    }
+    class Flota {
+        -String nombre
+        +incorporar(Vehiculo v) void
+        +costeTotal(int dias) double
+    }
+    class Alquiler {
+        -int dias
+        +anadirExtra(String d, double p) void
+        +getTotal() double
+    }
+    class Extra {
+        -String descripcion
+        -double precioDia
+    }
+    class EstacionITV {
+        +inspeccionar(Vehiculo v) String
+    }
+
+    Vehiculo <|-- Coche
+    Vehiculo <|-- Camion
+    Conductor "*" --> "0..1" Vehiculo : tiene asignado
+    Flota "1" o-- "0..*" Vehiculo : agrupa
+    Alquiler "*" --> "1" Vehiculo : de
+    Alquiler "*" --> "1" Conductor : para
+    Alquiler "1" *-- "0..*" Extra : incluye
+    EstacionITV ..> Vehiculo : inspecciona
 ```
 
-| Relación | Línea | Extremo | Java |
-|---|---|---|---|
-| **Asociación** | Continua | Flecha abierta (si es dirigida) | Atributo del tipo asociado |
-| **Agregación** | Continua | **Rombo hueco** en el lado del todo | Colección; las partes se reciben |
-| **Composición** | Continua | **Rombo relleno** en el lado del todo | Colección; el todo crea las partes |
-| **Dependencia** | **Discontinua** | Flecha abierta | Parámetro o variable local |
-| **Herencia** | Continua | Triángulo hueco hacia la superclase | `extends` |
-| **Realización** | Discontinua | Triángulo hueco hacia la interfaz | `implements` |
+| Relación | Símbolo UML | Línea |
+|---|---|---|
+| Herencia | Flecha con triángulo **hueco** (`<|--`) | Continua |
+| Asociación | Flecha abierta (`-->`) o línea simple | Continua |
+| Agregación | Rombo **hueco** en el lado del todo (`o--`) | Continua |
+| Composición | Rombo **relleno** en el lado del todo (`*--`) | Continua |
+| Dependencia | Flecha abierta (`..>`) | **Discontinua** |
+
+!!! info "Atributos que son relaciones"
+    En UML, un atributo cuyo tipo es otra clase del modelo (como `List<Vehiculo>` en `Flota`) **no se escribe** en el compartimento de atributos: se representa con la **relación** correspondiente. Por eso en `Flota` no aparece `vehiculos`, sino la línea con rombo hacia `Vehiculo`.
 
 ## Resumen del capítulo
 
-- Entre los objetos, además de la herencia («es-un»), hay relaciones «tiene-un» y «usa-un».
-- **Asociación:** conexión duradera; en Java, un atributo del otro tipo.
-- **Agregación:** todo-partes, las partes existen por sí solas.
-- **Composición:** todo-partes, las partes dependen del todo.
-- **Dependencia:** uso puntual, sin guardar la referencia.
-- La **cardinalidad** indica cuántos objetos intervienen; si el máximo es «muchos», se usa una colección.
+- Los objetos colaboran: una clase guarda **referencias** a otros objetos (atributos) o las recibe como **parámetros**.
+- **Asociación**: un objeto conoce a otro de forma duradera; puede ser unidireccional o bidireccional.
+- **Cardinalidad**: cuántos objetos intervienen en cada extremo (`1`, `0..1`, `*`, `1..*`); con máximo mayor que 1 se usa una colección.
+- **Agregación**: todo-parte donde la parte **existe por sí misma** (rombo hueco).
+- **Composición**: todo-parte donde la parte **depende del todo** y este la crea (rombo relleno).
+- **Dependencia**: uso puntual, sin atributo (flecha discontinua).
+- Si «X es un Y» no tiene sentido, no uses herencia.
 
 ## Actividades
 
-**Actividad 1.** Clasifica cada relación como asociación, agregación, composición o dependencia, y justifica tu respuesta: (a) `Factura` – `LineaFactura`; (b) `Biblioteca` – `Libro`; (c) `Profesor` – `Modulo` que imparte; (d) `Calculadora` que recibe un `Empleado` para calcular su IRPF y no lo guarda.
+**Actividad 1.** Clasifica cada frase como herencia, asociación, agregación, composición o dependencia y justifica:
+
+1. Un `Camion` es un `Vehiculo`.
+2. Una `Flota` tiene varios `Vehiculo`s que pueden cambiar de flota.
+3. Un `Alquiler` tiene unos `Extra` que desaparecen si se cancela el alquiler.
+4. Un `Conductor` tiene asignado un `Vehiculo`.
+5. Un método `Taller.revisar(Vehiculo v)` revisa un vehículo y no lo guarda.
 
 ??? success "Solución"
-    - (a) **Composición**: las líneas solo tienen sentido dentro de su factura y desaparecen con ella.
-    - (b) **Agregación**: la biblioteca está formada por libros, pero un libro puede existir fuera de ella (o pasar a otra).
-    - (c) **Asociación**: el profesor conoce los módulos que imparte de forma duradera, pero un módulo no es «parte» del profesor.
-    - (d) **Dependencia**: solo se usa mientras dura el cálculo y no se guarda como atributo.
+    1. **Herencia**: «es un».
+    2. **Agregación**: la parte (el vehículo) existe sin el todo y puede cambiar de todo.
+    3. **Composición**: los extras dependen del alquiler y mueren con él.
+    4. **Asociación**: relación duradera entre dos objetos independientes, sin ser todo-parte.
+    5. **Dependencia**: uso puntual como parámetro, sin atributo.
 
-**Actividad 2.** Dibuja el diagrama de clases de un instituto: un **Departamento** tiene uno o más **Profesores**; un profesor pertenece a un departamento; un profesor imparte uno o más **Módulos** y un módulo es impartido por uno o más profesores.
+**Actividad 2.** Un `Taller` tiene varios `Mecanico`s (que pueden cambiar de taller) y registra `Reparacion`es. Cada `Reparacion` la realiza un `Mecanico` sobre un `Vehiculo`, y no existe fuera del taller que la registra. Dibuja el diagrama de clases con relaciones y cardinalidades.
 
 ??? success "Solución"
     ```mermaid
     classDiagram
-        Departamento "1" o-- "1..*" Profesor : agrupa
-        Profesor "1..*" -- "1..*" Modulo : imparte
+        class Taller {
+            -String nombre
+        }
+        class Mecanico {
+            -String nombre
+        }
+        class Reparacion {
+            -String descripcion
+            -double importe
+        }
+        class Vehiculo {
+            <<abstract>>
+        }
+        Taller "1" o-- "1..*" Mecanico : emplea
+        Taller "1" *-- "0..*" Reparacion : registra
+        Reparacion "*" --> "1" Mecanico : realizada por
+        Reparacion "*" --> "1" Vehiculo : sobre
     ```
-    El departamento se modela como agregación (un profesor podría cambiar de departamento) y la relación profesor–módulo como asociación con cardinalidad muchos a muchos.
+    Los mecánicos son **agregación** (existen sin el taller). Las reparaciones son **composición** (solo existen registradas en su taller). Cada reparación está **asociada** a un mecánico y a un vehículo, que existen por sí mismos.
 
-**Actividad 3.** En la clase `Cliente`, ¿por qué el atributo `cuentas` es una `List<Cuenta>` y no un simple `Cuenta cuenta`? ¿Cómo cambiaría la clase si la cardinalidad fuese exactamente `1`?
+**Actividad 3.** Añade a `Flota` un método `contarEnMarcha()` que devuelva cuántos vehículos de la flota están en marcha.
 
 ??? success "Solución"
-    Porque la cardinalidad es `1..*`: un cliente puede tener **varias** cuentas, y un atributo simple solo permite una. Si la cardinalidad fuese exactamente `1`, bastaría `private Cuenta cuenta;` (asignada en el constructor) y los métodos `abrirCuenta` y `getSaldoTotal` se simplificarían a trabajar con una sola cuenta.
+    ```java
+    public int contarEnMarcha() {
+        int contador = 0;
+        for (Vehiculo v : vehiculos) {
+            if (v.isEnMarcha()) {
+                contador++;
+            }
+        }
+        return contador;
+    }
+    ```
+    Se recorre la colección y se pregunta a cada `Vehiculo` por su estado: la flota **no necesita saber** de qué tipo es cada uno.

@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 392" role="img" aria-label="Tres objetos de la clase Coche con los mismos atributos y valores distintos" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="900" height="392" rx="10" fill="#ffffff" stroke="#c5cae9"/>
+<text x="450" y="30" text-anchor="middle" font-size="17" font-weight="700" fill="#283593">Una clase (Coche), tres objetos: misma estructura, distintos valores</text>
+<rect x="20" y="48" width="276" height="330" rx="10" fill="#f5f7ff" stroke="#9fa8da"/>
+<text x="158" y="74" text-anchor="middle" font-size="16" font-weight="700" fill="#1a237e">coche1</text>
+<g transform="translate(28,86)">
+<rect x="10" y="48" width="240" height="38" rx="12" fill="#d32f2f" stroke="#37474f" stroke-width="2"/>
+<path d="M62 50 L88 14 Q92 10 98 10 L168 10 Q174 10 178 14 L204 50 Z" fill="#d32f2f" stroke="#37474f" stroke-width="2"/>
+<path d="M74 48 L94 20 L128 20 L128 48 Z" fill="#cfe8ff" stroke="#37474f" stroke-width="1.5"/>
+<path d="M136 48 L136 20 L166 20 L190 48 Z" fill="#cfe8ff" stroke="#37474f" stroke-width="1.5"/>
+<rect x="236" y="56" width="14" height="8" rx="3" fill="#ffd54f" stroke="#37474f"/>
+<rect x="10" y="56" width="10" height="8" rx="3" fill="#e57373" stroke="#37474f"/>
+<circle cx="68" cy="88" r="18" fill="#263238"/><circle cx="68" cy="88" r="8" fill="#b0bec5"/>
+<circle cx="198" cy="88" r="18" fill="#263238"/><circle cx="198" cy="88" r="8" fill="#b0bec5"/>
+</g>
+<text x="44" y="214" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">matricula</text>
+<text x="148" y="214" font-size="14" font-weight="700" fill="#1f2933">5671BCD</text>
+<line x1="36" y1="220" x2="280" y2="220" stroke="#dfe3f5"/>
+<text x="44" y="237" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">marca</text>
+<text x="148" y="237" font-size="14" font-weight="700" fill="#1f2933">Ford</text>
+<line x1="36" y1="243" x2="280" y2="243" stroke="#dfe3f5"/>
+<text x="44" y="260" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">modelo</text>
+<text x="148" y="260" font-size="14" font-weight="700" fill="#1f2933">Focus</text>
+<line x1="36" y1="266" x2="280" y2="266" stroke="#dfe3f5"/>
+<text x="44" y="283" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">color</text>
+<text x="148" y="283" font-size="14" font-weight="700" fill="#1f2933">rojo</text>
+<line x1="36" y1="289" x2="280" y2="289" stroke="#dfe3f5"/>
+<text x="44" y="306" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">potencia</text>
+<text x="148" y="306" font-size="14" font-weight="700" fill="#1f2933">130 CV</text>
+<line x1="36" y1="312" x2="280" y2="312" stroke="#dfe3f5"/>
+<text x="44" y="329" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">velocidad</text>
+<text x="148" y="329" font-size="14" font-weight="700" fill="#1f2933">60 km/h</text>
+<line x1="36" y1="335" x2="280" y2="335" stroke="#dfe3f5"/>
+<text x="44" y="352" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">enMarcha</text>
+<text x="148" y="352" font-size="14" font-weight="700" fill="#1f2933">true</text>
+<line x1="36" y1="358" x2="280" y2="358" stroke="#dfe3f5"/>
+<rect x="312" y="48" width="276" height="330" rx="10" fill="#f5f7ff" stroke="#9fa8da"/>
+<text x="450" y="74" text-anchor="middle" font-size="16" font-weight="700" fill="#1a237e">coche2</text>
+<g transform="translate(320,86)">
+<rect x="10" y="48" width="240" height="38" rx="12" fill="#1976d2" stroke="#37474f" stroke-width="2"/>
+<path d="M62 50 L88 14 Q92 10 98 10 L168 10 Q174 10 178 14 L204 50 Z" fill="#1976d2" stroke="#37474f" stroke-width="2"/>
+<path d="M74 48 L94 20 L128 20 L128 48 Z" fill="#cfe8ff" stroke="#37474f" stroke-width="1.5"/>
+<path d="M136 48 L136 20 L166 20 L190 48 Z" fill="#cfe8ff" stroke="#37474f" stroke-width="1.5"/>
+<rect x="236" y="56" width="14" height="8" rx="3" fill="#ffd54f" stroke="#37474f"/>
+<rect x="10" y="56" width="10" height="8" rx="3" fill="#e57373" stroke="#37474f"/>
+<circle cx="68" cy="88" r="18" fill="#263238"/><circle cx="68" cy="88" r="8" fill="#b0bec5"/>
+<circle cx="198" cy="88" r="18" fill="#263238"/><circle cx="198" cy="88" r="8" fill="#b0bec5"/>
+</g>
+<text x="336" y="214" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">matricula</text>
+<text x="440" y="214" font-size="14" font-weight="700" fill="#1f2933">4410KLM</text>
+<line x1="328" y1="220" x2="572" y2="220" stroke="#dfe3f5"/>
+<text x="336" y="237" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">marca</text>
+<text x="440" y="237" font-size="14" font-weight="700" fill="#1f2933">Seat</text>
+<line x1="328" y1="243" x2="572" y2="243" stroke="#dfe3f5"/>
+<text x="336" y="260" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">modelo</text>
+<text x="440" y="260" font-size="14" font-weight="700" fill="#1f2933">Ibiza</text>
+<line x1="328" y1="266" x2="572" y2="266" stroke="#dfe3f5"/>
+<text x="336" y="283" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">color</text>
+<text x="440" y="283" font-size="14" font-weight="700" fill="#1f2933">azul</text>
+<line x1="328" y1="289" x2="572" y2="289" stroke="#dfe3f5"/>
+<text x="336" y="306" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">potencia</text>
+<text x="440" y="306" font-size="14" font-weight="700" fill="#1f2933">95 CV</text>
+<line x1="328" y1="312" x2="572" y2="312" stroke="#dfe3f5"/>
+<text x="336" y="329" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">velocidad</text>
+<text x="440" y="329" font-size="14" font-weight="700" fill="#1f2933">0 km/h</text>
+<line x1="328" y1="335" x2="572" y2="335" stroke="#dfe3f5"/>
+<text x="336" y="352" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">enMarcha</text>
+<text x="440" y="352" font-size="14" font-weight="700" fill="#1f2933">false</text>
+<line x1="328" y1="358" x2="572" y2="358" stroke="#dfe3f5"/>
+<rect x="604" y="48" width="276" height="330" rx="10" fill="#f5f7ff" stroke="#9fa8da"/>
+<text x="742" y="74" text-anchor="middle" font-size="16" font-weight="700" fill="#1a237e">coche3</text>
+<g transform="translate(612,86)">
+<rect x="10" y="48" width="240" height="38" rx="12" fill="#ffffff" stroke="#37474f" stroke-width="2"/>
+<path d="M62 50 L88 14 Q92 10 98 10 L168 10 Q174 10 178 14 L204 50 Z" fill="#ffffff" stroke="#37474f" stroke-width="2"/>
+<path d="M74 48 L94 20 L128 20 L128 48 Z" fill="#cfe8ff" stroke="#37474f" stroke-width="1.5"/>
+<path d="M136 48 L136 20 L166 20 L190 48 Z" fill="#cfe8ff" stroke="#37474f" stroke-width="1.5"/>
+<rect x="236" y="56" width="14" height="8" rx="3" fill="#ffd54f" stroke="#37474f"/>
+<rect x="10" y="56" width="10" height="8" rx="3" fill="#e57373" stroke="#37474f"/>
+<circle cx="68" cy="88" r="18" fill="#263238"/><circle cx="68" cy="88" r="8" fill="#b0bec5"/>
+<circle cx="198" cy="88" r="18" fill="#263238"/><circle cx="198" cy="88" r="8" fill="#b0bec5"/>
+</g>
+<text x="628" y="214" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">matricula</text>
+<text x="732" y="214" font-size="14" font-weight="700" fill="#1f2933">8820HTX</text>
+<line x1="620" y1="220" x2="864" y2="220" stroke="#dfe3f5"/>
+<text x="628" y="237" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">marca</text>
+<text x="732" y="237" font-size="14" font-weight="700" fill="#1f2933">Renault</text>
+<line x1="620" y1="243" x2="864" y2="243" stroke="#dfe3f5"/>
+<text x="628" y="260" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">modelo</text>
+<text x="732" y="260" font-size="14" font-weight="700" fill="#1f2933">Clio</text>
+<line x1="620" y1="266" x2="864" y2="266" stroke="#dfe3f5"/>
+<text x="628" y="283" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">color</text>
+<text x="732" y="283" font-size="14" font-weight="700" fill="#1f2933">blanco</text>
+<line x1="620" y1="289" x2="864" y2="289" stroke="#dfe3f5"/>
+<text x="628" y="306" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">potencia</text>
+<text x="732" y="306" font-size="14" font-weight="700" fill="#1f2933">90 CV</text>
+<line x1="620" y1="312" x2="864" y2="312" stroke="#dfe3f5"/>
+<text x="628" y="329" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">velocidad</text>
+<text x="732" y="329" font-size="14" font-weight="700" fill="#1f2933">110 km/h</text>
+<line x1="620" y1="335" x2="864" y2="335" stroke="#dfe3f5"/>
+<text x="628" y="352" font-size="14" fill="#546e7a" font-family="Consolas, Menlo, monospace">enMarcha</text>
+<text x="732" y="352" font-size="14" font-weight="700" fill="#1f2933">true</text>
+<line x1="620" y1="358" x2="864" y2="358" stroke="#dfe3f5"/>
+</svg>

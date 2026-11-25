@@ -23,12 +23,15 @@
 | **Interfaz** | Contrato: lista de métodos que una clase se compromete a ofrecer. |
 | **Mensaje** | Petición que un objeto envía a otro para que ejecute un método. |
 | **Método** | Procedimiento de una clase. Todo lo que el objeto «puede hacer». |
+| **Método auxiliar** | Método privado que sirve de utilidad interna a otros métodos de la clase; no forma parte de su servicio. |
+| **Método de clase** (`static`) | Método o atributo que pertenece a la clase y no a cada objeto; se usa con `NombreClase.miembro`. |
+| **Navegabilidad** | Sentido en que se puede recorrer una asociación: unidireccional o bidireccional. |
 | **Objeto** | Paquete de software con datos (atributos) y procedimientos (métodos). Instancia de una clase. |
 | **Polimorfismo** | Capacidad de que objetos de clases distintas respondan al mismo mensaje cada uno a su manera. |
 | **Redefinición** (*override*) | Reescribir en una subclase un método heredado, con la misma firma. |
 | **Referencia** | «Dirección» de un objeto; es lo que guardan las variables de tipo clase. |
 | **Sobrecarga** (*overload*) | Varios métodos con el mismo nombre y distintos parámetros en una misma clase. |
 | **Subclase / superclase** | Clase que hereda / clase de la que se hereda. |
-| **`this`** | Referencia al propio objeto que ejecuta el código. |
 | **`super`** | Referencia a la superclase: `super(...)` invoca su constructor; `super.metodo()` su método. |
+| **`this`** | Referencia al propio objeto que ejecuta el código. |
 | **UML** | Lenguaje gráfico estándar para modelar sistemas orientados a objetos. |

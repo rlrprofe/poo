@@ -4,8 +4,8 @@
 
 | Concepto | En una frase |
 |---|---|
+| **Clase** | Plantilla de objetos: módulo y tipo de dato. Se compone de atributos y métodos. |
 | **Objeto** | Datos (atributos) + procedimientos (métodos), con identidad y estado. |
-| **Clase** | Plantilla de objetos: módulo y tipo de dato. |
 | **Instancia** | Objeto creado con `new` a partir de una clase. |
 | **Mensaje** | Un objeto pide un servicio a otro llamando a uno de sus métodos. |
 
@@ -31,23 +31,24 @@
 ## Java, de un vistazo
 
 ```java
-public class Empleado extends Persona implements Pagable {   // herencia + interfaz
+public class Camion extends Vehiculo {                       // herencia
 
-    private double sueldo;                                    // encapsulación
+    private final double cargaMaxima;                         // encapsulación
 
-    public Empleado(String dni, String nombre, int edad, String ec, double sueldo) {
-        super(dni, nombre, edad, ec);                         // constructor de la superclase
-        this.sueldo = sueldo;                                 // this: el propio objeto
+    public Camion(String matricula, String marca, String modelo, String color,
+                  int potencia, double cargaMaxima) {
+        super(matricula, marca, modelo, color, potencia);     // constructor de la superclase
+        this.cargaMaxima = cargaMaxima;                       // this: el propio objeto
     }
 
     @Override
-    public double calcularPago() {                            // redefinición
-        return sueldo;
+    public double costeAlquiler(int dias) {                   // redefinición / implementación
+        return 85.0 * dias + 50.0;
     }
 }
 
-Pagable p = new Empleado("1A", "Ana", 30, "soltera", 1200);   // polimorfismo
-p.calcularPago();                                             // enlace dinámico
+Alquilable a = new Camion("1234XYZ", "Volvo", "FH", "blanco", 460, 18000);   // polimorfismo
+a.costeAlquiler(3);                                           // enlace dinámico
 ```
 
 ## Visibilidad
